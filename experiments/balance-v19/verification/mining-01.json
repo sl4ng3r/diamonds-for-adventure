@@ -1,0 +1,28 @@
+{
+  "index": 1,
+  "seed": 98765,
+  "chunk_x": -500,
+  "chunk_z": 300,
+  "pack_sha256": "d6dacb0e9d7041fbe69d9ea71071b19addce2e4153e1ca2f63f372128f1a7e4d",
+  "world": "data/research/cavediamonds-research-f8a77559a7",
+  "mined": {
+    "x": -7995,
+    "y": -14,
+    "z": 4818,
+    "type": "minecraft:deepslate_diamond_ore",
+    "biome": "minecraft:dripstone_caves",
+    "exposed": true,
+    "neighbours": [
+      "minecraft:air",
+      "minecraft:deepslate_diamond_ore",
+      "minecraft:deepslate",
+      "minecraft:deepslate",
+      "minecraft:deepslate",
+      "minecraft:air"
+    ]
+  },
+  "mined_ore_reappeared": false,
+  "other_changes_modified_chunk": 0,
+  "changes_other_chunks": 0,
+  "note": "setblock air, not real player mining; non-modified chunks may regenerate"
+}

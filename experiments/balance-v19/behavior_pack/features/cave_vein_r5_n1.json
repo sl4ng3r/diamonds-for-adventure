@@ -1,0 +1,12 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_vein_r5_n1"
+    },
+    "features": [
+      "cavediamonds:cave_select"
+    ],
+    "early_out": "none"
+  }
+}

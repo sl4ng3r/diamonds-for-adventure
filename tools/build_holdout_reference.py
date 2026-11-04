@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Match the predetermined holdout areas to unique vanilla scan files."""
 import json
+import argparse
 from pathlib import Path
 import subprocess
 import sys
@@ -19,8 +20,14 @@ def match_plan(plan, reports):
     return result
 
 def main():
-    if OUTPUT.exists() or INPUTS.exists(): raise FileExistsError('holdout output already exists; preserve it')
-    plan=json.loads(PLAN.read_text())
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--plan',type=Path,default=PLAN)
+    parser.add_argument('--output',type=Path,default=OUTPUT)
+    parser.add_argument('--inputs',type=Path,default=INPUTS)
+    parser.add_argument('--measurement-date',default='2026-11-04')
+    args=parser.parse_args()
+    if args.output.exists() or args.inputs.exists(): raise FileExistsError('holdout output already exists; preserve it')
+    plan=json.loads(args.plan.read_text())
     reports=[]
     for path in (ROOT/'data/research').glob('cavediamonds-research-*/vanilla_reference.json'):
         report=json.loads(path.read_text())
@@ -32,8 +39,8 @@ def main():
             raise ValueError(f'version or vanilla validation failed: {path}')
     relative=[str(path.relative_to(ROOT)) for path in selected]
     subprocess.run([sys.executable,'-m','tools.aggregate_vanilla_reference','--server-version',plan['server_version'],
-                    '--measurement-date','2026-11-04','--output',str(OUTPUT),*relative],cwd=ROOT,check=True)
-    with INPUTS.open('x') as f: f.write('\n'.join(relative)+'\n')
-    print(f'Holdout input list: {INPUTS}')
+                    '--measurement-date',args.measurement_date,'--output',str(args.output),*relative],cwd=ROOT,check=True)
+    with args.inputs.open('x') as f: f.write('\n'.join(relative)+'\n')
+    print(f'Holdout input list: {args.inputs}')
 
 if __name__=='__main__': main()

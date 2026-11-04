@@ -33,6 +33,33 @@ def preload_columns(start, count, direction):
 def marker_positions(chunk_x, chunk_z, count):
     return [((chunk_x+x)*16,300,(chunk_z+z)*16) for x in range(count) for z in range(count)]
 
+def ticking_area_windows(chunks, tile=8):
+    """Return padded chunk windows that cover a scan and all six-neighbours.
+
+    Bedrock refuses ticking areas larger than 100 chunks. Each window owns a
+    core tile and adds one chunk of padding on every side, so boundary
+    neighbour reads are loaded without exceeding that server limit.
+    """
+    if not isinstance(chunks, int) or chunks < 1:
+        raise ValueError('chunks must be a positive integer')
+    if not isinstance(tile, int) or tile < 1:
+        raise ValueError('tile must be a positive integer')
+    windows=[]
+    for x0 in range(0, chunks, tile):
+        x1=min(x0+tile, chunks)
+        px0=max(-1, x0-1)
+        px1=min(chunks+1, x1+1)
+        for z0 in range(0, chunks, tile):
+            z1=min(z0+tile, chunks)
+            pz0=max(-1, z0-1)
+            pz1=min(chunks+1, z1+1)
+            width=px1-px0
+            depth=pz1-pz0
+            if width*depth > 100:
+                raise ValueError(f'ticking area exceeds 100 chunks: {width}x{depth}')
+            windows.append((px0,px1,pz0,pz1))
+    return windows
+
 def choose_mining_probe(ores):
     return next((ore for ore in ores if ore['exposed']), ores[0] if ores else None)
 
@@ -309,14 +336,17 @@ def run(seed, addon, chunks, diagnose=False, reapply=False, pack_path=None, mark
             send(f'scriptevent cavediamondstest:locate {locate_biome}')
             found=waitfor(lambda s:'CAVEDIAMONDS_LOCATE ' in s or 'CAVEDIAMONDS_LOCATE_ERROR ' in s,90)
             print(found.strip(),flush=True)
+        area_timeout=max(30, chunks*chunks//2)
+        scan_timeout=max(240, chunks*chunks*3)
         if restart_world is None:
             if preload_direction:
                 for index, column in enumerate(preload_columns(chunk_x, chunks, preload_direction)):
                     send(f'tickingarea add {column*16} -64 {chunk_z*16} {column*16+15} 16 {(chunk_z+chunks)*16-1} route{index} true')
-                    waitfor(lambda s:'Added ticking area' in s,30)
+                    waitfor(lambda s:'Added ticking area' in s,area_timeout)
                     time.sleep(8)
-            send(f'tickingarea add {chunk_x*16-16} -64 {chunk_z*16-16} {(chunk_x+chunks)*16+15} 16 {(chunk_z+chunks)*16+15} sample true')
-            waitfor(lambda s:'Added ticking area' in s,30)
+            for area_index,(px0,px1,pz0,pz1) in enumerate(ticking_area_windows(chunks)):
+                send(f'tickingarea add {(chunk_x+px0)*16} -64 {(chunk_z+pz0)*16} {(chunk_x+px1)*16-1} 16 {(chunk_z+pz1)*16-1} sample{area_index} true')
+                waitfor(lambda s:'Added ticking area' in s,area_timeout)
         # Allow the preloading area to generate; fill commands additionally reject unloaded locations.
         time.sleep(settle_seconds)
         if addon and probe_snap:
@@ -361,7 +391,7 @@ def run(seed, addon, chunks, diagnose=False, reapply=False, pack_path=None, mark
             (data/'cave_probes.json').write_text(json.dumps(results,indent=2)+'\n')
         if diagnose:
             send(f'scriptevent cavediamondstest:scan {chunks}:' + ('GRID' if mark_grid else 'GROUND' if mark_underground else 'AIR' if air_probe else 'SURFACE' if surface_probe else 'FINGERPRINT' if fingerprint else 'TRACE' if ore_trace else 'HEIGHT' if height_probe else 'NORMAL') + f':{chunk_x*16}:{chunk_z*16}')
-            line=waitfor(lambda s: 'CAVEDIAMONDS_SCAN ' in s or 'CAVEDIAMONDS_SCAN_ERROR ' in s,240)
+            line=waitfor(lambda s: 'CAVEDIAMONDS_SCAN ' in s or 'CAVEDIAMONDS_SCAN_ERROR ' in s,scan_timeout)
             if 'CAVEDIAMONDS_SCAN_ERROR ' in line: raise RuntimeError(line.strip())
             result=parse_scan(line)
             (data/('ore_scan_after_restart.json' if restart_world is not None else 'ore_scan.json')).write_text(json.dumps(result,indent=2)+'\n')

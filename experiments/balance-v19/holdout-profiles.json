@@ -1,0 +1,73 @@
+{
+  "areas": 6,
+  "bands": {
+    "-64..-48": {
+      "vanilla": {
+        "total": 8621,
+        "buried": 8517
+      },
+      "candidate": {
+        "total": 1392,
+        "buried": 1342
+      }
+    },
+    "-47..-32": {
+      "vanilla": {
+        "total": 7254,
+        "buried": 7174
+      },
+      "candidate": {
+        "total": 1588,
+        "buried": 1435
+      }
+    },
+    "-31..-16": {
+      "vanilla": {
+        "total": 5509,
+        "buried": 5425
+      },
+      "candidate": {
+        "total": 1505,
+        "buried": 1424
+      }
+    },
+    "-15..-1": {
+      "vanilla": {
+        "total": 3055,
+        "buried": 3021
+      },
+      "candidate": {
+        "total": 1294,
+        "buried": 1208
+      }
+    },
+    "0..16": {
+      "vanilla": {
+        "total": 725,
+        "buried": 696
+      },
+      "candidate": {
+        "total": 1132,
+        "buried": 1091
+      }
+    }
+  },
+  "air_group_sizes": {
+    "vanilla": {
+      "4": 4,
+      "3": 8,
+      "2": 38,
+      "1": 110,
+      "8": 1,
+      "5": 2,
+      "11": 1
+    },
+    "candidate": {
+      "5": 4,
+      "4": 27,
+      "3": 66,
+      "2": 44,
+      "1": 25
+    }
+  }
+}

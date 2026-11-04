@@ -1,0 +1,148 @@
+{
+  "areas": 20,
+  "expected_areas": 20,
+  "pack_sha256": "d6dacb0e9d7041fbe69d9ea71071b19addce2e4153e1ca2f63f372128f1a7e4d",
+  "reference_sha256": "ecb17df5359312d71070a251ea87e319539e3b4ed32c0f08dc59a93b6bed1a04",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "vanilla": {
+    "regions": 20,
+    "seeds": 19,
+    "total_chunks": 320,
+    "totals": {
+      "blocks": {
+        "total": 5461,
+        "air": 25,
+        "fluid_only": 32,
+        "buried": 5404,
+        "air_and_fluid": 1,
+        "water_adjacent": 30,
+        "lava_adjacent": 3
+      },
+      "below_zero": {
+        "total": 5288,
+        "air": 21,
+        "fluid_only": 21,
+        "buried": 5246,
+        "air_and_fluid": 1,
+        "water_adjacent": 19,
+        "lava_adjacent": 3
+      },
+      "y_minus57": {
+        "total": 118,
+        "air": 0,
+        "fluid_only": 0,
+        "buried": 118,
+        "air_and_fluid": 0,
+        "water_adjacent": 0,
+        "lava_adjacent": 0
+      },
+      "tunnel_band": {
+        "total": 728,
+        "air": 0,
+        "fluid_only": 1,
+        "buried": 727,
+        "air_and_fluid": 0,
+        "water_adjacent": 0,
+        "lava_adjacent": 1
+      },
+      "deepslate_ore": {
+        "total": 5373,
+        "air": 24,
+        "fluid_only": 24,
+        "buried": 5325,
+        "air_and_fluid": 1,
+        "water_adjacent": 22,
+        "lava_adjacent": 3
+      },
+      "deposits": {
+        "total": 2259,
+        "air_adjacent": 23,
+        "touching_scan_boundary": 215,
+        "air_adjacent_touching_boundary": 0
+      }
+    }
+  },
+  "candidate": {
+    "regions": 20,
+    "seeds": 19,
+    "total_chunks": 320,
+    "totals": {
+      "blocks": {
+        "total": 1439,
+        "air": 69,
+        "fluid_only": 11,
+        "buried": 1359,
+        "air_and_fluid": 1,
+        "water_adjacent": 11,
+        "lava_adjacent": 1
+      },
+      "below_zero": {
+        "total": 1220,
+        "air": 69,
+        "fluid_only": 7,
+        "buried": 1144,
+        "air_and_fluid": 1,
+        "water_adjacent": 7,
+        "lava_adjacent": 1
+      },
+      "y_minus57": {
+        "total": 31,
+        "air": 0,
+        "fluid_only": 0,
+        "buried": 31,
+        "air_and_fluid": 0,
+        "water_adjacent": 0,
+        "lava_adjacent": 0
+      },
+      "tunnel_band": {
+        "total": 116,
+        "air": 0,
+        "fluid_only": 1,
+        "buried": 115,
+        "air_and_fluid": 0,
+        "water_adjacent": 0,
+        "lava_adjacent": 1
+      },
+      "deepslate_ore": {
+        "total": 1305,
+        "air": 69,
+        "fluid_only": 10,
+        "buried": 1226,
+        "air_and_fluid": 1,
+        "water_adjacent": 10,
+        "lava_adjacent": 1
+      },
+      "deposits": {
+        "total": 838,
+        "air_adjacent": 29,
+        "touching_scan_boundary": 63,
+        "air_adjacent_touching_boundary": 2
+      }
+    }
+  },
+  "tunnel_contacts": {
+    "vanilla": 1103,
+    "candidate": 202
+  }
+}

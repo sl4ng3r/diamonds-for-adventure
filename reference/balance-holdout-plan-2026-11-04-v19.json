@@ -1,0 +1,13 @@
+{
+  "purpose": "Vorab festgelegter, unabhängiger Holdout für V19; sechs neue Seeds mit je 16x16 Chunks. Die Gebiete werden nicht nach Ergebnissen ausgewählt.",
+  "server_version": "1.26.61.1",
+  "chunks_per_side": 16,
+  "areas": [
+    {"seed": 919001, "chunk_x": 2300, "chunk_z": -3200},
+    {"seed": 919009, "chunk_x": -4300, "chunk_z": 1900},
+    {"seed": 919021, "chunk_x": 3700, "chunk_z": 4700},
+    {"seed": 919033, "chunk_x": -2900, "chunk_z": -5300},
+    {"seed": 919037, "chunk_x": 5700, "chunk_z": -1100},
+    {"seed": 919043, "chunk_x": -6400, "chunk_z": 5100}
+  ]
+}

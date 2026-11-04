@@ -1,0 +1,59 @@
+{
+  "areas": 20,
+  "seeds": [
+    42,
+    7777,
+    11111,
+    12345,
+    13579,
+    22222,
+    24680,
+    24681,
+    33333,
+    44444,
+    54321,
+    55555,
+    66666,
+    77777,
+    86420,
+    88888,
+    98765,
+    99999,
+    314159
+  ],
+  "unit": "area/seed; resampling preserves each complete area as one unit",
+  "bootstrap_samples": 10000,
+  "random_seed": 0,
+  "metrics": {
+    "air_groups": {
+      "vanilla": 23,
+      "candidate": 29,
+      "percent_of_vanilla": 126.08695652173913,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 60.86568322981367,
+        "p50": 123.07692307692308,
+        "p97_5": 240.0
+      }
+    },
+    "y_minus57": {
+      "vanilla": 118,
+      "candidate": 31,
+      "percent_of_vanilla": 26.271186440677965,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 16.0,
+        "p50": 26.271186440677965,
+        "p97_5": 40.19607843137255
+      }
+    },
+    "tunnel_contacts": {
+      "vanilla": 1103,
+      "candidate": 202,
+      "percent_of_vanilla": 18.31368993653672,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 12.717208174670574,
+        "p50": 18.33082784001454,
+        "p97_5": 24.835108384015133
+      }
+    }
+  }
+}

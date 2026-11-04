@@ -1,0 +1,20 @@
+{
+  "seed": 919021,
+  "chunk_x": -2,
+  "chunk_z": -3,
+  "results": [
+    {
+      "direction": "east",
+      "world": "/Users/alexanderstroll/Proggen/minceaftPlugin/data/research/cavediamonds-research-66a12035e5"
+    },
+    {
+      "direction": "west",
+      "world": "/Users/alexanderstroll/Proggen/minceaftPlugin/data/research/cavediamonds-research-e5c44473d9"
+    }
+  ],
+  "ore_positions_equal": true,
+  "counts": [
+    83,
+    83
+  ]
+}

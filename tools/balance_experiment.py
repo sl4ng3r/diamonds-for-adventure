@@ -53,12 +53,12 @@ def evaluate_mining(before, after, mined):
 
 def create_candidate(source, destination, profile='v1'):
     # Copy to a new path only: never modify the original prototype or a world.
-    if profile not in ('v1','v2','v3','v4','v5','v6','v7','v8'): raise ValueError('unknown experimental profile')
+    if profile not in ('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'): raise ValueError('unknown experimental profile')
     pack=create_combined_generation_variant(source,destination)
     set_snap_selection(pack,'floor')
     cave_path=pack/'feature_rules/cave_rule.json'
     cave=json.loads(cave_path.read_text())
-    cave['minecraft:feature_rules']['distribution']['iterations']={'v1':1,'v2':2,'v3':3,'v4':4,'v5':3,'v6':3,'v7':2,'v8':2}[profile]
+    cave['minecraft:feature_rules']['distribution']['iterations']={'v1':1,'v2':2,'v3':3,'v4':4,'v5':3,'v6':3,'v7':2,'v8':2,'v9':2,'v10':1,'v11':1,'v12':1,'v13':1,'v14':1,'v15':1,'v16':2,'v17':1,'v18':1,'v19':1}[profile]
     cave_path.write_text(json.dumps(cave,indent=2)+'\n')
     if profile=='v6':
         extra=json.loads(json.dumps(cave))
@@ -70,7 +70,7 @@ def create_candidate(source, destination, profile='v1'):
     snap_path=pack/'features/cave_snap_floor.json'
     snap=json.loads(snap_path.read_text())
     snap['minecraft:snap_to_surface_feature']['allow_underwater_placement']=False
-    if profile in ('v5','v6','v7','v8'):
+    if profile in ('v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'):
         def feature(name,kind,body):
             (pack/'features'/(name+'.json')).write_text(json.dumps({'format_version':'1.21.40',kind:{'description':{'identifier':'cavediamonds:'+name},**body}},indent=2)+'\n')
         choices=[]
@@ -82,8 +82,29 @@ def create_candidate(source, destination, profile='v1'):
         feature('cave_neighbor_chance','minecraft:scatter_feature',{'places_feature':'cavediamonds:cave_neighbor_choice','distribution':{'iterations':1,'scatter_chance':70 if profile=='v5' else 40,'x':0,'y':0,'z':0}})
         feature('cave_pair','minecraft:aggregate_feature',{'features':['cavediamonds:cave_select','cavediamonds:cave_neighbor_chance'],'early_out':'none'})
         snap['minecraft:snap_to_surface_feature']['feature_to_snap']='cavediamonds:cave_pair'
+        if profile=='v9':
+            neighbors=['cavediamonds:cave_neighbor_east','cavediamonds:cave_neighbor_west','cavediamonds:cave_neighbor_north','cavediamonds:cave_neighbor_south']
+            for n in range(1,6):
+                feature(f'cave_vein_{n}','minecraft:aggregate_feature',{'features':['cavediamonds:cave_select']+neighbors[:n-1],'early_out':'none'})
+            feature('cave_vein_choice','minecraft:weighted_random_feature',{'features':[[f'cavediamonds:cave_vein_{n}',weight] for n,weight in [(1,5),(2,15),(3,35),(4,35),(5,10)]]})
+            snap['minecraft:snap_to_surface_feature']['feature_to_snap']='cavediamonds:cave_vein_choice'
+        if profile in ('v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'):
+            directions=['east','north','west','south','down'] if profile=='v10' else ['east','north','west','south']
+            size_weights={1:5,2:15,3:35,4:35,5:10}
+            choices=[]
+            orders=[directions[rotation:]+directions[:rotation] for rotation in range(len(directions))]
+            if profile in ('v11','v12','v16','v17','v18','v19'):
+                orders += [list(reversed(order)) for order in orders]
+            for rotation,order in enumerate(orders):
+                refs=['cavediamonds:cave_neighbor_'+name for name in order]
+                for size,weight in size_weights.items():
+                    name=f'cave_vein_r{rotation}_n{size}'
+                    feature(name,'minecraft:aggregate_feature',{'features':['cavediamonds:cave_select']+refs[:size-1],'early_out':'none'})
+                    choices.append([f'cavediamonds:{name}',weight])
+            feature('cave_vein_choice','minecraft:weighted_random_feature',{'features':choices})
+            snap['minecraft:snap_to_surface_feature']['feature_to_snap']='cavediamonds:cave_vein_choice'
     snap_path.write_text(json.dumps(snap,indent=2)+'\n')
-    if profile in ('v7','v8'):
+    if profile in ('v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'):
         for surface in ('ceiling','wall'):
             surface_doc=json.loads(json.dumps(snap))
             surface_body=surface_doc['minecraft:snap_to_surface_feature']
@@ -91,7 +112,25 @@ def create_candidate(source, destination, profile='v1'):
             surface_body['surface']=surface
             (pack/'features'/('cave_snap_'+surface+'.json')).write_text(json.dumps(surface_doc,indent=2)+'\n')
         feature('cave_snap_choice','minecraft:weighted_random_feature',{'features':[['cavediamonds:cave_snap_floor',1],['cavediamonds:cave_snap_ceiling',1],['cavediamonds:cave_snap_wall',1]]})
-        for name,extent,iterations,chance in [('cave_rule',[-64,-33],2,None),('cave_mid_rule',[-32,-1],1,None),('cave_high_rule',[0,4],1,30 if profile=='v7' else 10)]:
+        if profile=='v12':
+            rules=[('cave_rule',[-64,-48],1,None),('cave_deep_extra',[-64,-48],1,80),('cave_mid_rule',[-47,-1],1,None),('cave_high_rule',[0,4],1,5)]
+        elif profile=='v13':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_mid_rule',[-32,-1],1,None),('cave_high_rule',[0,4],1,5)]
+        elif profile=='v14':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_mid_rule',[-32,-1],1,80),('cave_high_rule',[0,4],1,5)]
+        elif profile=='v15':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_mid_rule',[-32,-1],1,90),('cave_high_rule',[0,4],1,5)]
+        elif profile=='v16':
+            rules=[('cave_rule',[-64,-33],2,None),('cave_mid_rule',[-32,-1],1,None),('cave_high_rule',[0,4],1,0)]
+        elif profile=='v17':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_mid_rule',[-32,-1],1,90),('cave_high_rule',[0,4],1,0)]
+        elif profile=='v18':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_mid_rule',[-32,-1],1,90)]
+        elif profile=='v19':
+            rules=[('cave_rule',[-64,-33],1,None),('cave_deep_extra',[-64,-33],1,50),('cave_mid_rule',[-32,-1],1,90)]
+        else:
+            rules=[('cave_rule',[-64,-48],1,None),('cave_mid_rule',[-47,-1],1,None),('cave_high_rule',[0,4],1,5)] if profile in ('v10','v11') else [('cave_rule',[-64,-33],2,None),('cave_mid_rule',[-32,-1],1,None),('cave_high_rule',[0,4],1,30 if profile=='v7' else 10)]
+        for name,extent,iterations,chance in rules:
             doc=json.loads(json.dumps(cave))
             body=doc['minecraft:feature_rules']
             body['description']={'identifier':'cavediamonds:'+name,'places_feature':'cavediamonds:cave_snap_choice'}
@@ -102,9 +141,9 @@ def create_candidate(source, destination, profile='v1'):
     buried_path=pack/'feature_rules/sparse_buried_rule.json'
     buried=json.loads(buried_path.read_text())
     buried['minecraft:feature_rules']['distribution']['y']['extent']=[-64,-32] if profile=='v1' else [-64,16]
-    buried['minecraft:feature_rules']['distribution']['iterations']=1 if profile=='v1' else 2
+    buried['minecraft:feature_rules']['distribution']['iterations']=1 if profile=='v1' else 3 if profile=='v19' else 2
     buried_path.write_text(json.dumps(buried,indent=2)+'\n')
-    for name in ('scan_chunk','select_ore','thin_deepslate','thin_diamond','cave_snap_select') + (() if profile in ('v7','v8') else ('cave_snap_ceiling',)):
+    for name in ('scan_chunk','select_ore','thin_deepslate','thin_diamond','cave_snap_select') + (() if profile in ('v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19') else ('cave_snap_ceiling',)):
         (pack/'features'/(name+'.json')).unlink()
     manifest_path=pack/'manifest.json'
     manifest=json.loads(manifest_path.read_text())
@@ -253,7 +292,7 @@ def probe_surfaces(pack, result_dir):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
-    build=sub.add_parser('build'); build.add_argument('--output',type=Path,required=True); build.add_argument('--profile',choices=('v1','v2','v3','v4','v5','v6','v7','v8'),default='v1')
+    build=sub.add_parser('build'); build.add_argument('--output',type=Path,required=True); build.add_argument('--profile',choices=('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'),default='v1')
     scan=sub.add_parser('scan'); scan.add_argument('--pack',type=Path,required=True); scan.add_argument('--results',type=Path,required=True); scan.add_argument('--index',type=int,required=True); scan.add_argument('--reference',type=Path,default=REFERENCE)
     summary=sub.add_parser('summarize'); summary.add_argument('--results',type=Path,required=True); summary.add_argument('--reference',type=Path,default=REFERENCE)
     verify=sub.add_parser('verify-mining'); verify.add_argument('--pack',type=Path,required=True); verify.add_argument('--results',type=Path,required=True); verify.add_argument('--index',type=int,required=True)

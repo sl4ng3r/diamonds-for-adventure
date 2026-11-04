@@ -1,0 +1,13 @@
+{
+  "purpose": "Vorab festgelegter, großer unabhängiger Holdout für V15; sechs neue Seeds mit je 16x16 Chunks. Die Gebiete werden nicht nach Ergebnissen ausgewählt.",
+  "server_version": "1.26.61.1",
+  "chunks_per_side": 16,
+  "areas": [
+    {"seed": 715001, "chunk_x": 3200, "chunk_z": -4100},
+    {"seed": 715009, "chunk_x": -5200, "chunk_z": 2700},
+    {"seed": 715021, "chunk_x": 4800, "chunk_z": 5300},
+    {"seed": 715033, "chunk_x": -3600, "chunk_z": -6100},
+    {"seed": 715037, "chunk_x": 6400, "chunk_z": -1800},
+    {"seed": 715043, "chunk_x": -7100, "chunk_z": 5900}
+  ]
+}

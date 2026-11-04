@@ -179,6 +179,40 @@ python3 tools/compare_worlds.py --diagnose --combined-test --preload-direction e
 python3 tools/compare_worlds.py --diagnose --combined-test --preload-direction west --chunks 4 --seed 24680 --chunk-x -1000 --chunk-z 1000
 ```
 
+## Balancevarianten V9–V19 und Holdouts (4. November 2026)
+
+Die Varianten V9 bis V19 wurden jeweils in einem eigenen Behavior-Pack und Ergebnisordner erzeugt. Kein Ergebnis überschreibt eine ältere Variante. Die Sammeltests verwenden dieselbe Vanilla-Referenz mit 20 Kalibriergebieten, 320 Chunks und Bedrock Dedicated Server 1.26.61.1.
+
+| Variante | Luftkontaktgruppen Kandidat/Vanilla | Y=-57 Kandidat/Vanilla | Tunnelkontakte Kandidat/Vanilla | Gruppengrößen 1/2/3/4/5 | Befund |
+| --- | ---: | ---: | ---: | ---: | --- |
+| V9 | 42/23 (182,6 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 1/17/11/9/4 | zu viele Fundstellen |
+| V10 | 14/23 (60,9 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 2/6/4/2/0 | zu wenige; Richtungshypothese unbewiesen |
+| V11 | 14/23 (60,9 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 3/3/5/3/0 | zu wenige |
+| V12 | 16/23 (69,6 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 3/5/5/3/0 | zu wenige |
+| V13 | 32/23 (139,1 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 2/6/15/7/2 | zu viele |
+| V14 | 21/23 (91,3 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 1/9/6/4/1 | knapp zu wenige, zu viele Zweier |
+| V15 | 25/23 (108,7 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 1/10/8/5/1 | Kalibrierung passend |
+| V16 | 58/23 (252,2 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | nicht separat im Bericht | verworfen; `scatter_chance: 0` schaltet nicht sicher aus |
+| V17 | 42/23 (182,6 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | nicht separat im Bericht | verworfen; obere Regel weiterhin aktiv |
+| V18 | 25/23 (108,7 %) | 21/118 (17,8 %) | 125/1103 (11,3 %) | 3/5/11/5/1 | obere Regel entfernt |
+| V19 | 29/23 (126,1 %) | 31/118 (26,3 %) | 202/1103 (18,3 %) | 3/7/13/5/1 | aktueller lokaler Kandidat |
+
+V15-Holdout: sechs neue vorab festgelegte Gebiete, 1.536 Chunks, 159 Vanilla-Gruppen. V15 erzeugte 135 Gruppen (84,9 %), 74/644 Y=-57-Erze (11,5 %) und 620/5207 Tunnelkontakte (11,9 %). V18-Holdout: 176 Vanilla-Gruppen; V18 erzeugte 123 (69,9 %), 51/715 Y=-57-Erze (7,1 %) und 458/5790 Tunnelkontakte (7,9 %). Beide Holdouts sind in separaten Referenz- und Ergebnisdateien gespeichert und bleiben als Negativbefunde erhalten.
+
+V19-Holdout: `reference/balance-holdout-plan-2026-11-04-v19.json` wurde vorab mit sechs neuen Seeds festgelegt. Vanilla und V19 wurden danach in denselben 1.536 Chunks erzeugt. Vanilla: 164 luftberührte Gruppen, 660 eingeschlossene Y=-57-Erze, 5.598 Tunnelkontakte. V19: 166 Gruppen (101,2 %), 112 Y=-57-Erze (17,0 %), 803 Tunnelkontakte (14,3 %). Gruppengrößen im Holdout waren für V19 25/44/66/27/4 (1/2/3/4/5). Die Fundstellenquote liegt leicht unter dem vorläufigen Korridor 105–125 %, aber nahe am Vanilla-Mittel; zusammen mit der Kalibrierung ergibt sich 195/187 = 104,3 %. Das ist kein Beleg für 15 % pro Welt und keine Freigabe.
+
+`tools/holdout_uncertainty.py` resampelt vollständige Gebiete/Seeds als Einheiten (10.000 Wiederholungen, fester Seed 0). Für V19 liegen die 2,5–97,5-%-Intervalle bei 82,1–123,2 % der Gruppen, 11,3–22,7 % Y=-57 und 11,3–17,8 % Tunnelkontakten. Die große Streuung ist ein wesentlicher offener Balancepunkt.
+
+### Scanner- und technische Kontrollen
+
+Der große Scanner wurde repariert: `ticking_area_windows()` lädt Kernfläche plus horizontale Nachbarn in Fenstern mit höchstens 100 Chunks. Automatisierte Tests prüfen 4, 8, 9, 10 und 16 Chunks, negative Koordinaten und Randabdeckung. Ein 16×16-Vanilla-Lauf sowie alle großen Holdouts liefen vollständig und ohne abgeschnittene Scanantwort. Die Diagnose bricht bei Serverabbruch statt stillschweigend unvollständige Blöcke zu verwenden.
+
+Für V19 wurden in `experiments/balance-v19/verification/` direkte Boden-, Decken- und Wandproben, zwei simulierte Abbau-/Neustartproben, ein Ost-/West-Vorladevergleich sowie ein gezielter Erzpositionsvergleich gespeichert. Der Vorladevergleich fand in einer negativen 4×4-Region identische 83 Erzpositionen. Der Erzvergleich zeigte eine zusätzliche Tiefenschiefer-Lapisposition; die Zusicherung unveränderter anderer Erze bleibt daher offen. `setblock air` ist kein echter Spielerabbau. Werkzeuge, Verzauberungen, Explosionen, Leistung, gleichzeitige Spieler und Realm/Konsolen sind nicht automatisiert bestätigt.
+
+### Freigabestatus
+
+V19 ist ein lokal geprüfter Kandidat, kein freigegebenes Add-on. Es existiert kein importierbares Produktions-`.mcpack`. Vor einer Veröffentlichung fehlen mindestens echte Spielvergleiche (Tunnel Y=-57 gegen Höhle, je Seed zwei 30-Minuten-Runden), Stabilitäts-/Leistungstests mit zwei Spielern, Versionsabgleich sowie Test-Realm-, PC- und Konsolenprüfung. Andere weltgenerierende Add-ons und experimentelle Weltoptionen bleiben nicht unterstützt.
+
 ## Balance-V6: unabhängige Gegenprobe
 
 Am 4. November 2026 wurden zehn vorab festgelegte neue Gebiete mit je 16 Chunks auf Bedrock Dedicated Server 1.26.61.1 sowohl in Vanilla als auch mit dem unveränderten V6-Testpack verglichen. Plan und Baseline liegen unter `reference/balance-holdout-*`, Einzelmessungen und Aggregat unter `experiments/balance-v6/holdout-results/` und `holdout-summary.json`.

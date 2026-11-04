@@ -277,3 +277,22 @@ class PreloadOrderTest(unittest.TestCase):
         ores=[{'x':0,'y':-30,'z':0,'exposed':False},{'x':1,'y':-30,'z':0,'exposed':True}]
         self.assertEqual(choose_mining_probe(ores), ores[1])
         self.assertIsNone(choose_mining_probe([]))
+
+class TickingAreaWindowTest(unittest.TestCase):
+    def test_padded_windows_cover_scan_and_neighbours_under_bedrock_limit(self):
+        from tools.compare_worlds import ticking_area_windows
+        for chunks in (4,8,9,10,16):
+            windows=ticking_area_windows(chunks)
+            self.assertTrue(all((x1-x0)*(z1-z0) <= 100 for x0,x1,z0,z1 in windows))
+            self.assertTrue(all(any(x0 <= x < x1 and z0 <= z < z1 for x0,x1,z0,z1 in windows)
+                                for x in range(-1,chunks+1) for z in range(-1,chunks+1)))
+        self.assertEqual(len(ticking_area_windows(4)),1)
+        self.assertEqual(len(ticking_area_windows(8)),1)
+        self.assertEqual(len(ticking_area_windows(9)),4)
+        self.assertEqual(len(ticking_area_windows(10)),4)
+        self.assertEqual(len(ticking_area_windows(16)),4)
+
+    def test_invalid_window_sizes_are_rejected(self):
+        from tools.compare_worlds import ticking_area_windows
+        for value in (0,-1,1.5,'4'):
+            with self.assertRaises(ValueError): ticking_area_windows(value)

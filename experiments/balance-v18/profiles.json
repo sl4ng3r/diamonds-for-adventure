@@ -1,0 +1,68 @@
+{
+  "areas": 20,
+  "bands": {
+    "-64..-48": {
+      "vanilla": {
+        "total": 1892,
+        "buried": 1889
+      },
+      "candidate": {
+        "total": 179,
+        "buried": 178
+      }
+    },
+    "-47..-32": {
+      "vanilla": {
+        "total": 1583,
+        "buried": 1578
+      },
+      "candidate": {
+        "total": 213,
+        "buried": 199
+      }
+    },
+    "-31..-16": {
+      "vanilla": {
+        "total": 1114,
+        "buried": 1089
+      },
+      "candidate": {
+        "total": 221,
+        "buried": 199
+      }
+    },
+    "-15..-1": {
+      "vanilla": {
+        "total": 699,
+        "buried": 690
+      },
+      "candidate": {
+        "total": 224,
+        "buried": 198
+      }
+    },
+    "0..16": {
+      "vanilla": {
+        "total": 173,
+        "buried": 158
+      },
+      "candidate": {
+        "total": 159,
+        "buried": 157
+      }
+    }
+  },
+  "air_group_sizes": {
+    "vanilla": {
+      "2": 8,
+      "1": 15
+    },
+    "candidate": {
+      "3": 11,
+      "2": 5,
+      "4": 5,
+      "1": 3,
+      "5": 1
+    }
+  }
+}

@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.balance_experiment import create_candidate, pack_digest, write_result_once, evaluate_mining, diff_ore_trace, probe_surfaces
+from tools.holdout_uncertainty import percentile, report
 
 
 class BalanceCandidateTest(unittest.TestCase):
@@ -134,6 +135,163 @@ class BalanceCandidateTest(unittest.TestCase):
             self.assertGreater(density([-64,-33]),density([-32,-1]))
             self.assertGreater(density([-32,-1]),density([0,4]))
 
+    def test_ninth_profile_has_weighted_connected_attempts(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v9')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            weights={int(ref.rsplit('_',1)[1]):weight for ref,weight in choice}
+            self.assertEqual(weights,{1:5,2:15,3:35,4:35,5:10})
+            for n in weights:
+                refs=json.loads((pack/'features'/f'cave_vein_{n}.json').read_text())['minecraft:aggregate_feature']['features']
+                self.assertEqual(len(refs),n)
+            snap=json.loads((pack/'features/cave_snap_wall.json').read_text())['minecraft:snap_to_surface_feature']
+            self.assertEqual(snap['feature_to_snap'],'cavediamonds:cave_vein_choice')
+
+    def test_tenth_profile_randomizes_direction_orders_and_biases_depth(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v10')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),25)
+            size_weights={1:5,2:15,3:35,4:35,5:10}
+            observed={}
+            orders=set()
+            for ref,weight in choice:
+                name=ref.rsplit(':',1)[1]
+                rotation,size=(int(part[1:]) for part in name.split('_')[2:])
+                observed[size]=observed.get(size,[])+[weight]
+                refs=json.loads((pack/'features'/f'{name}.json').read_text())['minecraft:aggregate_feature']['features']
+                self.assertEqual(len(refs),size)
+                orders.add(tuple(refs[1:]))
+            self.assertEqual({size:weights for size,weights in observed.items()},
+                             {size:[weight]*5 for size,weight in size_weights.items()})
+            self.assertGreaterEqual(len(orders),5)
+            rules=[json.loads(p.read_text())['minecraft:feature_rules'] for p in (pack/'feature_rules').glob('cave_*rule.json')]
+            extents={tuple(r['distribution']['y']['extent']) for r in rules}
+            self.assertEqual(extents,{(-64,-48),(-47,-1),(0,4)})
+            def density(extent):
+                dist=next(r['distribution'] for r in rules if r['distribution']['y']['extent']==list(extent))
+                return dist['iterations'] * dist.get('scatter_chance',100)/100/(extent[1]-extent[0]+1)
+            self.assertGreater(density((-64,-48)),density((-47,-1)))
+            self.assertGreater(density((-47,-1)),density((0,4)))
+            high=next(r['distribution'] for r in rules if r['distribution']['y']['extent']==[0,4])
+            self.assertEqual(high['scatter_chance'],5)
+
+    def test_eleventh_profile_keeps_randomized_veins_horizontal(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v11')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),40)
+            orders=set()
+            for ref,_weight in choice:
+                name=ref.rsplit(':',1)[1]
+                refs=json.loads((pack/'features'/f'{name}.json').read_text())['minecraft:aggregate_feature']['features'][1:]
+                orders.add(tuple(refs))
+                self.assertNotIn('cavediamonds:cave_neighbor_down',refs)
+            self.assertGreaterEqual(len(orders),8)
+
+    def test_twelfth_profile_adds_only_a_deep_probability_pass(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v12')
+            extra=json.loads((pack/'feature_rules/cave_deep_extra.json').read_text())['minecraft:feature_rules']
+            self.assertEqual(extra['distribution']['y']['extent'],[-64,-48])
+            self.assertEqual(extra['distribution']['scatter_chance'],80)
+            self.assertEqual(extra['description']['places_feature'],'cavediamonds:cave_snap_choice')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),40)
+
+    def test_thirteenth_profile_uses_one_broad_deep_pass(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v13')
+            rules=[json.loads(p.read_text())['minecraft:feature_rules'] for p in (pack/'feature_rules').glob('cave_*rule.json')]
+            self.assertEqual({tuple(r['distribution']['y']['extent']) for r in rules},{(-64,-33),(-32,-1),(0,4)})
+            deep=next(r for r in rules if r['distribution']['y']['extent']==[-64,-33])
+            self.assertEqual(deep['distribution']['iterations'],1)
+            high=next(r for r in rules if r['distribution']['y']['extent']==[0,4])
+            self.assertEqual(high['distribution']['scatter_chance'],5)
+
+    def test_fourteenth_profile_thins_only_the_middle_cave_band(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v14')
+            mid=json.loads((pack/'feature_rules/cave_mid_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            deep=json.loads((pack/'feature_rules/cave_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(mid['scatter_chance'],80)
+            self.assertNotIn('scatter_chance',deep)
+
+    def test_fifteenth_profile_uses_ninety_percent_middle_band(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v15')
+            mid=json.loads((pack/'feature_rules/cave_mid_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(mid['scatter_chance'],90)
+
+    def test_sixteenth_profile_doubles_deep_pass_and_disables_upper_band(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v16')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),40)
+            orders=set()
+            for ref,_weight in choice:
+                name=ref.rsplit(':',1)[1]
+                refs=json.loads((pack/'features'/f'{name}.json').read_text())['minecraft:aggregate_feature']['features'][1:]
+                orders.add(tuple(refs))
+                self.assertNotIn('cavediamonds:cave_neighbor_down',refs)
+            self.assertGreaterEqual(len(orders),8)
+            deep=json.loads((pack/'feature_rules/cave_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            mid=json.loads((pack/'feature_rules/cave_mid_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            high=json.loads((pack/'feature_rules/cave_high_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(deep['iterations'],2)
+            self.assertEqual(deep['y']['extent'],[-64,-33])
+            self.assertEqual(mid['y']['extent'],[-32,-1])
+            self.assertEqual(high['scatter_chance'],0)
+
+    def test_seventeenth_profile_keeps_one_deep_pass_and_disables_upper_band(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v17')
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),40)
+            orders=set()
+            for ref,_weight in choice:
+                name=ref.rsplit(':',1)[1]
+                refs=json.loads((pack/'features'/f'{name}.json').read_text())['minecraft:aggregate_feature']['features'][1:]
+                orders.add(tuple(refs))
+                self.assertNotIn('cavediamonds:cave_neighbor_down',refs)
+            self.assertGreaterEqual(len(orders),8)
+            deep=json.loads((pack/'feature_rules/cave_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            mid=json.loads((pack/'feature_rules/cave_mid_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            high=json.loads((pack/'feature_rules/cave_high_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(deep['iterations'],1)
+            self.assertEqual(mid['scatter_chance'],90)
+            self.assertEqual(high['scatter_chance'],0)
+
+    def test_eighteenth_profile_omits_upper_feature_rule(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v18')
+            self.assertTrue((pack/'feature_rules/cave_rule.json').exists())
+            self.assertTrue((pack/'feature_rules/cave_mid_rule.json').exists())
+            self.assertFalse((pack/'feature_rules/cave_high_rule.json').exists())
+            choice=json.loads((pack/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            self.assertEqual(len(choice),40)
+
+    def test_nineteenth_profile_adds_half_probability_deep_pass_and_third_buried_pass(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            pack=create_candidate(source,Path(directory)/'pack',profile='v19')
+            extra=json.loads((pack/'feature_rules/cave_deep_extra.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(extra['y']['extent'],[-64,-33])
+            self.assertEqual(extra['scatter_chance'],50)
+            self.assertFalse((pack/'feature_rules/cave_high_rule.json').exists())
+            buried=json.loads((pack/'feature_rules/sparse_buried_rule.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(buried['iterations'],3)
+
     def test_atomic_result_write_does_not_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             target=Path(directory)/'area-00.json'
@@ -153,7 +311,7 @@ class BalanceCandidateTest(unittest.TestCase):
 
     def test_all_custom_feature_references_resolve(self):
         source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
-        for profile in ('v3','v5','v6','v7','v8'):
+        for profile in ('v3','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'):
           with tempfile.TemporaryDirectory() as directory:
             pack=create_candidate(source,Path(directory)/'pack',profile=profile)
             ids=set(); references=[]
@@ -194,3 +352,25 @@ class BalanceCandidateTest(unittest.TestCase):
         diff=diff_ore_trace(before,after)
         self.assertEqual(diff['removed'],[[1,-20,2,'minecraft:deepslate_lapis_ore']])
         self.assertEqual(diff['added'],[[2,-20,2,'minecraft:deepslate_lapis_ore']])
+
+    def test_holdout_uncertainty_resamples_complete_areas(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            template={
+                'vanilla':{'deposits':{'air_adjacent':10},'y_minus57':{'buried':20}},
+                'candidate':{'deposits':{'air_adjacent':5},'y_minus57':{'buried':4}},
+                'tunnel_contacts':{'vanilla':30,'candidate':3},
+            }
+            for index,seed in enumerate((1,2)):
+                data=dict(template)
+                data['seed']=seed
+                data['vanilla']=dict(template['vanilla'])
+                data['candidate']=dict(template['candidate'])
+                data['vanilla']['deposits']=dict(template['vanilla']['deposits'])
+                data['candidate']['deposits']=dict(template['candidate']['deposits'])
+                root.joinpath(f'area-{index:02d}.json').write_text(json.dumps(data))
+            result=report(root,bootstrap_samples=100)
+            self.assertEqual(result['areas'],2)
+            self.assertEqual(result['metrics']['air_groups']['percent_of_vanilla'],50.0)
+            self.assertEqual(result['metrics']['y_minus57']['percent_of_vanilla'],20.0)
+            self.assertAlmostEqual(percentile([1,3],0.5),2.0)

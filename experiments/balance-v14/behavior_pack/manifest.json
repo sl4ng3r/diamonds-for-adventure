@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Cave Diamonds – Balance Test v14 (nicht freigegeben)",
+    "description": "Testpaket: keine Freigabe für Spielwelten oder Realms",
+    "uuid": "45411e2e-ecf2-4a3c-a00f-a20d4a27dbe2",
+    "version": [
+      0,
+      1,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "647a23e6-dd67-45dc-a5ed-3de51e5d7eef",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

@@ -127,6 +127,6 @@ system.afterEvents.scriptEventReceive.subscribe(event => {
   const startX=Number(startXText), startZ=Number(startZText);
   if (!Number.isInteger(startX) || !Number.isInteger(startZ)) { console.warn('CAVEDIAMONDS_SCAN_ERROR invalid origin'); return; }
   const chunks = Number(size);
-  if (!Number.isInteger(chunks) || chunks<1 || chunks>4) { console.warn('CAVEDIAMONDS_SCAN_ERROR invalid chunks'); return; }
+  if (!Number.isInteger(chunks) || chunks<1 || chunks>16) { console.warn('CAVEDIAMONDS_SCAN_ERROR invalid chunks'); return; }
   system.runJob(scan(chunks, mode, startX, startZ));
 });
