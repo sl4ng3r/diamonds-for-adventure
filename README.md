@@ -1,8 +1,6 @@
 # Diamonds for Adventure
 
-Ein Forschungsprojekt für ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Erkunden von Höhlen lohnen, während langes Tunnelgraben auf Y = −57 nur noch selten erfolgreich ist.
-
-**Projektstatus:** Das Add-on befindet sich in Entwicklung; ein Release folgt nach Abschluss der Tests.
+Ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Erkunden von Höhlen lohnen, während langes Tunnelgraben auf Y = −57 nur noch selten erfolgreich ist.
 
 ## Ziel und aktueller Stand
 
@@ -10,7 +8,7 @@ Ein Forschungsprojekt für ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten so
 - Auf Y = −57 sollen beim Tunnelgraben nur noch selten Diamanten gefunden werden. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
 - Normale Diamanterze und Spielmechaniken sollen erhalten bleiben; Tests mit Realms, Konsolen, Verzauberungen und echten Spielern stehen noch aus.
 
-Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Die aktuelle Forschungsvariante **V8** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Sie probiert Höhlenboden, Wand und Decke sowie tiefer gewichtete Startpunkte; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
+Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Die aktuelle Version **V8** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Sie probiert Höhlenboden, Wand und Decke sowie tiefer gewichtete Startpunkte; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
 
 In 20 ausgewählten Testgebieten fanden sich 42 luftberührte Erzgruppen gegenüber 23 in Vanilla – deutlich mehr als das angestrebte Plus von ungefähr 15 %. Einzelne Erzblöcke an Wand, Boden und Decke wurden gemessen; ein künstlicher Raum bestätigte die direkte Platzierung auf allen drei Flächen. Die tatsächlichen Höhlenfunde lagen trotz tiefer gewichteter Startpunkte nicht überwiegend ganz unten. Luftkontakt beweist keine Erreichbarkeit. Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details, frühere Versuche und Grenzen stehen im [Testbericht](TESTREPORT.md) und in [AGENTS.md](AGENTS.md).
 
@@ -19,7 +17,7 @@ In 20 ausgewählten Testgebieten fanden sich 42 luftberührte Erzgruppen gegenü
 | Pfad | Inhalt |
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
-| `experiments/` | Getrennte Forschungsvarianten, Messergebnisse und Dokumentation; insbesondere [V8](experiments/balance-v8/README.md). |
+| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V8](experiments/balance-v8/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |
 | `tools/` und `tests/` | Wiederverwendbare Engine-Vergleiche, Auswertung und automatisierte Prüfungen. |
@@ -51,7 +49,7 @@ Voraussetzungen sind Docker mit Compose und Unterstützung für `linux/amd64`. D
 
 Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V8. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
 
-## Forschungsvariante messen
+## V8 testen
 
 Nach Aufbau des Testservers und Zustimmung zur EULA können neue V8-Vergleiche in isolierten Wegwerfwelten ausgeführt werden:
 
