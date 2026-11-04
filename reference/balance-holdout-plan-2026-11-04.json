@@ -1,0 +1,17 @@
+{
+  "purpose": "Vorab festgelegte neue Gebiete zur unabhängigen Prüfung von Balance-Testvarianten; keine repräsentative Zufallsstichprobe.",
+  "server_version": "1.26.61.1",
+  "chunks_per_side": 4,
+  "areas": [
+    {"seed": 420001, "chunk_x": 200, "chunk_z": -300},
+    {"seed": 420007, "chunk_x": -700, "chunk_z": 150},
+    {"seed": 420013, "chunk_x": 900, "chunk_z": 400},
+    {"seed": 420019, "chunk_x": -450, "chunk_z": -850},
+    {"seed": 420023, "chunk_x": 1250, "chunk_z": -250},
+    {"seed": 420029, "chunk_x": -1050, "chunk_z": 750},
+    {"seed": 420037, "chunk_x": 650, "chunk_z": -1150},
+    {"seed": 420041, "chunk_x": -350, "chunk_z": 1050},
+    {"seed": 420043, "chunk_x": 1050, "chunk_z": 1050},
+    {"seed": 420047, "chunk_x": -1250, "chunk_z": -550}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "cavediamonds:select_ore"
+    },
+    "features": [
+      "cavediamonds:thin_diamond",
+      "cavediamonds:thin_deepslate"
+    ],
+    "early_out": "first_success"
+  }
+}

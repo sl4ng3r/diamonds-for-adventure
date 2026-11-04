@@ -1,0 +1,310 @@
+{
+  "index": 1,
+  "seed": 420007,
+  "chunk_x": -700,
+  "chunk_z": 150,
+  "chunks_per_side": 4,
+  "pack_sha256": "9e7c4524a25f86c6a6923de35b2168c05660460f3387afa089e70c41637b3faa",
+  "reference_sha256": "09202ffacd8ffb6da99b27892e84ccce6d19ba0fe7ba11c4d4dd706655e182c1",
+  "reference_world_scan": "data/research/cavediamonds-research-97de4ef9a5/ore_scan.json",
+  "candidate_world": "data/research/cavediamonds-research-02d532bc82",
+  "vanilla": {
+    "blocks": {
+      "total": 302,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 301,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "below_zero": {
+      "total": 289,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 288,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "y_minus57": {
+      "total": 11,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 11,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "tunnel_band": {
+      "total": 36,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 36,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deepslate_ore": {
+      "total": 295,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 294,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deposits": {
+      "total": 113,
+      "air_adjacent": 1,
+      "air_adjacent_sizes": [
+        2
+      ],
+      "touching_scan_boundary": 6,
+      "air_adjacent_touching_boundary": 0,
+      "sizes": [
+        10,
+        8,
+        8,
+        8,
+        8,
+        8,
+        7,
+        6,
+        6,
+        6,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sampled_biomes": {
+      "0": {
+        "minecraft:lukewarm_ocean": 77,
+        "minecraft:deep_lukewarm_ocean": 179
+      },
+      "64": {
+        "minecraft:lukewarm_ocean": 77,
+        "minecraft:deep_lukewarm_ocean": 179
+      },
+      "-57": {
+        "minecraft:lukewarm_ocean": 79,
+        "minecraft:deep_lukewarm_ocean": 177
+      },
+      "-32": {
+        "minecraft:lukewarm_ocean": 80,
+        "minecraft:deep_lukewarm_ocean": 176
+      }
+    }
+  },
+  "candidate": {
+    "blocks": {
+      "total": 43,
+      "air": 5,
+      "fluid_only": 0,
+      "buried": 38,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "below_zero": {
+      "total": 39,
+      "air": 3,
+      "fluid_only": 0,
+      "buried": 36,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "y_minus57": {
+      "total": 0,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 0,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "tunnel_band": {
+      "total": 3,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 3,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deepslate_ore": {
+      "total": 39,
+      "air": 3,
+      "fluid_only": 0,
+      "buried": 36,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deposits": {
+      "total": 28,
+      "air_adjacent": 3,
+      "air_adjacent_sizes": [
+        2,
+        2,
+        1
+      ],
+      "touching_scan_boundary": 1,
+      "air_adjacent_touching_boundary": 0,
+      "sizes": [
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sampled_biomes": {
+      "0": {
+        "minecraft:lukewarm_ocean": 77,
+        "minecraft:deep_lukewarm_ocean": 179
+      },
+      "64": {
+        "minecraft:lukewarm_ocean": 77,
+        "minecraft:deep_lukewarm_ocean": 179
+      },
+      "-57": {
+        "minecraft:lukewarm_ocean": 79,
+        "minecraft:deep_lukewarm_ocean": 177
+      },
+      "-32": {
+        "minecraft:lukewarm_ocean": 80,
+        "minecraft:deep_lukewarm_ocean": 176
+      }
+    }
+  },
+  "tunnel_contacts": {
+    "vanilla": 52,
+    "candidate": 3
+  }
+}

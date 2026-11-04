@@ -1,0 +1,292 @@
+{
+  "index": 3,
+  "seed": 420019,
+  "chunk_x": -450,
+  "chunk_z": -850,
+  "chunks_per_side": 4,
+  "pack_sha256": "9e7c4524a25f86c6a6923de35b2168c05660460f3387afa089e70c41637b3faa",
+  "reference_sha256": "09202ffacd8ffb6da99b27892e84ccce6d19ba0fe7ba11c4d4dd706655e182c1",
+  "reference_world_scan": "data/research/cavediamonds-research-e587799376/ore_scan.json",
+  "candidate_world": "data/research/cavediamonds-research-8354f51c59",
+  "vanilla": {
+    "blocks": {
+      "total": 255,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 254,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "below_zero": {
+      "total": 252,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 251,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "y_minus57": {
+      "total": 10,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 10,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "tunnel_band": {
+      "total": 24,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 24,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deepslate_ore": {
+      "total": 254,
+      "air": 1,
+      "fluid_only": 0,
+      "buried": 253,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deposits": {
+      "total": 95,
+      "air_adjacent": 1,
+      "air_adjacent_sizes": [
+        1
+      ],
+      "touching_scan_boundary": 13,
+      "air_adjacent_touching_boundary": 0,
+      "sizes": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        6,
+        6,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sampled_biomes": {
+      "0": {
+        "minecraft:lush_caves": 21,
+        "minecraft:taiga": 30,
+        "minecraft:birch_forest_mutated": 205
+      },
+      "64": {
+        "minecraft:birch_forest_mutated": 222,
+        "minecraft:taiga": 34
+      },
+      "-57": {
+        "minecraft:birch_forest_mutated": 221,
+        "minecraft:taiga": 35
+      },
+      "-32": {
+        "minecraft:birch_forest_mutated": 218,
+        "minecraft:taiga": 38
+      }
+    }
+  },
+  "candidate": {
+    "blocks": {
+      "total": 50,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 50,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "below_zero": {
+      "total": 38,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 38,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "y_minus57": {
+      "total": 2,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 2,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "tunnel_band": {
+      "total": 6,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 6,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deepslate_ore": {
+      "total": 44,
+      "air": 0,
+      "fluid_only": 0,
+      "buried": 44,
+      "air_and_fluid": 0,
+      "water_adjacent": 0,
+      "lava_adjacent": 0
+    },
+    "deposits": {
+      "total": 30,
+      "air_adjacent": 0,
+      "air_adjacent_sizes": [],
+      "touching_scan_boundary": 1,
+      "air_adjacent_touching_boundary": 0,
+      "sizes": [
+        4,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "sampled_biomes": {
+      "0": {
+        "minecraft:lush_caves": 21,
+        "minecraft:taiga": 30,
+        "minecraft:birch_forest_mutated": 205
+      },
+      "64": {
+        "minecraft:birch_forest_mutated": 222,
+        "minecraft:taiga": 34
+      },
+      "-57": {
+        "minecraft:birch_forest_mutated": 221,
+        "minecraft:taiga": 35
+      },
+      "-32": {
+        "minecraft:birch_forest_mutated": 218,
+        "minecraft:taiga": 38
+      }
+    }
+  },
+  "tunnel_contacts": {
+    "vanilla": 43,
+    "candidate": 9
+  }
+}

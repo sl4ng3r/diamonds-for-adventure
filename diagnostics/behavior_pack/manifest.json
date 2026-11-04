@@ -1,0 +1,6 @@
+{
+  "format_version": 2,
+  "header": {"name":"Cave Diamonds diagnostic - test only","description":"Reads ore positions in disposable worlds","uuid":"404597db-6431-4765-8966-b69ee41c377c","version":[0,1,0],"min_engine_version":[1,26,60]},
+  "modules": [{"type":"data","uuid":"9406d763-884d-470b-bc5a-155813992f02","version":[0,1,0]},{"type":"script","language":"javascript","entry":"scripts/main.js","uuid":"cb8bfde5-d51a-4b78-90bf-5972247bdc51","version":[0,1,0]}],
+  "dependencies": [{"module_name":"@minecraft/server","version":"2.11.0"}]
+}

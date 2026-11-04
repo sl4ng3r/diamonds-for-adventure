@@ -1,0 +1,33 @@
+{
+  "index": 4,
+  "seed": 42,
+  "chunk_x": 1,
+  "chunk_z": -35,
+  "pack_sha256": "9e7c4524a25f86c6a6923de35b2168c05660460f3387afa089e70c41637b3faa",
+  "worlds": [
+    "data/research/cavediamonds-research-2c05b0ee87",
+    "data/research/cavediamonds-research-676d4649ad",
+    "data/research/cavediamonds-research-9afb7a4269"
+  ],
+  "trace_counts": [
+    1605,
+    1605,
+    1606
+  ],
+  "vanilla_repeat": {
+    "removed": [],
+    "added": []
+  },
+  "candidate_vs_vanilla": {
+    "removed": [],
+    "added": [
+      [
+        70,
+        -44,
+        -526,
+        "minecraft:deepslate_lapis_ore"
+      ]
+    ]
+  },
+  "note": "Only selected ore types and Y=-64..16; position differences do not establish a direct cause."
+}
