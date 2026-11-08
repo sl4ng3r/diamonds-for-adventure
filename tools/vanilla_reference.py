@@ -66,7 +66,7 @@ def main():
     parser.add_argument('--seed',type=int,required=True)
     parser.add_argument('--chunk-x',type=int,default=0)
     parser.add_argument('--chunk-z',type=int,default=0)
-    parser.add_argument('--chunks',type=int,choices=range(1,17),default=4)
+    parser.add_argument('--chunks',type=int,choices=range(1,33),default=4)
     args=parser.parse_args()
     if not eula_accepted(ROOT/'.env'): parser.error('Explicit EULA=TRUE in .env required')
     print(f'Vanilla seed {args.seed}, chunk {args.chunk_x}/{args.chunk_z} startet',flush=True)

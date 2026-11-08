@@ -1,0 +1,61 @@
+{
+  "pack_sha256": "5b4e7b84e8bf5a35b21d3db0544ed0017f83f2e99822c9459694242f0ff21206",
+  "world": "data/research/cavediamonds-research-8c512d5623",
+  "probes": [
+    {
+      "surface": "floor",
+      "trial": 0,
+      "placed": true,
+      "ore_on_face": 4
+    },
+    {
+      "surface": "floor",
+      "trial": 1,
+      "placed": true,
+      "ore_on_face": 4
+    },
+    {
+      "surface": "floor",
+      "trial": 2,
+      "placed": true,
+      "ore_on_face": 3
+    },
+    {
+      "surface": "ceiling",
+      "trial": 0,
+      "placed": true,
+      "ore_on_face": 5
+    },
+    {
+      "surface": "ceiling",
+      "trial": 1,
+      "placed": true,
+      "ore_on_face": 3
+    },
+    {
+      "surface": "ceiling",
+      "trial": 2,
+      "placed": true,
+      "ore_on_face": 4
+    },
+    {
+      "surface": "wall",
+      "trial": 0,
+      "placed": true,
+      "ore_on_face": 3
+    },
+    {
+      "surface": "wall",
+      "trial": 1,
+      "placed": true,
+      "ore_on_face": 3
+    },
+    {
+      "surface": "wall",
+      "trial": 2,
+      "placed": true,
+      "ore_on_face": 3
+    }
+  ],
+  "note": "Controlled hollow box; successful placement does not prove natural generation or cave accessibility."
+}

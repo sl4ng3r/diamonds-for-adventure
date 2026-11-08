@@ -1,0 +1,22 @@
+{
+  "purpose": "Unabhängiger V24-Holdout; Paket vor Scans eingefroren. Bei weniger als 100 Vanilla-Gruppen alle sechs vorab festgelegten Reservegebiete ergänzen; keine Auswahl nach Ergebnissen.",
+  "server_version": "1.26.61.1",
+  "pack_sha256": "de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832",
+  "chunks_per_side": 16,
+  "areas": [
+    {"seed": 920003, "chunk_x": 2100, "chunk_z": -4100},
+    {"seed": 920011, "chunk_x": -3900, "chunk_z": 2200},
+    {"seed": 920027, "chunk_x": 4900, "chunk_z": 3200},
+    {"seed": 920039, "chunk_x": -2400, "chunk_z": -4600},
+    {"seed": 920047, "chunk_x": 5100, "chunk_z": -1600},
+    {"seed": 920059, "chunk_x": -6100, "chunk_z": 4700}
+  ],
+  "reserve_areas": [
+    {"seed": 920071, "chunk_x": 3000, "chunk_z": 6100},
+    {"seed": 920083, "chunk_x": -5200, "chunk_z": -2300},
+    {"seed": 920101, "chunk_x": 6400, "chunk_z": 1800},
+    {"seed": 920111, "chunk_x": -1700, "chunk_z": 5500},
+    {"seed": 920123, "chunk_x": 4400, "chunk_z": -6200},
+    {"seed": 920137, "chunk_x": -6300, "chunk_z": -3700}
+  ]
+}

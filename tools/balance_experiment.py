@@ -53,6 +53,63 @@ def evaluate_mining(before, after, mined):
 
 def create_candidate(source, destination, profile='v1'):
     # Copy to a new path only: never modify the original prototype or a world.
+    if profile == 'v25':
+        pack=create_candidate(source,destination,profile='v24')
+        choice_path=pack/'features/cave_vein_choice.json'
+        choice=json.loads(choice_path.read_text())
+        weights={1:1,2:2,3:35,4:52,5:10}
+        entries=choice['minecraft:weighted_random_feature']['features']
+        for entry in entries:
+            identifier=entry[0].rsplit(':',1)[-1]
+            size=int(identifier.rsplit('_n',1)[1])
+            entry[1]=weights[size]
+        choice_path.write_text(json.dumps(choice,indent=2)+'\n')
+        manifest_path=pack/'manifest.json'
+        manifest=json.loads(manifest_path.read_text())
+        manifest['header']['name']='Cave Diamonds – Balance Test v25 (nicht freigegeben)'
+        manifest['header']['description']='Testpaket: geänderte Adergrößen, keine Freigabe für Spielwelten oder Realms'
+        manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
+        return pack
+    if profile == 'v26':
+        pack=create_candidate(source,destination,profile='v25')
+        choice_path=pack/'features/cave_vein_choice.json'
+        choice=json.loads(choice_path.read_text())
+        weights={1:1,2:1,3:25,4:64,5:10}
+        entries=choice['minecraft:weighted_random_feature']['features']
+        for entry in entries:
+            identifier=entry[0].rsplit(':',1)[-1]
+            size=int(identifier.rsplit('_n',1)[1])
+            entry[1]=weights[size]
+        choice_path.write_text(json.dumps(choice,indent=2)+'\n')
+        manifest_path=pack/'manifest.json'
+        manifest=json.loads(manifest_path.read_text())
+        manifest['header']['name']='Cave Diamonds – Balance Test v26 (nicht freigegeben)'
+        manifest['header']['description']='Testpaket: stärkerer Vierer-Anteil, keine Freigabe für Spielwelten oder Realms'
+        manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
+        return pack
+    if profile in ('v20','v21','v22','v23','v24'):
+        pack=create_candidate(source,destination,profile='v19')
+        path=pack/'feature_rules/cave_deep_extra.json'
+        doc=json.loads(path.read_text())
+        if profile == 'v20':
+            doc['minecraft:feature_rules']['distribution']['scatter_chance']=70
+        else:
+            path=pack/'feature_rules/cave_deep_extra2.json'
+            doc['minecraft:feature_rules']['description']['identifier']='cavediamonds:cave_deep_extra2'
+            distribution=doc['minecraft:feature_rules']['distribution']
+            if profile=='v21':
+                distribution['scatter_chance']=0.3
+            else:
+                distribution.pop('scatter_chance',None)
+                distribution['y']['extent']=[-52,-41]
+                if profile=='v23': distribution['scatter_chance']=0.4
+                if profile=='v24': distribution['scatter_chance']=40
+        path.write_text(json.dumps(doc,indent=2)+'\n')
+        path=pack/'manifest.json'
+        doc=json.loads(path.read_text())
+        doc['header']['name']=f'Cave Diamonds – Balance Test {profile} (nicht freigegeben)'
+        path.write_text(json.dumps(doc,indent=2,ensure_ascii=False)+'\n')
+        return pack
     if profile not in ('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'): raise ValueError('unknown experimental profile')
     pack=create_combined_generation_variant(source,destination)
     set_snap_selection(pack,'floor')
@@ -176,7 +233,12 @@ def scan_area(pack, result_dir, index, reference_path=REFERENCE):
     n=area['chunks_per_side']; x=area['chunk_x']; z=area['chunk_z']; seed=area['seed']
     baseline=analyze(baseline_scan,x*16,z*16,n*16)
     print(f'Gebiet {index+1}/{len(reference["areas"])}: Seed {seed}, Chunk {x}/{z}',flush=True)
-    world=run(seed,True,n,diagnose=True,pack_path=pack,chunk_x=x,chunk_z=z,height_probe=True)
+    # Large 32x32 scans can finish the ticking-area commands before Bedrock has
+    # made every boundary chunk available to the diagnostic script.  Give the
+    # engine a longer settling window; an unloaded read still aborts loudly.
+    settle_seconds=30 if n >= 16 else 15
+    world=run(seed,True,n,diagnose=True,pack_path=pack,chunk_x=x,chunk_z=z,height_probe=True,
+              settle_seconds=settle_seconds)
     world_path=Path(world['world'])
     log=(world_path/'server.log').read_text(errors='replace')
     if pack_digest(pack)!=candidate_hash: raise RuntimeError('pack changed during scan')
@@ -292,7 +354,7 @@ def probe_surfaces(pack, result_dir):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
-    build=sub.add_parser('build'); build.add_argument('--output',type=Path,required=True); build.add_argument('--profile',choices=('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'),default='v1')
+    build=sub.add_parser('build'); build.add_argument('--output',type=Path,required=True); build.add_argument('--profile',choices=('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19','v20','v21','v22','v23','v24','v25','v26'),default='v1')
     scan=sub.add_parser('scan'); scan.add_argument('--pack',type=Path,required=True); scan.add_argument('--results',type=Path,required=True); scan.add_argument('--index',type=int,required=True); scan.add_argument('--reference',type=Path,default=REFERENCE)
     summary=sub.add_parser('summarize'); summary.add_argument('--results',type=Path,required=True); summary.add_argument('--reference',type=Path,default=REFERENCE)
     verify=sub.add_parser('verify-mining'); verify.add_argument('--pack',type=Path,required=True); verify.add_argument('--results',type=Path,required=True); verify.add_argument('--index',type=int,required=True)

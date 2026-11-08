@@ -1,0 +1,55 @@
+{
+  "areas": 15,
+  "seeds": [
+    930001,
+    930007,
+    930013,
+    930019,
+    930023,
+    930029,
+    930037,
+    930041,
+    930047,
+    930053,
+    930061,
+    930067,
+    930071,
+    930079,
+    930083
+  ],
+  "unit": "area/seed; resampling preserves each complete area as one unit",
+  "bootstrap_samples": 20000,
+  "random_seed": 0,
+  "metrics": {
+    "air_groups": {
+      "vanilla": 1630,
+      "candidate": 1730,
+      "percent_of_vanilla": 106.13496932515338,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 97.73018264615989,
+        "p50": 106.2317108460141,
+        "p97_5": 114.31837837076475
+      }
+    },
+    "y_minus57": {
+      "vanilla": 6564,
+      "candidate": 906,
+      "percent_of_vanilla": 13.80255941499086,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 12.951443491607368,
+        "p50": 13.802730873146146,
+        "p97_5": 14.674673514753014
+      }
+    },
+    "tunnel_contacts": {
+      "vanilla": 52810,
+      "candidate": 7963,
+      "percent_of_vanilla": 15.078583601590609,
+      "cluster_bootstrap_percentiles": {
+        "p2_5": 14.31046611207172,
+        "p50": 15.07576685523219,
+        "p97_5": 15.864275664516699
+      }
+    }
+  }
+}

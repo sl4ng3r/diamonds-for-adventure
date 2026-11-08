@@ -281,7 +281,7 @@ class PreloadOrderTest(unittest.TestCase):
 class TickingAreaWindowTest(unittest.TestCase):
     def test_padded_windows_cover_scan_and_neighbours_under_bedrock_limit(self):
         from tools.compare_worlds import ticking_area_windows
-        for chunks in (4,8,9,10,16):
+        for chunks in (4,8,9,10,16,32):
             windows=ticking_area_windows(chunks)
             self.assertTrue(all((x1-x0)*(z1-z0) <= 100 for x0,x1,z0,z1 in windows))
             self.assertTrue(all(any(x0 <= x < x1 and z0 <= z < z1 for x0,x1,z0,z1 in windows)
@@ -291,6 +291,8 @@ class TickingAreaWindowTest(unittest.TestCase):
         self.assertEqual(len(ticking_area_windows(9)),4)
         self.assertEqual(len(ticking_area_windows(10)),4)
         self.assertEqual(len(ticking_area_windows(16)),4)
+        self.assertEqual(len(ticking_area_windows(32)),16)
+        self.assertTrue(all((x1-x0)*(z1-z0) <= 100 for x0,x1,z0,z1 in ticking_area_windows(32)))
 
     def test_invalid_window_sizes_are_rejected(self):
         from tools.compare_worlds import ticking_area_windows

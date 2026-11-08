@@ -291,10 +291,12 @@ def run(seed, addon, chunks, diagnose=False, reapply=False, pack_path=None, mark
     world = data / 'worlds' / 'PrototypeTest'
     if restart_world is None:
         world.mkdir(parents=True, exist_ok=False)
+        area_count = len(ticking_area_windows(chunks))
         config = update_properties((ROOT / 'data/server.properties').read_text(), {
             'level-seed': str(seed), 'level-name':'PrototypeTest', 'online-mode':'true',
             'allow-list':'true', 'allow-cheats':'true', 'view-distance':'10', 'tick-distance':'4',
             'content-log-console-output-enabled':'true', 'content-log-file-enabled':'true',
+            'persistent-ticking-area-max-count':str(max(10, area_count + 2)),
         })
         (data / 'server.properties').write_text(config)
         packs = ([{'pack_id':PACK_ID,'version':[0,1,0]}] if addon else [])

@@ -1,0 +1,22 @@
+{
+  "purpose": "Independent V25 group-size and cave-fund-location holdout",
+  "server_version": "1.26.61.1",
+  "chunks_per_side": 32,
+  "areas": [
+    {"seed": 940001, "chunk_x": 8200, "chunk_z": -8200, "chunks_per_side": 32},
+    {"seed": 940007, "chunk_x": -8200, "chunk_z": 8200, "chunks_per_side": 32},
+    {"seed": 940013, "chunk_x": 8600, "chunk_z": 2800, "chunks_per_side": 32},
+    {"seed": 940019, "chunk_x": -2800, "chunk_z": -8600, "chunks_per_side": 32},
+    {"seed": 940023, "chunk_x": 8800, "chunk_z": -1800, "chunks_per_side": 32},
+    {"seed": 940029, "chunk_x": -8800, "chunk_z": 4600, "chunks_per_side": 32},
+    {"seed": 940037, "chunk_x": 3400, "chunk_z": 8800, "chunks_per_side": 32},
+    {"seed": 940041, "chunk_x": -5600, "chunk_z": -3400, "chunks_per_side": 32},
+    {"seed": 940047, "chunk_x": 9000, "chunk_z": 1600, "chunks_per_side": 32},
+    {"seed": 940053, "chunk_x": -1600, "chunk_z": 8600, "chunks_per_side": 32},
+    {"seed": 940061, "chunk_x": 5200, "chunk_z": -9000, "chunks_per_side": 32},
+    {"seed": 940067, "chunk_x": -9000, "chunk_z": -4200, "chunks_per_side": 32},
+    {"seed": 940071, "chunk_x": 1800, "chunk_z": 9200, "chunks_per_side": 32},
+    {"seed": 940079, "chunk_x": -7600, "chunk_z": 1400, "chunks_per_side": 32},
+    {"seed": 940083, "chunk_x": 7600, "chunk_z": -3400, "chunks_per_side": 32}
+  ]
+}

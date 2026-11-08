@@ -1,5 +1,14 @@
 # Projektanweisungen – Cave Diamonds
 
+## Fortsetzung V20–V22 (4. November 2026)
+
+- V20 (Pack-Hash `e45a6916bf1bc1afc12a3de7fa37056aefc1e6b34a0b332ef9e03270c9405858`) ändert gegenüber V19 nur die tiefe Zusatzregel von `scatter_chance: 50` auf `70`. Alle 20 Kalibriergebiete: 29/23 Luftkontaktgruppen, 31/118 eingeschlossene Erze auf −57, 202/1103 Tunnelkontakte, dieselben Gesamtwerte wie V19. 19 von 20 Gebietsauswertungen sind identisch. Dies belegt keine wirksame Erhöhung.
+- V21 (Hash `616c00dd4765d0b7e9937d2596dee8d8de3ce8aaf95c992337e00e83193fcbd2`) ergänzt eine separate tiefe Regel mit `scatter_chance: 0.3`; ebenfalls 20/20, dieselben Gesamtwerte und 19/20 identische Gebietsauswertungen gegenüber V19. Ob die Regel nicht ausgeführt wurde, identische Orte trifft oder anders interpretiert wurde, ist ungeklärt. Die [Feature-Regel-Dokumentation](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/featuresreference/examples/features/feature_rule_definition?view=minecraft-bedrock-stable) beschreibt 0 bis 1; bisherige Werte 50/70/90 dürfen nicht ungeprüft als Prozent interpretiert werden. Scatter-Features und Feature-Regeln nicht gleichsetzen.
+- V22 (Hash `e1548ddfcb9e2f57afa3211ccc2a19aa3853f31c87601608e3271127861a978f`) ergänzt eine eigene tiefe Regel Y=−52..−41 ohne explizite Chance. Kalibrierung 20/20: 34/23 Gruppen (147,8 %), 31/118 Y=−57 (26,3 %), Tunnelmodell 202/1103 (18,3 %).
+- V23 (Hash `bbb695f9f421ac2e5ceeb37073d7239d0352dfe6bf21aee9b8e21009b74f1160`) setzt für diese Regel `0.4`: 20/20 Gebiete mit denselben Gesamtwerten wie V19; Ursache nicht geklärt. V24 (Hash `de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832`) setzt stattdessen `40` und erzielte 32/23 Gruppen (139,1 %), Y=−57 und Tunnelmodell wie V19; Größen 1/2/3/4/5 = 4/6/16/5/1. Das belegt keine exakte Wahrscheinlichkeit.
+- Der V24-Holdoutplan `reference/balance-holdout-plan-2026-11-04-v24.json` wurde vor den Messungen festgelegt, identische damals ungeprüfte Seeds stehen auch im ursprünglich für V20 angelegten Plan. Sechs Seeds/1.536 Chunks: 157/144 Luftkontaktgruppen (109,0 %), 114/674 eingeschlossene Y=−57-Erze (16,9 %), Tunnelmodell 845/5225 (16,2 %). Gruppen 1/2/3/4/5: 18/48/61/28/2. Gebiets-Bootstrap 2,5–97,5 % für Gruppen 85,6–133,6 %; große Unsicherheit. Boden/Wand/Decke in je 3/3 kontrollierten Versuchen erfolgreich; eine simulierte `setblock`-Entfernung blieb beim Neustart entfernt, kein echter Abbau. Die Höhlenmessung beweist keine Erreichbarkeit.
+- Auffälligkeit V24: 196 der 327 luftberührten Erzblöcke lagen bei X modulo 16 = 0–7, 131 bei 8–15; die Blöcke sind wegen Adern nicht unabhängig. Vanilla: 72/89. Auf Gruppenebene V24 92 nur in erster Hälfte, 57 nur in zweiter, acht beidseits; Vanilla 66/77/1. Kein bewiesenes ausnutzbares Muster; mit weiteren Seeds prüfen. `tools.balance_batch status --pack experiments/balance-v24/behavior_pack --results experiments/balance-v24/holdout-results --reference reference/balance-holdout-v24-1.26.61.1-2026-11-04.json` reproduziert den Status. Kein Release; Spiel- und Realmtests bleiben offen.
+
 ## Ziel und Arbeitsweise
 
 - Minecraft-Bedrock-Behavior-Pack für eine gemeinsame Realm-Welt: PC als Host/Spielgerät, Beitritt auch von PlayStation beziehungsweise Switch. Ziel ist, Höhlenerkundung gegenüber geradem Tunnelbau auf Y=−57 attraktiver zu machen; Tunnelbau soll weiterhin gelegentliche Diamanten liefern. Normale Diamanterze, Diamanten, Werkzeuge und Verzauberungen sollen erhalten bleiben.
@@ -92,3 +101,53 @@ V19-Gruppengrößen 1/2/3/4/5: Kalibrierung 3/7/13/5/1, Holdout 25/44/66/27/4. D
 ### Technischer V19-Stand
 
 V19s Kontrolltests liegen unter `experiments/balance-v19/verification/`: Boden, Decke und Wand erfolgreich in je drei direkten Hohlraumversuchen; zwei simulierte `setblock air`-Abbau-/Neustartproben ließen den entfernten Block entfernt; Ost-/West-Vorladen einer negativen 4×4-Region ergab identische 83 Erzpositionen. Ein gezielter Erzvergleich fand eine zusätzliche Tiefenschiefer-Lapisposition; andere Erztypen sind daher nicht vollständig garantiert unverändert. Werkzeug-, Glück-, Behutsamkeit-, Erfahrung-, Verschleiß-, Explosions-, Leistungs-, Geräte- und Realm-Tests bleiben offen. Es gibt weiterhin kein freigegebenes `.mcpack`.
+
+## V24: großer unabhängiger Holdout (6. November 2026)
+
+Der vorab festgelegte Plan `reference/balance-large-plan-2026-11-04-v24.json` wurde unverändert mit 15 neuen Seeds und je 32×32 Chunks ausgeführt. Vanilla wurde zuerst gescannt und unter `reference/balance-large-v24-1.26.61.1-2026-11-05.json` eingefroren; der V24-Kandidat (`experiments/balance-v24/behavior_pack`, Pack-Hash `de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832`) wurde danach in denselben Gebieten gemessen. Insgesamt wurden 15.360 Chunks und ein 512×512-Kernbereich je Gebiet verarbeitet. Alle 15 Ergebnisdateien liegen unter `experiments/balance-large-v24/holdout-results/`; keine Datei wurde überschrieben.
+
+| Kennzahl | Vanilla | V24 | Anteil V24/Vanilla |
+| --- | ---: | ---: | ---: |
+| Luftkontakt-Fundstellen (Komponenten-Näherung) | 1.630 | 1.730 | **106,1 %** |
+| eingeschlossene Erze auf Y=−57 | 6.564 | 906 | **13,8 %** |
+| eingeschlossene Erze im Band Y=−59..−55 | 32.891 | 5.052 | **15,4 %** |
+| überlappende Tunnelkontakte auf Y=−57 | 52.810 | 7.963 | **15,1 %** |
+
+Die Werte liegen für diese vorab festgelegte Stichprobe im Arbeitskorridor 105–125 % Fundstellen und 10–25 % eingeschlossenes Erz auf Y=−57, aber der Punktwert liegt näher an 105 % als am Wunschwert 115 %. Der gebietsweise Bootstrap behandelt jedes vollständige Gebiet als Einheit (20.000 Wiederholungen, fester Zufallsstart): Fundstellen 97,7–114,3 %, Y=−57 13,0–14,7 %, Tunnel 14,3–15,9 % (2,5–97,5-%-Perzentile). Die Seed-Streuung ist sichtbar; dies ist keine Garantie pro Welt und kein Spielertrag pro Stunde.
+
+Die gemessenen Luftkontakt-Gruppengrößen V24 waren 1/2/3/4/5/7 = 219/556/643/265/41/6. Drei- und Vierergruppen bilden zusammen 908 von 1.730 Gruppen (52,5 %); Zweiergruppen sind einzeln seltener als diese zusammen, Einer und Fünfer bleiben deutlich kleiner. Die Gruppierung ist eine flächenweise technische Komponente und beweist weder eine vollständige natürliche Ader noch Erreichbarkeit. Die fünf Höhenbänder −64..−48/−47..−32/−31..−16/−15..−1/0..16 enthielten bei V24 400/1.200/781/658/43 luftberührte Erzblöcke. Im gesamten Holdout wurden 0 Kandidaten-Erze auf Y=17..40 gemessen; dieser Zusatzscan ist nur ein begrenzter Ausschnitt.
+
+Die großen Vanilla-Scans enthielten 1.049 von 105.324 technischen Komponenten an der äußeren Scan-Grenze; bei V24 waren es 401 von 42.126. Luftkontaktgruppen am Rand: 10 Vanilla, 19 V24. Diese Fälle bleiben als potenziell abgeschnitten markiert und werden nicht als vollständige Adern ausgegeben. Die Kandidatenwelt enthielt unter anderem `minecraft:lush_caves`, `minecraft:dripstone_caves`, `minecraft:deep_dark`, Ozean-, Fluss-, Wald-, Dschungel-, Taiga- und Eisbiome; die Biome wurden aus den gespeicherten Erzscans gezählt. Das ist eine Abdeckung der ausgewählten Gebiete, keine vollständige Biom-Garantie.
+
+Die drei V24-Kontrollproben in `experiments/balance-large-v24/verification/` waren erfolgreich: Boden 3/3, Decke 3/3 und Wand 3/3; eine per `setblock air` simulierte Entfernung blieb nach Neustart entfernt (`mining-00.json`), und die ausgewählte Erzpositionsprobe (`ore-trace-00.json`) fand in diesem Gebiet keine Änderungen an den geprüften anderen Erztypen. Die Proben ersetzen kein echtes Spieler-Mining und keine Realm-Prüfung.
+
+Der getrennte lokale Add-on-Engine-Test mit Neustart/Fingerprint zeigte im Vanilla-Kontrolllauf eine geänderte Fingerprint-Chunk-ID, im Add-on-Lauf keine geänderten Fingerprint-Chunks; die normalen Erzpositionen blieben in diesem Lauf stabil. Ein kombinierter isolierter Feature-Test und ein Luftkontakt-/Gegenrichtungs-Test liefen ohne Server- oder JSON-Fehler. Diese Tests betreffen Testkopien und sind kein Beweis für allgemeine Realm-Persistenz oder eine direkte V24-Funktionsgarantie.
+
+**Status:** V24 ist nach dem großen Holdout ein technisch und balanceseitig plausibler lokaler Kandidat, aber weiterhin **nicht freigegeben**. Offen bleiben echte Spieler-Spielzeitvergleiche, Leistung mit zwei Spielern, Werkzeug-/Verzauberungs-/Explosionsverhalten, Versionsabgleich sowie Test-Realm mit PC und den tatsächlichen Konsolen. Vor diesen Prüfungen kein Produktions-`.mcpack` und kein GitHub-Release erstellen. Reproduktion: `python3 -m tools.balance_batch status --pack experiments/balance-v24/behavior_pack --results experiments/balance-large-v24/holdout-results --reference reference/balance-large-v24-1.26.61.1-2026-11-05.json`.
+
+## V25: Adergrößen und unabhängiger 15-Seed-Holdout (6. November 2026)
+
+V25 wurde getrennt von V24 unter `experiments/balance-v25/behavior_pack` erzeugt. Gegenüber V24 wurde ausschließlich die gewichtete Auswahl der versuchten Höhlengruppengröße geändert: 1/2/35/52/10 für Größen 1/2/3/4/5 statt 5/15/35/35/10. Pack-Hash: `5b4e7b84e8bf5a35b21d3db0544ed0017f83f2e99822c9459694242f0ff21206`. Alle älteren Varianten, Ergebnisse und Testwelten blieben unverändert.
+
+Die 20 kleinen Kalibriergebiete ergaben 32/23 Luftkontaktgruppen, 31/118 eingeschlossene Erze auf Y=-57 und 202/1103 Tunnelkontakte; Gruppengrößen 1/2/3/4/5: 1/8/16/6/1. Die 15 großen V24-Gebiete wurden nur zur Kalibrierung wiederverwendet: 1729/1630 Gruppen (106,1 %), 906/6564 Y=-57-Erze (13,8 %) und 7968/52810 Tunnelkontakte (15,1 %); Gruppengrößen 1/2/3/4/5/7: 92/453/754/382/42/6.
+
+Der unabhängige Plan `reference/balance-holdout-plan-2026-11-06-v25.json` wurde vorab mit 15 neuen Seeds und je 32×32 Chunks festgelegt. Vanilla wurde zuerst unter `reference/balance-holdout-v25-1.26.61.1-2026-11-06.json` eingefroren; V25 wurde danach in exakt denselben 15360 Chunks gemessen.
+
+| Kennzahl | Vanilla | V25 | V25/Vanilla |
+| --- | ---: | ---: | ---: |
+| Luftkontakt-Fundstellen | 1509 | 1629 | **108,0 %** |
+| eingeschlossene Erze auf Y=-57 | 6683 | 1045 | **15,6 %** |
+| eingeschlossene Erze Y=-59..-55 | 33087 | 4977 | **15,0 %** |
+| überlappende Tunnelkontakte | 52884 | 8107 | **15,3 %** |
+
+Die Holdout-Gruppenverteilung 1/2/3/4/5/6 lautet 113/394/722/364/34/2; Dreier- und Vierergruppen bilden 1086/1629 = 66,7 %. Die gebietsweise Bootstrap-Auswertung in `experiments/balance-v25/holdout-uncertainty.json` behandelt vollständige Seeds als Einheiten und ergibt 2,5–97,5-%-Intervalle von 99,3–117,0 % für Fundstellen, 14,0–17,4 % für Y=-57 und 14,5–16,1 % für Tunnelkontakte.
+
+Kontrolltests unter `experiments/balance-v25/verification/`: Boden, Decke und Wand jeweils 3/3 in einem künstlichen Hohlraum; simulierte `setblock air`-Entfernung blieb nach Neustart entfernt; die ausgewählte Erzpositionsprobe zeigte bei den geprüften anderen Erztypen keine V25-Abweichung gegenüber Vanilla. Diese Tests ersetzen keinen echten Abbau, keine vollständige Blockprüfung und keine Realm-Prüfung. V25 bleibt ein lokal geprüfter Kandidat ohne Freigabe; Spielzeit-, Mehrspieler-, Versions-, Realm-, Geräte-, Werkzeug-, Verzauberungs- und Explosionstests stehen noch aus.
+
+## V26: Vierergruppen für den ersten Spieltest (8. November 2026)
+
+V26 ist eine eigene V25-Kopie mit den Gewichten 1/1/25/64/10 für versuchte Adergrößen 1/2/3/4/5. Pack-Hash: `ec60528ea113e0f44633a1af020ab83f6ff7dada5e2df1a87dc1105c90bd7cfd`. Die 15 großen Kalibriergebiete ergaben 1732/1630 Luftkontaktgruppen (106,3 %), 906/6564 eingeschlossene Y=-57-Erze (13,8 %), 5053/32891 im Band Y=-59..-55 (15,4 %) und 7969/52810 Tunnelkontakte (15,1 %). Gruppengrößen 1/2/3/4/5/6/7/8: 90/381/736/461/59/1/3/1; Dreier+Vierer bilden 69,1 %, Vierer sind häufiger als Zweier.
+
+Die Gebiete wurden bereits bei V24 verwendet und sind deshalb keine unabhängige V26-Bestätigung. Die 20 kleinen V26-Gebiete liefern 31/23 Gruppen, 31/118 Y=-57 und 202/1103 Tunnelkontakte, sind aber zu klein für eine belastbare Auswahl. V26 ist ein plausibler Kandidat für einen entbehrlichen ersten Spieltest, nicht für eine Realm-Freigabe.
+
+V26-Kontrollen unter `experiments/balance-v26/verification/` waren erfolgreich: Boden/Decke/Wand 3/3; simulierte Entfernung blieb nach Neustart entfernt. Die ausgewählte Erzpositionsprobe fand zwei entfernte Tiefenschiefer-Goldpositionen gegenüber Vanilla. Das ist eine kleine, nicht kausale Probe; andere Erze bleiben ungarantiert unverändert. Der große Scanner stabilisiert 32×32-Gebiete nun 30 Sekunden und bricht bei ungeladenen Chunks ab.

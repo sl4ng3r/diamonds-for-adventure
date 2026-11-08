@@ -1,0 +1,28 @@
+{
+  "index": 0,
+  "seed": 42,
+  "chunk_x": 0,
+  "chunk_z": 0,
+  "pack_sha256": "5b4e7b84e8bf5a35b21d3db0544ed0017f83f2e99822c9459694242f0ff21206",
+  "world": "data/research/cavediamonds-research-fe079e095f",
+  "mined": {
+    "x": 14,
+    "y": -39,
+    "z": 29,
+    "type": "minecraft:deepslate_diamond_ore",
+    "biome": "minecraft:lush_caves",
+    "exposed": true,
+    "neighbours": [
+      "minecraft:deepslate",
+      "minecraft:deepslate",
+      "minecraft:air",
+      "minecraft:deepslate",
+      "minecraft:deepslate_diamond_ore",
+      "minecraft:deepslate"
+    ]
+  },
+  "mined_ore_reappeared": false,
+  "other_changes_modified_chunk": 0,
+  "changes_other_chunks": 0,
+  "note": "setblock air, not real player mining; non-modified chunks may regenerate"
+}

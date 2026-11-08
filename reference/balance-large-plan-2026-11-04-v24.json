@@ -1,0 +1,23 @@
+{
+  "purpose": "Großer unabhängiger V24-Vergleich mit 15 vorab festgelegten Seeds und je 512x512 Blöcken. Keine Auswahl nach Ergebnissen.",
+  "server_version": "1.26.61.1",
+  "pack_sha256": "de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832",
+  "chunks_per_side": 32,
+  "areas": [
+    {"seed": 930001, "chunk_x": 2100, "chunk_z": -4100},
+    {"seed": 930007, "chunk_x": -3900, "chunk_z": 2200},
+    {"seed": 930013, "chunk_x": 4900, "chunk_z": 3200},
+    {"seed": 930019, "chunk_x": -2400, "chunk_z": -4600},
+    {"seed": 930023, "chunk_x": 5100, "chunk_z": -1600},
+    {"seed": 930029, "chunk_x": -6100, "chunk_z": 4700},
+    {"seed": 930037, "chunk_x": 3000, "chunk_z": 6100},
+    {"seed": 930041, "chunk_x": -5200, "chunk_z": -2300},
+    {"seed": 930047, "chunk_x": 6400, "chunk_z": 1800},
+    {"seed": 930053, "chunk_x": -1700, "chunk_z": 5500},
+    {"seed": 930061, "chunk_x": 4400, "chunk_z": -6200},
+    {"seed": 930067, "chunk_x": -6300, "chunk_z": -3700},
+    {"seed": 930071, "chunk_x": 1200, "chunk_z": 7200},
+    {"seed": 930079, "chunk_x": -7200, "chunk_z": 900},
+    {"seed": 930083, "chunk_x": 7200, "chunk_z": -2800}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "index": 0,
+  "seed": 42,
+  "chunk_x": 0,
+  "chunk_z": 0,
+  "pack_sha256": "de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832",
+  "worlds": [
+    "data/research/cavediamonds-research-5f80efedaf",
+    "data/research/cavediamonds-research-2c2a259e2e",
+    "data/research/cavediamonds-research-1b130355f7"
+  ],
+  "trace_counts": [
+    1285,
+    1285,
+    1285
+  ],
+  "vanilla_repeat": {
+    "removed": [],
+    "added": []
+  },
+  "candidate_vs_vanilla": {
+    "removed": [],
+    "added": []
+  },
+  "note": "Only selected ore types and Y=-64..16; position differences do not establish a direct cause."
+}

@@ -292,6 +292,113 @@ class BalanceCandidateTest(unittest.TestCase):
             buried=json.loads((pack/'feature_rules/sparse_buried_rule.json').read_text())['minecraft:feature_rules']['distribution']
             self.assertEqual(buried['iterations'],3)
 
+    def test_twentieth_profile_changes_only_deep_chance(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v19',profile='v19')
+            candidate=create_candidate(source,Path(directory)/'v20',profile='v20')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json':
+                    a['header']['name']=b['header']['name']
+                if str(relative)=='feature_rules/cave_deep_extra.json':
+                    self.assertEqual(b['minecraft:feature_rules']['distribution']['scatter_chance'],70)
+                    a['minecraft:feature_rules']['distribution']['scatter_chance']=70
+                self.assertEqual(a,b,str(relative))
+
+    def test_twenty_first_profile_adds_only_one_probabilistic_deep_rule(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v19',profile='v19')
+            candidate=create_candidate(source,Path(directory)/'v21',profile='v21')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json': a['header']['name']=b['header']['name']
+                self.assertEqual(a,b,str(relative))
+            extra=json.loads((candidate/'feature_rules/cave_deep_extra2.json').read_text())['minecraft:feature_rules']
+            self.assertEqual(extra['distribution']['scatter_chance'],0.3)
+            self.assertEqual(extra['description']['identifier'],'cavediamonds:cave_deep_extra2')
+
+    def test_twenty_second_profile_adds_distinct_deep_band(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v19',profile='v19')
+            candidate=create_candidate(source,Path(directory)/'v22',profile='v22')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json': a['header']['name']=b['header']['name']
+                self.assertEqual(a,b,str(relative))
+            dist=json.loads((candidate/'feature_rules/cave_deep_extra2.json').read_text())['minecraft:feature_rules']['distribution']
+            self.assertEqual(dist['y']['extent'],[-52,-41])
+            self.assertNotIn('scatter_chance',dist)
+
+    def test_twenty_third_profile_thins_only_v22_extra_rule(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v22',profile='v22')
+            candidate=create_candidate(source,Path(directory)/'v23',profile='v23')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json': a['header']['name']=b['header']['name']
+                if str(relative)=='feature_rules/cave_deep_extra2.json':
+                    self.assertEqual(b['minecraft:feature_rules']['distribution']['scatter_chance'],0.4)
+                    a['minecraft:feature_rules']['distribution']['scatter_chance']=0.4
+                self.assertEqual(a,b,str(relative))
+
+    def test_twenty_fourth_profile_changes_only_v23_chance(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v23',profile='v23')
+            candidate=create_candidate(source,Path(directory)/'v24',profile='v24')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json': a['header']['name']=b['header']['name']
+                if str(relative)=='feature_rules/cave_deep_extra2.json':
+                    self.assertEqual(b['minecraft:feature_rules']['distribution']['scatter_chance'],40)
+                    a['minecraft:feature_rules']['distribution']['scatter_chance']=40
+                self.assertEqual(a,b,str(relative))
+
+    def test_twenty_fifth_profile_changes_only_vein_weights(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v24',profile='v24')
+            candidate=create_candidate(source,Path(directory)/'v25',profile='v25')
+            for path in base.rglob('*.json'):
+                relative=path.relative_to(base)
+                a=json.loads(path.read_text()); b=json.loads((candidate/relative).read_text())
+                if str(relative)=='manifest.json':
+                    a['header']['name']=b['header']['name']
+                    a['header']['description']=b['header']['description']
+                if str(relative)=='features/cave_vein_choice.json':
+                    for entry in a['minecraft:weighted_random_feature']['features']:
+                        size=int(entry[0].rsplit('_n',1)[1])
+                        entry[1]={'1':1,'2':2,'3':35,'4':52,'5':10}[str(size)]
+                self.assertEqual(a,b,str(relative))
+            choice=json.loads((candidate/'features/cave_vein_choice.json').read_text())['minecraft:weighted_random_feature']['features']
+            weights={}
+            for ref,weight in choice:
+                size=int(ref.rsplit('_n',1)[1]); weights.setdefault(size,set()).add(weight)
+            self.assertEqual(weights,{1:{1},2:{2},3:{35},4:{52},5:{10}})
+            self.assertEqual(json.loads((candidate/'manifest.json').read_text())['header']['name'],'Cave Diamonds – Balance Test v25 (nicht freigegeben)')
+
+    def test_twenty_sixth_profile_further_favors_four_block_veins(self):
+        source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            base=create_candidate(source,Path(directory)/'v25',profile='v25')
+            candidate=create_candidate(source,Path(directory)/'v26',profile='v26')
+            base_choice=json.loads((base/'features/cave_vein_choice.json').read_text())
+            candidate_choice=json.loads((candidate/'features/cave_vein_choice.json').read_text())
+            base_weights={int(row[0].rsplit('_n',1)[1]):row[1] for row in base_choice['minecraft:weighted_random_feature']['features']}
+            candidate_weights={int(row[0].rsplit('_n',1)[1]):row[1] for row in candidate_choice['minecraft:weighted_random_feature']['features']}
+            self.assertEqual(base_weights,{1:1,2:2,3:35,4:52,5:10})
+            self.assertEqual(candidate_weights,{1:1,2:1,3:25,4:64,5:10})
+            self.assertEqual(json.loads((candidate/'manifest.json').read_text())['header']['name'],'Cave Diamonds – Balance Test v26 (nicht freigegeben)')
+
     def test_atomic_result_write_does_not_overwrite(self):
         with tempfile.TemporaryDirectory() as directory:
             target=Path(directory)/'area-00.json'
@@ -311,7 +418,7 @@ class BalanceCandidateTest(unittest.TestCase):
 
     def test_all_custom_feature_references_resolve(self):
         source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
-        for profile in ('v3','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19'):
+        for profile in ('v3','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19','v25','v26'):
           with tempfile.TemporaryDirectory() as directory:
             pack=create_candidate(source,Path(directory)/'pack',profile=profile)
             ids=set(); references=[]

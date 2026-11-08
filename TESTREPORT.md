@@ -179,6 +179,22 @@ python3 tools/compare_worlds.py --diagnose --combined-test --preload-direction e
 python3 tools/compare_worlds.py --diagnose --combined-test --preload-direction west --chunks 4 --seed 24680 --chunk-x -1000 --chunk-z 1000
 ```
 
+## Nachjustierung V20–V23 (4. November 2026)
+
+V20 änderte nur `scatter_chance` der tiefen V19-Feature-Regel von 50 auf 70. V21 ergänzte eine tiefe Regel mit `scatter_chance` 0.3. Beide ergaben in je 20 Kalibriergebieten dieselben Gesamtwerte wie V19: 29/23 Luftkontaktgruppen, 31/118 eingeschlossene Erze auf Y=−57 und 202/1103 Tunnelkontakte; 19/20 Gebietsanalysen waren identisch. Der Grund ist nicht geklärt. Laut [Microsofts Feature-Regel-Referenz](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/featuresreference/examples/features/feature_rule_definition?view=minecraft-bedrock-stable) liegen solche Wahrscheinlichkeiten zwischen 0 und 1; frühere Werte 50 und 70 dürfen daher nicht als gesicherte Prozentwerte ausgegeben werden. Die Engine-Wirkung bleibt separat zu prüfen.
+
+V22 ergänzt eine Regel im Höhenband −52..−41 ohne gesetztes `scatter_chance`. Die 20 Gebiete enthalten 34/23 Luftkontaktgruppen (147,8 %), 31/118 eingeschlossene Erze auf −57 (26,3 %) und 202/1103 Tunnelkontakte (18,3 %). V22 verändert damit mindestens im untersuchten Vergleich die Höhlenfundzahl, liegt aber in dieser kleinen Kalibrierstichprobe über dem Arbeitskorridor. Pack-Hash: `e1548ddfcb9e2f57afa3211ccc2a19aa3853f31c87601608e3271127861a978f`.
+
+V23 verwendet denselben Zusatzbereich mit `scatter_chance: 0.4` und ergab 20/20 dieselben Gesamtwerte wie V19. V24 verwendet stattdessen den Zahlenwert `40`: In 20 Kalibriergebieten 32/23 Gruppen (139,1 %), 31/118 eingeschlossene Y=−57-Erze (26,3 %), 202/1103 Tunnelkontakte (18,3 %); Gruppengrößen 1/2/3/4/5 = 4/6/16/5/1. Die Wirkung ist empirisch, keine Bestätigung einer exakten Prozentwahrscheinlichkeit. V24 wurde trotz der hohen Kalibrierquote als Kandidat für einen neuen Holdout eingefroren, da V19 auf derselben kleinen Kalibrierung ebenfalls hoch lag und im großen Holdout nur 101,2 % erreichte. Diese frühere Messung hat die Auswahl beeinflusst und ist keine unabhängige Bestätigung von V24.
+
+Der vorab festgelegte V24-Holdout (`reference/balance-holdout-plan-2026-11-04-v24.json`, Pack-Hash `de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832`) umfasste sechs neue Seeds und 1.536 Chunks. Vanilla zuerst: 144 Luftkontaktgruppen; V24: 157 (109,0 %). Eingeschlossenes Erz Y=−57: 114/674 (16,9 %); überlappendes Tunnelmodell 845/5225 (16,2 %). V24-Gruppen 1/2/3/4/5 = 18/48/61/28/2. Verhältnis der Gruppen je Seed in Planreihenfolge: 26/20, 37/31, 35/33, 25/14, 29/32, 5/14. Das sind keine Spielzeiterträge oder Erreichbarkeitsnachweise.
+
+Gebiets-Bootstrap (10.000 Wiederholungen, sechs vollständige Gebiete als Einheiten): 2,5–97,5-%-Perzentile 85,6–133,6 % für Gruppen, 11,6–24,1 % für Y=−57 und 12,4–21,3 % für Tunnelkontakte. Der große Bereich erlaubt keine präzise Aussage, dass das tatsächliche Plus genau 9 % beträgt. Von 327 luftberührten V24-Blöcken lagen 196 bei X modulo 16 = 0–7 und 131 bei 8–15; bei Vanilla 72/89 von 161. Zusammenhängende Erzblöcke sind nicht unabhängig, daher ist das kein Nachweis eines ausnutzbaren Musters. Gruppenbasierte zusätzliche Untersuchung ist offen.
+
+Auf Gruppenebene haben 92 V24-Luftkontaktgruppen ihre luftberührten Blöcke ausschließlich bei X modulo 16 = 0–7, 57 ausschließlich bei 8–15 und acht auf beiden Seiten; Vanilla 66/77/1. Die Gruppen sind flächig verbundene Komponenten innerhalb des Scanbereichs, keine sicheren natürlichen Adern. Die Beobachtung ist ein Hinweis auf eine mögliche Chunk-Koordinatenpräferenz und muss mit zusätzlichen unabhängigen Gebieten geprüft werden.
+
+Kontrollierte Oberflächenproben ergaben bei Boden, Wand und Decke jeweils 3/3 erfolgreiche Platzierungen. Eine simulierte Entfernung per `setblock air` blieb nach Neustart entfernt; es traten keine weiteren Diamantpositionsänderungen in dieser Probe auf. Das testet keinen echten Spielerabbau. Alle Varianten bleiben Teststände; Realm, Spielzeiten, Mehrspielerlast, Werkzeuge und Verzauberungen sind offen. Der Nutzer akzeptiert ungefähr 10 % zusätzliche Höhlenfundstellen als Richtwert.
+
 ## Balancevarianten V9–V19 und Holdouts (4. November 2026)
 
 Die Varianten V9 bis V19 wurden jeweils in einem eigenen Behavior-Pack und Ergebnisordner erzeugt. Kein Ergebnis überschreibt eine ältere Variante. Die Sammeltests verwenden dieselbe Vanilla-Referenz mit 20 Kalibriergebieten, 320 Chunks und Bedrock Dedicated Server 1.26.61.1.
@@ -228,3 +244,68 @@ In zwei Gebieten wurden Positionen ausgewählter anderer Erztypen jeweils zwisch
 20 zuvor für die Kalibrierung ausgewählte Referenzgebiete (320 Chunks, Bedrock 1.26.61.1): 42 luftberührte Gruppen gegenüber 23 in Vanilla, 21 gegenüber 118 eingeschlossene Erze auf Y=−57, Tunnelmodell 125 gegenüber 1.103 Kontakten. Das Höhlenziel von rund 115 % ist mit 182,6 % verfehlt. Es handelt sich nicht um einen unabhängigen oder repräsentativen Nachweis. `experiments/balance-v8/status.json` enthält die Höhen- und Flächenzählung; das tiefste Höhenband enthielt trotz stärker gewichteter Startpunkte nur einen sichtbaren Testblock. Kein Diamanterz wurde auf Y=17..40 gefunden, andere Höhen wurden hier nicht untersucht.
 
 In einem künstlichen Hohlraum funktionierte die gezielte Erzplatzierung an Boden, Decke und Wand bei je drei von drei Versuchen. Die gezählte Fläche und die bei natürlicher Generierung luftberührten Erze belegen weder Erreichbarkeit noch einen Realm-Einsatz. Ergebnis `experiments/balance-v8/verification/surface-probes.json`; V8 bleibt nicht freigegeben.
+
+## V24 großer Holdout und technische Nachtests (6. November 2026)
+
+### Unabhängiger 15-Seed-Vergleich
+
+Der große Holdout wurde vorab im Plan `reference/balance-large-plan-2026-11-04-v24.json` festgelegt: 15 Seeds, je 32×32 Kern-Chunks (512×512 Blöcke), insgesamt 15.360 Chunks. Die Vanilla-Referenz wurde zuerst erzeugt und unveränderlich unter `reference/balance-large-v24-1.26.61.1-2026-11-05.json` gespeichert. Danach lief V24 mit exakt denselben Seeds und Koordinaten. Paket-Hash: `de14344d983552f58f5e2f4075e63def5e1ca910d3ef250885268e76e0259832`. Alle Gebiete wurden atomar unter `experiments/balance-large-v24/holdout-results/area-00.json` bis `area-14.json` gespeichert.
+
+| Kennzahl | Vanilla | V24 | V24/Vanilla |
+| --- | ---: | ---: | ---: |
+| Luftkontakt-Komponenten | 1.630 | 1.730 | 106,1 % |
+| eingeschlossene Erze auf Y=−57 | 6.564 | 906 | 13,8 % |
+| eingeschlossene Erze Y=−59..−55 | 32.891 | 5.052 | 15,4 % |
+| überlappende Modell-Tunnelkontakte | 52.810 | 7.963 | 15,1 % |
+
+Für die Gruppenquote liegt der Punktwert damit knapp über der Untergrenze des Arbeitskorridors 105–125 %, aber unter dem Wunschwert von ungefähr 115 %. Das ist ein zusammengefasster Holdout-Befund, keine Garantie pro Seed und keine Spielzeitmessung. Die gebietsweise Bootstrap-Auswertung liegt in `experiments/balance-large-v24/holdout-uncertainty.json` (20.000 Wiederholungen, feste Zufallsquelle, vollständige Gebiete als Einheiten): Fundstellen 97,7–114,3 %, Y=−57 13,0–14,7 %, Tunnelkontakte 14,3–15,9 % (2,5–97,5-%-Perzentile).
+
+Die Gruppenverteilung des Kandidaten war 1/2/3/4/5/7 = 219/556/643/265/41/6. Drei- und Vierergruppen stellen 908/1.730 = 52,5 %; Zweiergruppen sind einzeln seltener als diese zusammen, Einer und Fünfer sind selten. Die Gruppen sind flächenweise verbundene Messkomponenten und nicht zwingend vollständige natürliche Adern. V24-Luftkontakte nach Höhenband −64..−48/−47..−32/−31..−16/−15..−1/0..16: 400/1.200/781/658/43. Damit ist eine tiefere Gewichtung sichtbar, aber keine harte obere Fundhöhenbegrenzung bewiesen. Der Zusatzscan Y=17..40 fand im Kandidaten 0 Erze; er deckt nur die untersuchten Gebiete und diese Höhen ab.
+
+Die große Referenz enthielt 1.049 von 105.324 Komponenten an der äußeren Scan-Grenze; V24 401 von 42.126. Luftkontaktgruppen an der äußeren Grenze: 10 Vanilla, 19 V24. Diese Fälle bleiben potenziell abgeschnitten. Die 15 Kandidatengebiete enthielten unter anderem üppige Höhlen, Tropfsteinhöhlen, Deep Dark, Ozean-, Fluss-, Wald-, Dschungel-, Taiga- und Eisbiome. Die gespeicherten Biomeinträge belegen Abdeckung in dieser Stichprobe, aber keine vollständige Biom- oder Erreichbarkeitsgarantie.
+
+### Technische Nachtests
+
+- `python3 -m tools.balance_experiment probe-surfaces --pack experiments/balance-v24/behavior_pack --results experiments/balance-large-v24/verification`: Boden 3/3, Decke 3/3, Wand 3/3 erfolgreich. Kontrollierter Hohlraum, kein Beweis natürlicher Verteilung.
+- `python3 -m tools.balance_experiment verify-mining --pack experiments/balance-v24/behavior_pack --results experiments/balance-large-v24/verification --index 0`: simuliertes `setblock air` blieb nach Neustart entfernt; keine weiteren Änderungen in diesem Messgebiet. Kein echter Spielerabbau.
+- `python3 -m tools.balance_experiment trace-ores --pack experiments/balance-v24/behavior_pack --results experiments/balance-large-v24/verification --index 0`: in der ausgewählten Probe Vanilla-Wiederholungen identisch, keine zusätzlichen oder entfernten Positionen der geprüften anderen Erztypen. Das ist keine vollständige Blockprüfung.
+- Normaler lokaler Add-on-Engine-Test mit Neustart/Fingerprint: Vanilla zeigte eine geänderte Fingerprint-Chunk-ID, der getrennte Add-on-Testlauf keine geänderten Fingerprint-Chunks; die normalen Erzpositionen blieben in diesem Lauf stabil. Ein separater kombinierter Feature-Test und Luftkontakt-/Gegenrichtungs-Test liefen ohne Server- oder JSON-Fehler. Das ist keine direkte V24- oder Realm-Garantie.
+- `python3 -m unittest discover -s tests -v`: 84 Tests bestanden. `docker compose config --quiet`: erfolgreich. Diese Prüfungen ersetzen weder echte Spieler- noch Realm-Tests.
+
+### Befund und offene Freigabepunkte
+
+V24 ist nach diesem großen Holdout ein plausibler lokaler Kandidat: Tunnel-/Y=−57-Reduktion liegt nahe 15 %, die Fundstellen liegen knapp im Arbeitskorridor und die gewünschte 3/4-Gruppenmehrheit ist im großen Scan erfüllt. Eine Freigabe erfolgt noch nicht. Offen bleiben reale Spielzeitvergleiche (Tunnel Y=−57 gegen Höhlen), Werkzeug-/Verzauberungs-/Explosionsverhalten, Leistung mit zwei Spielern, Versionsabgleich, Test-Realm sowie PC-/PlayStation-/Switch-Beitritt. Bis dahin kein Produktions-`.mcpack` und kein GitHub-Release.
+
+## V25: Adergrößen und unabhängiger 15-Seed-Holdout (6. November 2026)
+
+V25 ist eine eigene V24-Kopie mit den Gewichten 1/2/35/52/10 für versuchte Größen 1/2/3/4/5. Pack-Hash: `5b4e7b84e8bf5a35b21d3db0544ed0017f83f2e99822c9459694242f0ff21206`. Kleine Kalibrierung: 32/23 Gruppen, 31/118 Y=-57-Erze, 202/1103 Tunnelkontakte, Größen 1/2/3/4/5 = 1/8/16/6/1. Große V24-Kalibrierung: 1729/1630 Gruppen, 906/6564 Y=-57, 7968/52810 Tunnelkontakte, Größen 1/2/3/4/5/7 = 92/453/754/382/42/6; diese Gebiete sind kein unabhängiger Nachweis.
+
+Der vorab festgelegte Plan `reference/balance-holdout-plan-2026-11-06-v25.json` umfasste 15 bisher unbenutzte Seeds mit je 32×32 Chunks. Vanilla wurde zuerst eingefroren, V25 danach in denselben Gebieten gemessen:
+
+| Kennzahl | Vanilla | V25 | Anteil |
+| --- | ---: | ---: | ---: |
+| Luftkontakt-Fundstellen | 1509 | 1629 | **108,0 %** |
+| eingeschlossene Erze Y=-57 | 6683 | 1045 | **15,6 %** |
+| eingeschlossene Erze Y=-59..-55 | 33087 | 4977 | **15,0 %** |
+| überlappende Tunnelkontakte | 52884 | 8107 | **15,3 %** |
+
+Die Holdout-Gruppen 1/2/3/4/5/6 = 113/394/722/364/34/2; 3er+4er bilden 66,7 %. `experiments/balance-v25/holdout-uncertainty.json` enthält die gebietsweise Bootstrap-Unsicherheit: 99,3–117,0 % Fundstellen, 14,0–17,4 % Y=-57 und 14,5–16,1 % Tunnelkontakte (2,5–97,5 %).
+
+Kontrolltests: `probe-surfaces` Boden/Decke/Wand jeweils 3/3; `verify-mining` nur simuliertes `setblock air` über Neustart; `trace-ores` in der ausgewählten Probe ohne Abweichung bei den geprüften anderen Erztypen. Kein echter Spielerabbau und keine vollständige Weltprüfung. Alle 15 Gebiete liefen ohne Scanner- oder Serverabbruch. V25 bleibt eine lokale Testversion ohne Produktions- oder Realm-Freigabe.
+
+## V26: Vierergruppen für den ersten Spieltest (8. November 2026)
+
+V26 verwendet als eigene V25-Variante die Gewichte 1/1/25/64/10 für versuchte Größen 1/2/3/4/5. Pack-Hash: `ec60528ea113e0f44633a1af020ab83f6ff7dada5e2df1a87dc1105c90bd7cfd`.
+
+Die 15 großen V24-Kalibriergebiete ergaben:
+
+| Kennzahl | Vanilla | V26 | Anteil |
+| --- | ---: | ---: | ---: |
+| Luftkontakt-Fundstellen | 1630 | 1732 | **106,3 %** |
+| eingeschlossene Erze Y=-57 | 6564 | 906 | **13,8 %** |
+| eingeschlossene Erze Y=-59..-55 | 32891 | 5053 | **15,4 %** |
+| überlappende Tunnelkontakte | 52810 | 7969 | **15,1 %** |
+
+Gruppengrößen 1/2/3/4/5/6/7/8: **90/381/736/461/59/1/3/1**. Dreier- und Vierergruppen bilden 69,1 %; Vierer sind mit 461 gegenüber 381 Zweiergruppen häufiger. Diese Gebiete wurden bereits zur V24-Kalibrierung verwendet und sind kein unabhängiger V26-Holdout.
+
+Kontrolltests: Boden/Decke/Wand jeweils 3/3; simuliertes `setblock air` blieb nach Neustart entfernt. In der ausgewählten Erzpositionsprobe wurden zwei Tiefenschiefer-Goldpositionen gegenüber Vanilla entfernt; andere Erze sind daher nicht als unverändert garantiert. Der 32×32-Scanner verwendet nun 30 Sekunden Ladewartezeit und bricht bei ungeladenen Chunks ab. V26 ist für einen entbehrlichen lokalen Spieltest geeignet, aber weiterhin nicht für Realm, Produktion oder Release freigegeben.
