@@ -4,4 +4,5 @@ data/*
 __pycache__/
 *.mcpack
 !experiments/balance-v26/cave-diamonds-v26-test.mcpack
+!experiments/balance-v26-icon/cave-diamonds-v26-icon-test.mcpack
 .DS_Store
