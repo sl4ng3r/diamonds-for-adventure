@@ -10,3 +10,9 @@ beziehen sich auf das unveränderte V26-Paket; diese Variante ist weiterhin ein
 nicht für Realms freigegebenes Testpaket. Import und Anzeige in Minecraft müssen
 auf dem Zielgerät geprüft werden. Vor einer Änderung einer bestehenden Welt
 ein Backup erstellen.
+
+Das regulär veröffentlichte Paket `cave-diamonds-v0.1.2.mcpack` hat den
+Anzeigenamen „Cave Diamonds“ und eine neue Packversion. Icon und
+Weltgenerierungsregeln entsprechen 0.1.1. Erzeugen, sofern das Ziel noch nicht
+existiert: `python3 -m tools.build_v26_release`. Spielbalance, Realm- und
+Konsolenverhalten sind weiterhin nicht abschließend getestet.

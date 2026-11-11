@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / 'experiments/balance-v26/behavior_pack'
 PACKAGE = ROOT / 'experiments/balance-v26-icon/cave-diamonds-v26-icon-test.mcpack'
+RELEASE = ROOT / 'experiments/balance-v26-icon/cave-diamonds-v0.1.2.mcpack'
 
 
 class V26IconPackageTest(unittest.TestCase):
@@ -38,6 +39,22 @@ class V26IconPackageTest(unittest.TestCase):
         self.assertEqual(data[:8], b'\x89PNG\r\n\x1a\n')
         self.assertEqual(data[12:16], b'IHDR')
         self.assertEqual(struct.unpack('>II', data[16:24]), (256, 256))
+
+    def test_release_is_same_gameplay_with_clean_name_and_new_version(self):
+        with zipfile.ZipFile(PACKAGE) as old, zipfile.ZipFile(RELEASE) as new:
+            self.assertIsNone(new.testzip())
+            self.assertEqual(set(old.namelist()), set(new.namelist()))
+            for name in old.namelist():
+                if name != 'manifest.json':
+                    self.assertEqual(old.read(name), new.read(name), name)
+            original = json.loads(old.read('manifest.json'))
+            manifest = json.loads(new.read('manifest.json'))
+            original['header']['name'] = 'Cave Diamonds'
+            original['header']['description'] = 'Diamanten in Höhlen entdecken und seltener in tiefem Gestein finden.'
+            original['header']['version'] = [0, 1, 2]
+            for module in original['modules']:
+                module['version'] = [0, 1, 2]
+            self.assertEqual(manifest, original)
 
 
 if __name__ == '__main__':
