@@ -22,3 +22,9 @@ services:
       start_period: 60s
     stdin_open: true
     tty: true
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: ${BEDROCK_NETWORK_SUBNET:-10.254.251.0/24}
