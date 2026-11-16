@@ -8,16 +8,19 @@ Ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Er
 - Auf Y = −57 sollen beim Tunnelgraben nur noch selten Diamanten gefunden werden. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
 - Normale Diamanterze und Spielmechaniken sollen erhalten bleiben; Tests mit Realms, Konsolen, Verzauberungen und echten Spielern stehen noch aus.
 
-Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Die aktuelle Version **V8** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Sie probiert Höhlenboden, Wand und Decke sowie tiefer gewichtete Startpunkte; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
+Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Der aktuelle Kandidat **V29** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Er probiert Höhlenboden, Wand und Decke; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
 
-In 20 ausgewählten Testgebieten fanden sich 42 luftberührte Erzgruppen gegenüber 23 in Vanilla – deutlich mehr als das angestrebte Plus von ungefähr 15 %. Einzelne Erzblöcke an Wand, Boden und Decke wurden gemessen; ein künstlicher Raum bestätigte die direkte Platzierung auf allen drei Flächen. Die tatsächlichen Höhlenfunde lagen trotz tiefer gewichteter Startpunkte nicht überwiegend ganz unten. Luftkontakt beweist keine Erreichbarkeit. Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details, frühere Versuche und Grenzen stehen im [Testbericht](TESTREPORT.md) und in [AGENTS.md](AGENTS.md).
+In zwölf ausgewählten Gebieten hatte V29 349 luftberührte Erzgruppen gegenüber 308 in Vanilla, also 13,3 % mehr. Die Streuung zwischen Gebieten ist groß; Luftkontakt beweist keine Erreichbarkeit. Auf Y=−57 blieben in sechs Gebieten 114 statt 674 eingeschlossene Erzblöcke. Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details und Grenzen stehen in der [V29-Auswertung](experiments/balance-v29/README.md) und in [AGENTS.md](AGENTS.md).
+
+Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.4](dist/cave-diamonds-v0.1.4.mcpack). Sie wird mit `python3 -m tools.build_v29_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
 
 ## Aufbau
 
 | Pfad | Inhalt |
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
-| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V8](experiments/balance-v8/README.md). |
+| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V29](experiments/balance-v29/README.md). |
+| `dist/` | Aktuelle feste Paketversion und [Ablagehinweise](dist/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |
 | `tools/` und `tests/` | Wiederverwendbare Engine-Vergleiche, Auswertung und automatisierte Prüfungen. |
@@ -49,7 +52,7 @@ Voraussetzungen sind Docker mit Compose und Unterstützung für `linux/amd64`. D
 
 Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V8. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. Das Docker-Subnetz ist über `BEDROCK_NETWORK_SUBNET` einstellbar und muss frei von Überschneidungen mit lokalen Netzen, VPNs und anderen Docker-Netzen sein. Ein bestehendes Compose-Netz muss nach einer Subnetzänderung neu erstellt werden; dabei wird der Testserver kurz unterbrochen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
 
-## V8 testen
+## Ältere V8-Vergleiche
 
 Nach Aufbau des Testservers und Zustimmung zur EULA können neue V8-Vergleiche in isolierten Wegwerfwelten ausgeführt werden:
 

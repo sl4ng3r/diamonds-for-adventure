@@ -10,4 +10,5 @@ __pycache__/
 !experiments/balance-v28/cave-diamonds-v28-upper25-test.mcpack
 !experiments/balance-v29/cave-diamonds-v29-upper30-test.mcpack
 !experiments/balance-v29/cave-diamonds-v29-playtest.mcpack
+!dist/cave-diamonds-v0.1.4.mcpack
 .DS_Store
