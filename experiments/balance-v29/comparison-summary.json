@@ -1,0 +1,150 @@
+{
+  "pack_sha256": "873b7e142b6fc63e002b13e7173c660f24843c6c6ed037cefeb305b78f0d0f46",
+  "series": [
+    {
+      "name": "calibration",
+      "reference": "reference/balance-holdout-v24-1.26.61.1-2026-11-04.json",
+      "results": "experiments/balance-v29/v24-holdout-reference-results",
+      "completed": 6,
+      "total": 6,
+      "missing": [],
+      "pack_sha256": "873b7e142b6fc63e002b13e7173c660f24843c6c6ed037cefeb305b78f0d0f46",
+      "reference_sha256": "f2d6807ce8dd6f908adb2212759cb6d4bba12422a0c04a302ea894abcbc0ec41",
+      "groups": {
+        "vanilla": 144,
+        "candidate": 165,
+        "percent_of_vanilla": 114.6
+      },
+      "areas": [
+        {
+          "index": 0,
+          "vanilla": 20,
+          "candidate": 27,
+          "percent_of_vanilla": 135.0
+        },
+        {
+          "index": 1,
+          "vanilla": 31,
+          "candidate": 38,
+          "percent_of_vanilla": 122.6
+        },
+        {
+          "index": 2,
+          "vanilla": 33,
+          "candidate": 38,
+          "percent_of_vanilla": 115.2
+        },
+        {
+          "index": 3,
+          "vanilla": 14,
+          "candidate": 26,
+          "percent_of_vanilla": 185.7
+        },
+        {
+          "index": 4,
+          "vanilla": 32,
+          "candidate": 31,
+          "percent_of_vanilla": 96.9
+        },
+        {
+          "index": 5,
+          "vanilla": 14,
+          "candidate": 5,
+          "percent_of_vanilla": 35.7
+        }
+      ],
+      "upper_blocks": 11,
+      "upper_heights": {
+        "18": 3,
+        "19": 4,
+        "23": 3,
+        "24": 1
+      },
+      "highest_upper_y": 24,
+      "area_bootstrap_95_percent": [
+        89.7,
+        139.2
+      ]
+    },
+    {
+      "name": "secondary",
+      "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+      "results": "experiments/balance-v29/v19-reference-results",
+      "completed": 6,
+      "total": 6,
+      "missing": [],
+      "pack_sha256": "873b7e142b6fc63e002b13e7173c660f24843c6c6ed037cefeb305b78f0d0f46",
+      "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+      "groups": {
+        "vanilla": 164,
+        "candidate": 184,
+        "percent_of_vanilla": 112.2
+      },
+      "areas": [
+        {
+          "index": 0,
+          "vanilla": 38,
+          "candidate": 56,
+          "percent_of_vanilla": 147.4
+        },
+        {
+          "index": 1,
+          "vanilla": 32,
+          "candidate": 24,
+          "percent_of_vanilla": 75.0
+        },
+        {
+          "index": 2,
+          "vanilla": 23,
+          "candidate": 25,
+          "percent_of_vanilla": 108.7
+        },
+        {
+          "index": 3,
+          "vanilla": 30,
+          "candidate": 25,
+          "percent_of_vanilla": 83.3
+        },
+        {
+          "index": 4,
+          "vanilla": 15,
+          "candidate": 28,
+          "percent_of_vanilla": 186.7
+        },
+        {
+          "index": 5,
+          "vanilla": 26,
+          "candidate": 26,
+          "percent_of_vanilla": 100.0
+        }
+      ],
+      "upper_blocks": 0,
+      "upper_heights": {},
+      "highest_upper_y": null,
+      "area_bootstrap_95_percent": [
+        86.1,
+        141.3
+      ]
+    }
+  ],
+  "combined": {
+    "areas": 12,
+    "chunks": 3072,
+    "vanilla_groups": 308,
+    "candidate_groups": 349,
+    "percent_of_vanilla": 113.3,
+    "area_bootstrap_95_percent": [
+      95.8,
+      131.9
+    ],
+    "candidate_group_sizes": {
+      "1": 19,
+      "2": 68,
+      "3": 151,
+      "4": 104,
+      "5": 6,
+      "7": 1
+    },
+    "note": "Both reference sets were previously used for older variants; neither is an untouched V29 holdout. Air contact does not prove cave access."
+  }
+}

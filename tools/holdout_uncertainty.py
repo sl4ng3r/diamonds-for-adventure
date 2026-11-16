@@ -38,13 +38,20 @@ def area_metric(area, name):
         return area['vanilla']['y_minus57']['buried'], area['candidate']['y_minus57']['buried']
     if name == 'tunnel_contacts':
         return area['tunnel_contacts']['vanilla'], area['tunnel_contacts']['candidate']
+    if name == 'full_height_air_groups':
+        full=area['full_height']
+        vanilla=full.get('vanilla_air_groups',full.get('vanilla',{}).get('deposits',{}).get('air_adjacent'))
+        return vanilla, full['candidate']['deposits']['air_adjacent']
     raise ValueError(name)
 
 
 def report(results, bootstrap_samples=10000):
     areas=load_areas(results)
     metrics={}
-    for name in ('air_groups','y_minus57','tunnel_contacts'):
+    names=['air_groups','y_minus57','tunnel_contacts']
+    if all(area.get('full_height',{}).get('range')==[-64,40] for area in areas):
+        names.append('full_height_air_groups')
+    for name in names:
         vanilla=sum(area_metric(area,name)[0] for area in areas)
         candidate=sum(area_metric(area,name)[1] for area in areas)
         rng=random.Random(0)

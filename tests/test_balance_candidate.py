@@ -466,6 +466,8 @@ class BalanceCandidateTest(unittest.TestCase):
             template={
                 'vanilla':{'deposits':{'air_adjacent':10},'y_minus57':{'buried':20}},
                 'candidate':{'deposits':{'air_adjacent':5},'y_minus57':{'buried':4}},
+                'full_height':{'range':[-64,40],'vanilla_air_groups':10,
+                               'candidate':{'deposits':{'air_adjacent':6}}},
                 'tunnel_contacts':{'vanilla':30,'candidate':3},
             }
             for index,seed in enumerate((1,2)):
@@ -479,5 +481,6 @@ class BalanceCandidateTest(unittest.TestCase):
             result=report(root,bootstrap_samples=100)
             self.assertEqual(result['areas'],2)
             self.assertEqual(result['metrics']['air_groups']['percent_of_vanilla'],50.0)
+            self.assertEqual(result['metrics']['full_height_air_groups']['percent_of_vanilla'],60.0)
             self.assertEqual(result['metrics']['y_minus57']['percent_of_vanilla'],20.0)
             self.assertAlmostEqual(percentile([1,3],0.5),2.0)

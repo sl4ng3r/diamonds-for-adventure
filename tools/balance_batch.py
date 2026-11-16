@@ -33,12 +33,25 @@ def inspect_results(pack, results, reference):
             'total': len(areas), 'pack_sha256': digest, 'reference_sha256': ref_digest}
 
 
-def run_pending(pack, results, reference, limit=None):
+def run_pending(pack, results, reference, limit=None, full_height=False, reference_upper_empty=False):
     if limit is not None and limit < 1:
         raise ValueError('limit must be positive')
+    if reference_upper_empty and not full_height:
+        raise ValueError('reference_upper_empty requires full_height')
     status = inspect_results(pack, results, reference)
+    if full_height:
+        source='reference_assuming_no_upper_diamonds' if reference_upper_empty else 'fresh_full_height_scan'
+        for index in status['completed']:
+            row=json.loads((results/f'area-{index:02d}.json').read_text())
+            full=row.get('full_height',{})
+            if full.get('range')!=[-64,40] or full.get('vanilla_source','fresh_full_height_scan')!=source:
+                raise ValueError('full-height run requires a separate result directory')
     for index in status['missing'][:limit]:
-        scan_area(pack, results, index, reference)
+        if full_height:
+            scan_area(pack, results, index, reference, full_height=True,
+                      **({'reference_upper_empty':True} if reference_upper_empty else {}))
+        else:
+            scan_area(pack, results, index, reference)
     return inspect_results(pack, results, reference)
 
 
@@ -91,6 +104,13 @@ def compact_status(pack, results, reference):
             'model_tunnel_contacts': metric(report['tunnel_contacts']['vanilla'], report['tunnel_contacts']['candidate']),
         }
         status['exposure'] = exposure_summary(results)
+        rows=[json.loads(p.read_text()) for p in sorted(results.glob('area-*.json'))]
+        if all(row.get('full_height',{}).get('range')==[-64,40] for row in rows):
+            vanilla=sum(row['full_height'].get('vanilla_air_groups',
+                        row['full_height'].get('vanilla',{}).get('deposits',{}).get('air_adjacent',0)) for row in rows)
+            candidate=sum(row['full_height']['candidate']['deposits']['air_adjacent'] for row in rows)
+            status['measurements']['full_height_air_adjacent_groups']=metric(vanilla,candidate)
+            status['full_height_baseline_source']=rows[0]['full_height'].get('vanilla_source','fresh_full_height_scan')
     status['limitations'] = ('No release decision: small or selected samples, air contact is not cave access; '
                              'tunnel contacts are overlapping models, not measured player yield. '
                              'Ore size, other blocks, persistence, performance and Realm require separate tests.')
@@ -104,13 +124,22 @@ def main():
     parser.add_argument('--results', type=Path, required=True)
     parser.add_argument('--reference', type=Path, default=REFERENCE)
     parser.add_argument('--limit', type=int, help='maximum number of missing areas to run')
+    parser.add_argument('--full-height', action='store_true', help='scan fresh Vanilla and candidate worlds through Y=40')
+    parser.add_argument('--reference-upper-empty', action='store_true', help='reuse Vanilla reference through Y=16 and assume no Vanilla ore above it')
     args = parser.parse_args()
     if not args.pack.is_dir() or not (args.pack / 'manifest.json').is_file():
         parser.error('pack must be an existing behavior pack with manifest.json')
     if args.command == 'status' and args.limit is not None:
         parser.error('--limit applies only to run')
+    if args.command == 'status' and args.full_height:
+        parser.error('--full-height applies only to run')
+    if args.command == 'status' and args.reference_upper_empty:
+        parser.error('--reference-upper-empty applies only to run')
+    if args.reference_upper_empty and not args.full_height:
+        parser.error('--reference-upper-empty requires --full-height')
     if args.command == 'run':
-        run_pending(args.pack.resolve(), args.results, args.reference, args.limit)
+        run_pending(args.pack.resolve(), args.results, args.reference, args.limit, args.full_height,
+                    args.reference_upper_empty)
     print(json.dumps(compact_status(args.pack.resolve(), args.results, args.reference), ensure_ascii=False, separators=(',', ':')))
 
 

@@ -1,5 +1,5 @@
 import unittest
-from tools.vanilla_reference import analyze
+from tools.vanilla_reference import analyze, analyze_full_height
 
 
 class VanillaReferenceTest(unittest.TestCase):
@@ -39,3 +39,15 @@ class VanillaReferenceTest(unittest.TestCase):
         result=aggregate([a,b])
         self.assertEqual(result['totals']['blocks']['total'],2)
         self.assertEqual(result['total_chunks'],8)
+
+    def test_full_height_joins_vein_across_y16_and_checks_upper_neighbours(self):
+        stone=['minecraft:stone']*6
+        lower={'x':2,'y':16,'z':2,'type':'minecraft:diamond_ore','neighbours':stone}
+        upper={'x':2,'y':17,'z':2,'type':'minecraft:diamond_ore',
+               'neighbours':['minecraft:air']+stone[1:]}
+        scan={'ores':[lower],'upperDiamondOre':[upper]}
+        self.assertEqual(analyze_full_height(scan,0,0,16)['deposits']['air_adjacent_sizes'],[2])
+        self.assertEqual(analyze_full_height(scan,0,0,16)['deposits']['air_adjacent_touching_boundary'],0)
+        del upper['neighbours']
+        with self.assertRaises(ValueError): analyze_full_height(scan,0,0,16)
+        with self.assertRaises(ValueError): analyze_full_height({'ores':[lower]},0,0,16)

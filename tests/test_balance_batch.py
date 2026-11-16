@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.balance_batch import compact_status, exposure_summary, inspect_results, ratio, run_pending, surface_probe_summary
-from tools.balance_experiment import pack_digest
+from tools.balance_experiment import pack_digest, scan_area
 
 
 class BatchTest(unittest.TestCase):
@@ -36,6 +36,43 @@ class BatchTest(unittest.TestCase):
         self.assertEqual(scan.call_count, 1)
         self.assertEqual(scan.call_args.args[2], 1)
 
+    def test_full_height_run_requests_fresh_baseline(self):
+        with patch('tools.balance_batch.scan_area') as scan:
+            run_pending(self.pack, self.results, self.reference, limit=1, full_height=True)
+        self.assertTrue(scan.call_args.kwargs['full_height'])
+
+    def test_full_height_run_rejects_older_partial_results(self):
+        self.save_area(0)
+        with patch('tools.balance_batch.scan_area') as scan:
+            with self.assertRaisesRegex(ValueError,'separate result directory'):
+                run_pending(self.pack,self.results,self.reference,full_height=True)
+        scan.assert_not_called()
+
+    def test_reference_upper_empty_scans_only_candidate(self):
+        with patch('tools.balance_batch.scan_area') as scan:
+            run_pending(self.pack,self.results,self.reference,limit=1,full_height=True,reference_upper_empty=True)
+        self.assertTrue(scan.call_args.kwargs['reference_upper_empty'])
+
+    def test_reference_upper_empty_does_not_start_vanilla_world(self):
+        candidate=self.root/'candidate'
+        candidate.mkdir()
+        (candidate/'server.log').write_text('Version: 1.26.61.1\n')
+        upper={'x':0,'y':17,'z':0,'type':'minecraft:diamond_ore',
+               'neighbours':['minecraft:air']+['minecraft:stone']*5}
+        (candidate/'ore_scan.json').write_text(json.dumps({'ores':[],'upperDiamondOre':[upper]}))
+        (self.root/'baseline.json').write_text(json.dumps({'ores':[]}))
+        area=dict(self.areas[0],scan_file='baseline.json')
+        self.reference.write_text(json.dumps({'server_version':'1.26.61.1','areas':[area]}))
+        with patch('tools.balance_experiment.ROOT',self.root), \
+             patch('tools.balance_experiment.eula_accepted',return_value=True), \
+             patch('tools.balance_experiment.run',return_value={'world':str(candidate)}) as run:
+            scan_area(self.pack,self.results,0,self.reference,full_height=True,reference_upper_empty=True)
+        self.assertEqual(run.call_count,1)
+        self.assertTrue(run.call_args.args[1])
+        row=json.loads((self.results/'area-00.json').read_text())
+        self.assertEqual(row['full_height']['candidate']['deposits']['air_adjacent'],1)
+        self.assertEqual(row['full_height']['vanilla_air_groups'],0)
+
     def test_rejects_mixed_pack_and_wrong_region(self):
         self.save_area(0, pack_sha256='wrong')
         with self.assertRaises(ValueError): inspect_results(self.pack, self.results, self.reference)
@@ -64,6 +101,36 @@ class BatchTest(unittest.TestCase):
         self.assertEqual(status['missing'], [1, 2])
         self.assertEqual(status['measurements']['air_adjacent_groups']['percent_of_vanilla'], 65.2)
         self.assertIn('No release decision', status['limitations'])
+
+    def test_full_height_group_ratio_uses_both_full_scans(self):
+        full={'range':[-64,40], 'vanilla':{'deposits':{'air_adjacent':10}},
+              'candidate':{'deposits':{'air_adjacent':11}}}
+        self.save_area(0,full_height=full)
+        def total(groups):
+            return {'deposits':{'air_adjacent':groups},'y_minus57':{'buried':1},
+                    'tunnel_band':{'buried':1}}
+        summary={'vanilla':{'totals':total(10)},'candidate':{'totals':total(11)},
+                 'tunnel_contacts':{'vanilla':1,'candidate':1}}
+        with patch('tools.balance_batch.summarize',return_value=summary):
+            status=compact_status(self.pack,self.results,self.reference)
+        self.assertEqual(status['measurements']['full_height_air_adjacent_groups']['percent_of_vanilla'],110.0)
+
+    def test_full_height_group_ratio_can_reuse_lower_vanilla_reference(self):
+        full={'range':[-64,40], 'vanilla_source':'reference_assuming_no_upper_diamonds',
+              'vanilla_air_groups':10,'candidate':{'deposits':{'air_adjacent':11}}}
+        self.save_area(0,full_height=full)
+        def total(groups):
+            return {'deposits':{'air_adjacent':groups},'y_minus57':{'buried':1},
+                    'tunnel_band':{'buried':1}}
+        summary={'vanilla':{'totals':total(10)},'candidate':{'totals':total(11)},
+                 'tunnel_contacts':{'vanilla':1,'candidate':1}}
+        with patch('tools.balance_batch.summarize',return_value=summary):
+            status=compact_status(self.pack,self.results,self.reference)
+        self.assertEqual(status['measurements']['full_height_air_adjacent_groups']['percent_of_vanilla'],110.0)
+        with patch('tools.balance_batch.scan_area') as scan:
+            with self.assertRaisesRegex(ValueError,'separate result directory'):
+                run_pending(self.pack,self.results,self.reference,full_height=True)
+        scan.assert_not_called()
 
     def test_no_scan_when_results_have_wrong_reference_hash(self):
         self.save_area(0, reference_sha256='wrong')

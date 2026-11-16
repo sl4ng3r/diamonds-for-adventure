@@ -7,7 +7,7 @@ from pathlib import Path
 FLUIDS={'minecraft:water','minecraft:flowing_water','minecraft:lava','minecraft:flowing_lava'}
 DIRECTIONS=((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1))
 
-def analyze(scan, origin_x, origin_z, width):
+def analyze(scan, origin_x, origin_z, width, max_y=16):
     def counts(ores):
         values={'total':len(ores),'air':0,'fluid_only':0,'buried':0,'air_and_fluid':0,'water_adjacent':0,'lava_adjacent':0}
         for ore in ores:
@@ -33,7 +33,7 @@ def analyze(scan, origin_x, origin_z, width):
                 if neighbor in remaining:
                     remaining.remove(neighbor); stack.append(neighbor); component.append(neighbor)
         deposits.append(component)
-    boundary=lambda p: p[0] in (origin_x,origin_x+width-1) or p[2] in (origin_z,origin_z+width-1) or p[1] in (-64,16)
+    boundary=lambda p: p[0] in (origin_x,origin_x+width-1) or p[2] in (origin_z,origin_z+width-1) or p[1] in (-64,max_y)
     return {'blocks':counts(ores),
             'below_zero':counts([o for o in ores if o['y']<0]),
             'y_minus57':counts([o for o in ores if o['y']==-57]),
@@ -46,6 +46,15 @@ def analyze(scan, origin_x, origin_z, width):
                         'air_adjacent_touching_boundary':sum(any(boundary(p) for p in group) and any('minecraft:air' in positions[p]['neighbours'] for p in group) for group in deposits),
                         'sizes':sorted((len(group) for group in deposits),reverse=True)},
             'sampled_biomes':scan.get('biomes',{})}
+
+def analyze_full_height(scan, origin_x, origin_z, width):
+    """Analyze the same horizontal region from Y=-64 through Y=40, joining seam-crossing veins."""
+    if 'upperDiamondOre' not in scan:
+        raise ValueError('full-height scan requires upperDiamondOre')
+    upper=scan['upperDiamondOre']
+    if any(len(ore.get('neighbours',[]))!=6 or not 17<=ore['y']<=40 for ore in upper):
+        raise ValueError('upper ore requires six neighbours and Y=17..40')
+    return analyze({**scan,'ores':scan['ores']+upper},origin_x,origin_z,width,max_y=40)
 
 def aggregate(reports):
     for index,a in enumerate(reports):

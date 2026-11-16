@@ -9,7 +9,7 @@ from pathlib import Path
 
 from tools.compare_worlds import (ROOT, count_tunnel_finds, create_combined_generation_variant,
                                   eula_accepted, run, set_snap_selection)
-from tools.vanilla_reference import aggregate, analyze
+from tools.vanilla_reference import aggregate, analyze, analyze_full_height
 
 REFERENCE=ROOT/'reference/vanilla-1.26.61.1-2026-11-03.json'
 
@@ -215,7 +215,9 @@ def read_reference(reference_path=REFERENCE):
     if reference['server_version']!='1.26.61.1': raise ValueError('unexpected baseline server version')
     return reference
 
-def scan_area(pack, result_dir, index, reference_path=REFERENCE):
+def scan_area(pack, result_dir, index, reference_path=REFERENCE, full_height=False, reference_upper_empty=False):
+    if reference_upper_empty and not full_height:
+        raise ValueError('reference_upper_empty requires full_height')
     if not eula_accepted(ROOT/'.env'): raise RuntimeError('Explicit EULA=TRUE in .env required')
     reference=read_reference(reference_path)
     if not 0 <= index < len(reference['areas']): raise ValueError('invalid area index')
@@ -237,6 +239,16 @@ def scan_area(pack, result_dir, index, reference_path=REFERENCE):
     # made every boundary chunk available to the diagnostic script.  Give the
     # engine a longer settling window; an unloaded read still aborts loudly.
     settle_seconds=30 if n >= 16 else 15
+    full_baseline=None
+    if full_height and not reference_upper_empty:
+        vanilla_world=run(seed,False,n,diagnose=True,chunk_x=x,chunk_z=z,height_probe=True,
+                          settle_seconds=settle_seconds)
+        vanilla_path=Path(vanilla_world['world'])
+        vanilla_log=(vanilla_path/'server.log').read_text(errors='replace')
+        if 'Version: 1.26.61.1' not in vanilla_log or '[ERROR] [Scripting]' in vanilla_log or '[ERROR] [Json]' in vanilla_log:
+            raise RuntimeError(f'vanilla full-height scan failed; inspect {vanilla_path}')
+        vanilla_scan=json.loads((vanilla_path/'ore_scan.json').read_text())
+        full_baseline=analyze_full_height(vanilla_scan,x*16,z*16,n*16)
     world=run(seed,True,n,diagnose=True,pack_path=pack,chunk_x=x,chunk_z=z,height_probe=True,
               settle_seconds=settle_seconds)
     world_path=Path(world['world'])
@@ -255,6 +267,16 @@ def scan_area(pack, result_dir, index, reference_path=REFERENCE):
             'vanilla':baseline,'candidate':candidate,
             'tunnel_contacts':{'vanilla':contacts(baseline_scan),'candidate':contacts(scan)},
             'candidate_upper_diamonds_17_to_40':len(scan['upperDiamondOre'])}
+    if full_height:
+        result['full_height']={'range':[-64,40],
+                               'candidate':analyze_full_height(scan,x*16,z*16,n*16)}
+        if reference_upper_empty:
+            result['full_height'].update({'vanilla_source':'reference_assuming_no_upper_diamonds',
+                                          'vanilla_air_groups':baseline['deposits']['air_adjacent']})
+        else:
+            result['full_height'].update({'vanilla_source':'fresh_full_height_scan',
+                                          'vanilla_world_scan':str((vanilla_path/'ore_scan.json').relative_to(ROOT)),
+                                          'vanilla':full_baseline})
     write_result_once(result_path,result)
     print('BALANCE_AREA '+json.dumps({'index':index,'result':str(result_path),
           'vanilla_air_groups':baseline['deposits']['air_adjacent'],'candidate_air_groups':candidate['deposits']['air_adjacent'],
@@ -355,14 +377,14 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     build=sub.add_parser('build'); build.add_argument('--output',type=Path,required=True); build.add_argument('--profile',choices=('v1','v2','v3','v4','v5','v6','v7','v8','v9','v10','v11','v12','v13','v14','v15','v16','v17','v18','v19','v20','v21','v22','v23','v24','v25','v26'),default='v1')
-    scan=sub.add_parser('scan'); scan.add_argument('--pack',type=Path,required=True); scan.add_argument('--results',type=Path,required=True); scan.add_argument('--index',type=int,required=True); scan.add_argument('--reference',type=Path,default=REFERENCE)
+    scan=sub.add_parser('scan'); scan.add_argument('--pack',type=Path,required=True); scan.add_argument('--results',type=Path,required=True); scan.add_argument('--index',type=int,required=True); scan.add_argument('--reference',type=Path,default=REFERENCE); scan.add_argument('--full-height',action='store_true'); scan.add_argument('--reference-upper-empty',action='store_true')
     summary=sub.add_parser('summarize'); summary.add_argument('--results',type=Path,required=True); summary.add_argument('--reference',type=Path,default=REFERENCE)
     verify=sub.add_parser('verify-mining'); verify.add_argument('--pack',type=Path,required=True); verify.add_argument('--results',type=Path,required=True); verify.add_argument('--index',type=int,required=True)
     trace=sub.add_parser('trace-ores'); trace.add_argument('--pack',type=Path,required=True); trace.add_argument('--results',type=Path,required=True); trace.add_argument('--index',type=int,required=True)
     probe=sub.add_parser('probe-surfaces'); probe.add_argument('--pack',type=Path,required=True); probe.add_argument('--results',type=Path,required=True)
     args=parser.parse_args()
     if args.command=='build': print(create_candidate(ROOT/'prototype/behavior_pack',args.output,profile=args.profile))
-    elif args.command=='scan': scan_area(args.pack.resolve(),args.results,args.index,args.reference)
+    elif args.command=='scan': scan_area(args.pack.resolve(),args.results,args.index,args.reference,args.full_height,args.reference_upper_empty)
     elif args.command=='verify-mining': verify_mining(args.pack.resolve(),args.results,args.index)
     elif args.command=='trace-ores': trace_ores(args.pack.resolve(),args.results,args.index)
     elif args.command=='probe-surfaces': probe_surfaces(args.pack.resolve(),args.results)

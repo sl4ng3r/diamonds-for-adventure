@@ -78,7 +78,14 @@ function* scan(chunks, mode, startX, startZ) {
           for (let y=17; y<=40; y++) {
             const b=dimension.getBlock({x,y,z});
             if (!b) throw new Error(`unloaded upper position ${x},${y},${z}`);
-            if (b.typeId === 'minecraft:diamond_ore' || b.typeId === 'minecraft:deepslate_diamond_ore') upperDiamondOre.push({x,y,z,type:b.typeId});
+            if (b.typeId === 'minecraft:diamond_ore' || b.typeId === 'minecraft:deepslate_diamond_ore') {
+              const neighbours = directions.map(([dx,dy,dz]) => {
+                const neighbour = dimension.getBlock({x:x+dx,y:y+dy,z:z+dz});
+                if (!neighbour) throw new Error(`unloaded upper neighbour ${x+dx},${y+dy},${z+dz}`);
+                return neighbour.typeId;
+              });
+              upperDiamondOre.push({x,y,z,type:b.typeId,neighbours});
+            }
           }
         }
         yield;
