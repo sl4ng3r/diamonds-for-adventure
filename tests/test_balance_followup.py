@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.balance_followup import summarize_rows, load_plan
+from tools.balance_followup import summarize_rows, load_plan, exposure_interval
 
 
 class BalanceFollowupTest(unittest.TestCase):
@@ -32,8 +32,15 @@ class BalanceFollowupTest(unittest.TestCase):
             for index,(vanilla,candidate,heights) in enumerate(((10,12,[24,24]),(20,22,[18]))):
                 world=root/'data/research'/f'area-{index}'
                 world.mkdir(parents=True)
-                (world/'ore_scan.json').write_text(json.dumps({'upperDiamondOre':[{'y':y} for y in heights]}))
+                (world/'ore_scan.json').write_text(json.dumps({
+                    'ores':[{'y':-40,'neighbours':['minecraft:air']},
+                            {'y':-30,'neighbours':['minecraft:stone']}],
+                    'upperDiamondOre':[{'y':y,'neighbours':['minecraft:air']} for y in heights]}))
+                baseline=root/'data/research'/f'vanilla-{index}.json'
+                baseline.write_text(json.dumps({'ores':[{'y':-40,'neighbours':['minecraft:air']}],
+                                                'upperDiamondOre':[]}))
                 rows.append({'index':index,'candidate_world':str(world.relative_to(root)),
+                             'reference_world_scan':str(baseline.relative_to(root)),
                              'candidate_upper_diamonds_17_to_40':len(heights),
                              'full_height':{'range':[-64,40],
                                             'vanilla_source':'reference_assuming_no_upper_diamonds',
@@ -44,6 +51,16 @@ class BalanceFollowupTest(unittest.TestCase):
             self.assertEqual(report['upper_heights'],{'18':1,'24':2})
             self.assertEqual(report['highest_upper_y'],24)
             self.assertEqual([a['percent_of_vanilla'] for a in report['areas']],[120.0,110.0])
+            self.assertEqual(report['air_exposed_blocks'],
+                             {'vanilla':2,'candidate':5,'percent_of_vanilla':250.0})
+            self.assertEqual(report['air_exposed_by_height']['-47..-32'],
+                             {'vanilla':2,'candidate':2,'percent_of_vanilla':100.0})
+            self.assertEqual(report['air_exposed_by_height']['17..40'],
+                             {'vanilla':0,'candidate':3,'percent_of_vanilla':None})
+            self.assertEqual([a['air_exposed_blocks'] for a in report['areas']],
+                             [{'vanilla':1,'candidate':3,'percent_of_vanilla':300.0},
+                              {'vanilla':1,'candidate':2,'percent_of_vanilla':200.0}])
+            self.assertEqual(exposure_interval(report['areas'],1000),[200.0,300.0])
 
     def test_rejects_mismatched_upper_count_or_baseline_source(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -61,3 +78,7 @@ class BalanceFollowupTest(unittest.TestCase):
             row['candidate_upper_diamonds_17_to_40']=0
             row['full_height']['vanilla_source']='fresh_full_height_scan'
             with self.assertRaises(ValueError): summarize_rows([row],root)
+
+    def test_exposure_interval_handles_zero_baseline(self):
+        areas=[{'air_exposed_blocks':{'vanilla':0,'candidate':2}}]
+        self.assertEqual(exposure_interval(areas,100),[None,None])

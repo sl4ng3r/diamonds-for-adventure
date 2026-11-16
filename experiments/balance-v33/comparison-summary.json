@@ -1,0 +1,115 @@
+{
+  "pack_sha256": "09d6d484490d3e208b0eea610fde79d96955881a439ea7ee67f2e8db41c553d9",
+  "series": [
+    {
+      "name": "calibration",
+      "plan": "experiments/balance-v33/calibration-plan.json",
+      "reference": "reference/balance-holdout-v24-1.26.61.1-2026-11-04.json",
+      "air_exposed_blocks": {
+        "vanilla": 161,
+        "candidate": 193,
+        "percent_of_vanilla": 119.9
+      },
+      "air_exposed_area_bootstrap_95_percent": [
+        89.9,
+        138.7
+      ],
+      "groups": {
+        "vanilla": 144,
+        "candidate": 86,
+        "percent_of_vanilla": 59.7
+      },
+      "upper_heights": {
+        "18": 3,
+        "19": 4,
+        "23": 3,
+        "24": 1
+      }
+    },
+    {
+      "name": "secondary",
+      "plan": "experiments/balance-v33/secondary-plan.json",
+      "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+      "air_exposed_blocks": {
+        "vanilla": 181,
+        "candidate": 186,
+        "percent_of_vanilla": 102.8
+      },
+      "air_exposed_area_bootstrap_95_percent": [
+        87.7,
+        121.1
+      ],
+      "groups": {
+        "vanilla": 164,
+        "candidate": 81,
+        "percent_of_vanilla": 49.4
+      },
+      "upper_heights": {}
+    }
+  ],
+  "combined": {
+    "areas": 12,
+    "chunks": 3072,
+    "air_exposed_blocks": {
+      "vanilla": 342,
+      "candidate": 379,
+      "percent_of_vanilla": 110.8
+    },
+    "air_exposed_area_bootstrap_95_percent": [
+      95.0,
+      125.9
+    ],
+    "air_exposed_by_height": {
+      "-64..-48": {
+        "vanilla": 56,
+        "candidate": 47,
+        "percent_of_vanilla": 83.9
+      },
+      "-47..-32": {
+        "vanilla": 111,
+        "candidate": 121,
+        "percent_of_vanilla": 109.0
+      },
+      "-31..-16": {
+        "vanilla": 108,
+        "candidate": 105,
+        "percent_of_vanilla": 97.2
+      },
+      "-15..-1": {
+        "vanilla": 50,
+        "candidate": 87,
+        "percent_of_vanilla": 174.0
+      },
+      "0..16": {
+        "vanilla": 17,
+        "candidate": 11,
+        "percent_of_vanilla": 64.7
+      },
+      "17..40": {
+        "vanilla": 0,
+        "candidate": 8,
+        "percent_of_vanilla": null
+      }
+    },
+    "groups": {
+      "vanilla": 308,
+      "candidate": 167
+    },
+    "candidate_group_sizes": {
+      "1": 10,
+      "2": 44,
+      "3": 69,
+      "4": 40,
+      "5": 4
+    },
+    "buried_y_minus57": {
+      "vanilla": 1334,
+      "candidate": 226
+    },
+    "model_tunnel_contacts": {
+      "vanilla": 10823,
+      "candidate": 1637
+    },
+    "note": "Both Vanilla references were reused from earlier experiments; air contact is not cave accessibility. Raw scans and worlds remain local under data/research."
+  }
+}

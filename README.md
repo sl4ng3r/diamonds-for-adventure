@@ -4,22 +4,22 @@ Ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Er
 
 ## Ziel und aktueller Stand
 
-- Ungefähr 15 % mehr getrennte Höhlenfundstellen als in Vanilla; die Adern sollen dabei nicht größer werden.
+- Etwa 10–15 % mehr **luftberührte Diamanterzblöcke** als in Vanilla. Getrennte Fundstellen werden zusätzlich beobachtet; Luftkontakt beweist keine Spieler-Erreichbarkeit.
 - Auf Y = −57 sollen beim Tunnelgraben nur noch selten Diamanten gefunden werden. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
 - Normale Diamanterze und Spielmechaniken sollen erhalten bleiben; Tests mit Realms, Konsolen, Verzauberungen und echten Spielern stehen noch aus.
 
-Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Der aktuelle Kandidat **V29** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Er probiert Höhlenboden, Wand und Decke; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
+Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Der aktuelle Kandidat **V33** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Er probiert Höhlenboden, Wand und Decke; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
 
-In zwölf ausgewählten Gebieten hatte V29 349 luftberührte Erzgruppen gegenüber 308 in Vanilla, also 13,3 % mehr. Die Streuung zwischen Gebieten ist groß; Luftkontakt beweist keine Erreichbarkeit. Auf Y=−57 blieben in sechs Gebieten 114 statt 674 eingeschlossene Erzblöcke. Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details und Grenzen stehen in der [V29-Auswertung](experiments/balance-v29/README.md) und in [AGENTS.md](AGENTS.md).
+V29 hatte zwar 13,3 % mehr getrennte Luftkontaktgruppen, aber 819 statt 342 luftberührte Erzblöcke. Nach einem zu ergiebigen Höhlenspieltest wurde die Zielgröße geändert. V33 hat auf denselben zwölf früher genutzten Referenzgebieten **379 statt 342 luftberührte Blöcke (110,8 %)**. Im Band Y=−47..−32 sind es 121 statt 111; bei Y=−15..−1 bleibt mit 87 statt 50 ein Überschuss. Insgesamt gibt es nur 167 statt 308 getrennte Gruppen. Die starke Streuung zwischen Gebieten und die nicht unabhängigen Referenzen erlauben keine allgemeine 10–15-%-Garantie. Auf Y=−57 blieben 226 statt 1.334 eingeschlossene Erzblöcke (16,9 %). Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details und Grenzen stehen in der [V33-Auswertung](experiments/balance-v33/README.md) und in [AGENTS.md](AGENTS.md).
 
-Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.4](dist/cave-diamonds-v0.1.4.mcpack). Sie wird mit `python3 -m tools.build_v29_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
+Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.5](dist/cave-diamonds-v0.1.5.mcpack). Sie wird mit `python3 -m tools.build_v33_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
 
 ## Aufbau
 
 | Pfad | Inhalt |
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
-| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V29](experiments/balance-v29/README.md). |
+| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V33](experiments/balance-v33/README.md). |
 | `dist/` | Aktuelle feste Paketversion und [Ablagehinweise](dist/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |

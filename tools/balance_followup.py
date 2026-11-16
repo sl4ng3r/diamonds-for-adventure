@@ -5,10 +5,42 @@ from collections import Counter
 import hashlib
 import json
 from pathlib import Path
+import random
 
 from tools.balance_batch import inspect_results, ratio, run_pending
 from tools.balance_experiment import ROOT, pack_digest
-from tools.holdout_uncertainty import report as uncertainty_report
+from tools.holdout_uncertainty import percentile, report as uncertainty_report
+
+
+HEIGHT_BANDS=(('-64..-48',-64,-48),('-47..-32',-47,-32),('-31..-16',-31,-16),
+              ('-15..-1',-15,-1),('0..16',0,16),('17..40',17,40))
+
+
+def exposed_by_height(ores):
+    counts=Counter()
+    for ore in ores:
+        if 'minecraft:air' not in ore['neighbours']:
+            continue
+        for name,low,high in HEIGHT_BANDS:
+            if low<=ore['y']<=high:
+                counts[name]+=1
+                break
+        else:
+            raise ValueError('air-exposed ore is outside the measured height range')
+    return counts
+
+
+def exposure_interval(areas, bootstrap_samples):
+    rng=random.Random(0)
+    estimates=[]
+    for _ in range(bootstrap_samples):
+        sample=[areas[rng.randrange(len(areas))] for _ in areas]
+        vanilla=sum(area['air_exposed_blocks']['vanilla'] for area in sample)
+        candidate=sum(area['air_exposed_blocks']['candidate'] for area in sample)
+        if vanilla:
+            estimates.append(100*candidate/vanilla)
+    return [round(value,1) if value is not None else None
+            for value in (percentile(estimates,0.025),percentile(estimates,0.975))]
 
 
 def summarize_rows(rows, root=ROOT):
@@ -16,6 +48,8 @@ def summarize_rows(rows, root=ROOT):
         raise ValueError('no completed areas')
     root=root.resolve()
     totals={'vanilla':0,'candidate':0}
+    exposed={'vanilla':0,'candidate':0}
+    exposed_heights={side:Counter() for side in exposed}
     heights=Counter()
     areas=[]
     for row in rows:
@@ -31,15 +65,35 @@ def summarize_rows(rows, root=ROOT):
         upper=scan['upperDiamondOre']
         if len(upper)!=row['candidate_upper_diamonds_17_to_40']:
             raise ValueError('upper ore count disagrees with raw scan')
+        baseline=Path(row['reference_world_scan'])
+        if baseline.is_absolute() or not (root/baseline).resolve().is_relative_to(root/'data/research'):
+            raise ValueError('Vanilla scan must be under data/research')
+        vanilla_scan=json.loads((root/baseline).read_text())
+        area_exposed={}
+        for side,ores in (('vanilla',vanilla_scan['ores']),
+                          ('candidate',scan['ores']+upper)):
+            profile=exposed_by_height(ores)
+            exposed_heights[side].update(profile)
+            exposed[side]+=sum(profile.values())
+            area_exposed[side]=sum(profile.values())
         heights.update(ore['y'] for ore in upper)
         totals['vanilla']+=vanilla
         totals['candidate']+=candidate
         areas.append({'index':row['index'],'vanilla':vanilla,'candidate':candidate,
-                      'percent_of_vanilla':ratio(candidate,vanilla)})
+                      'percent_of_vanilla':ratio(candidate,vanilla),
+                      'air_exposed_blocks':{**area_exposed,
+                          'percent_of_vanilla':ratio(area_exposed['candidate'],area_exposed['vanilla'])}})
     totals['percent_of_vanilla']=ratio(totals['candidate'],totals['vanilla'])
+    exposed['percent_of_vanilla']=ratio(exposed['candidate'],exposed['vanilla'])
+    by_height={name:{'vanilla':exposed_heights['vanilla'][name],
+                     'candidate':exposed_heights['candidate'][name],
+                     'percent_of_vanilla':ratio(exposed_heights['candidate'][name],
+                                                exposed_heights['vanilla'][name])}
+               for name,_,_ in HEIGHT_BANDS}
     return {'groups':totals,'areas':areas,'upper_blocks':sum(heights.values()),
             'upper_heights':{str(y):heights[y] for y in sorted(heights)},
-            'highest_upper_y':max(heights,default=None)}
+            'highest_upper_y':max(heights,default=None),
+            'air_exposed_blocks':exposed,'air_exposed_by_height':by_height}
 
 
 def load_plan(path, root=ROOT):
@@ -82,6 +136,7 @@ def checkpoint(pack, results, reference, bootstrap_samples=10000):
             metric=uncertainty_report(results,bootstrap_samples)['metrics']['full_height_air_groups']
             output['area_bootstrap_95_percent']=tuple(round(metric['cluster_bootstrap_percentiles'][key],1)
                                                      for key in ('p2_5','p97_5'))
+            output['air_exposed_area_bootstrap_95_percent']=exposure_interval(output['areas'],bootstrap_samples)
     return output
 
 

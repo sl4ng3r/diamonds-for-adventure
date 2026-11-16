@@ -10,6 +10,8 @@ For the first **disposable-world playtest**, `cave-diamonds-v29-playtest.mcpack`
 
 The current fixed, versioned distribution package is [`dist/cave-diamonds-v0.1.4.mcpack`](../../dist/cave-diamonds-v0.1.4.mcpack), built with `python3 -m tools.build_v29_dist` following the user's later decision. It has the same measured V29 generation files and a higher manifest version than the playtest package. The versioned artifact is available for installation; its creation does not close the gameplay, Realm, console, or independent-balance checks listed below.
 
+This V29 distribution was superseded by V33 package version 0.1.5 after a player found too many diamonds in a large cave. The new target is 10–15% more **air-adjacent ore blocks**, not 10–15% more connected air-adjacent groups. See [V33's comparison](../balance-v33/README.md).
+
 The user set the number of separate cave finds as the main balancing priority: **110–115% of Vanilla, meaning 10–15% more**. A V27 Bedrock test already observed Y=21, so an actual Y=25 or Y=30 find is not a prerequisite for this iteration. A larger maximum start height may still affect the find count and must be evaluated as part of V29.
 
 The existing Vanilla reference ends at Y=16. Following the accepted project premise that Vanilla generates no diamond ore above that height, this command scans only V29 and compares its full Y=-64..40 connected air-adjacent groups with the existing Vanilla group count. The six regions were previously used for V24, so they are calibration, not an independent V29 holdout:
