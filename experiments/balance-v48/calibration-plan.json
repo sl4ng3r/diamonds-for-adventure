@@ -1,0 +1,55 @@
+{
+  "purpose": "V48 tune upper buried block and group counts to Vanilla; reused reference",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v48/behavior_pack",
+  "pack_sha256": "27c63ab01e874039f9b14e554b6c782752b74b2ca7bc58fe380101ee0f510a97",
+  "reference": "reference/balance-holdout-v24-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "f2d6807ce8dd6f908adb2212759cb6d4bba12422a0c04a302ea894abcbc0ec41",
+  "results": "experiments/balance-v48/v24-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 920003,
+      "chunk_x": 2100,
+      "chunk_z": -4100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920011,
+      "chunk_x": -3900,
+      "chunk_z": 2200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920027,
+      "chunk_x": 4900,
+      "chunk_z": 3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920039,
+      "chunk_x": -2400,
+      "chunk_z": -4600,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920047,
+      "chunk_x": 5100,
+      "chunk_z": -1600,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920059,
+      "chunk_x": -6100,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    }
+  ]
+}

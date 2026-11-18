@@ -1,0 +1,50 @@
+{
+  "areas": 12,
+  "chunks": 3072,
+  "plans": [
+    "experiments/balance-v51/secondary-plan.json",
+    "experiments/balance-v51/calibration-plan.json"
+  ],
+  "upper_buried_y_minus19_to_plus16": {
+    "vanilla_blocks": 10180,
+    "candidate_blocks": 10874,
+    "vanilla_groups": 4143,
+    "candidate_groups": 4341,
+    "vanilla_positions_retained": 5221,
+    "blocks_percent_of_vanilla": 106.8,
+    "groups_percent_of_vanilla": 104.8
+  },
+  "cave_air_groups": {
+    "vanilla": 308,
+    "candidate": 354,
+    "percent_of_vanilla": 114.9
+  },
+  "buried_y_minus57": {
+    "vanilla": 1334,
+    "candidate": 225,
+    "percent_of_vanilla": 16.9
+  },
+  "tunnel_contacts": {
+    "vanilla": 10823,
+    "candidate": 1808,
+    "percent_of_vanilla": 16.7
+  },
+  "critical_band_air_groups": {
+    "vanilla": 100,
+    "candidate": 108,
+    "percent_of_vanilla": 108.0
+  },
+  "critical_band_tile_max": {
+    "vanilla": 4,
+    "candidate": 4
+  },
+  "air_exposed_positions": {
+    "vanilla": 342,
+    "candidate": 395,
+    "retained": 342,
+    "lost": 0,
+    "added": 53
+  },
+  "ore_blocks_y17_to40": 10,
+  "note": "Both references were previously used to tune other variants; groups and tiles are technical approximations, not connected accessible caves."
+}

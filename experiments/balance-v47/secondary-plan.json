@@ -1,0 +1,55 @@
+{
+  "purpose": "V47 tune upper buried density to Vanilla while preserving deep thinning; reused reference",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v47/behavior_pack",
+  "pack_sha256": "57a8b04dfbeb0832610650d7dcb2d94afaf7cbaeda89be06e237f5ded1ff1bdc",
+  "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+  "results": "experiments/balance-v47/v19-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 919001,
+      "chunk_x": 2300,
+      "chunk_z": -3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919009,
+      "chunk_x": -4300,
+      "chunk_z": 1900,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919021,
+      "chunk_x": 3700,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919033,
+      "chunk_x": -2900,
+      "chunk_z": -5300,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919037,
+      "chunk_x": 5700,
+      "chunk_z": -1100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919043,
+      "chunk_x": -6400,
+      "chunk_z": 5100,
+      "chunks_per_side": 16
+    }
+  ]
+}

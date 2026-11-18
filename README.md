@@ -12,7 +12,7 @@ Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung au
 
 V29 hatte zwar 13,3 % mehr getrennte Luftkontaktgruppen, aber 819 statt 342 luftberührte Erzblöcke. Nach einem zu ergiebigen Höhlenspieltest wurde die Zielgröße geändert. V33 hat auf denselben zwölf früher genutzten Referenzgebieten **379 statt 342 luftberührte Blöcke (110,8 %)**. Im Band Y=−47..−32 sind es 121 statt 111; bei Y=−15..−1 bleibt mit 87 statt 50 ein Überschuss. Insgesamt gibt es nur 167 statt 308 getrennte Gruppen. Die starke Streuung zwischen Gebieten und die nicht unabhängigen Referenzen erlauben keine allgemeine 10–15-%-Garantie. Auf Y=−57 blieben 226 statt 1.334 eingeschlossene Erzblöcke (16,9 %). Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details und Grenzen stehen in der [V33-Auswertung](experiments/balance-v33/README.md) und in [AGENTS.md](AGENTS.md).
 
-Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.5](dist/cave-diamonds-v0.1.5.mcpack). Sie wird mit `python3 -m tools.build_v33_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
+Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.7](dist/cave-diamonds-v0.1.7.mcpack). Sie wird mit `python3 -m tools.build_v51_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig. Die Messwerte stehen in [V51](experiments/balance-v51/README.md).
 
 ## Aufbau
 

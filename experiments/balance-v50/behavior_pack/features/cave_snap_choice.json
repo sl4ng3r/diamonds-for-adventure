@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_snap_choice"
+    },
+    "features": [
+      [
+        "cavediamonds:cave_snap_floor",
+        1
+      ],
+      [
+        "cavediamonds:cave_snap_ceiling",
+        1
+      ],
+      [
+        "cavediamonds:cave_snap_wall",
+        1
+      ]
+    ]
+  }
+}
