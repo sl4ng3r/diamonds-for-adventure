@@ -1,0 +1,55 @@
+{
+  "purpose": "V55 target 30 percent upper buried blocks with partial upper thinning; reused references",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v55/behavior_pack",
+  "pack_sha256": "b0182c80e6ba6e45489d704f90e107d67d2dbfe9e1f7b8bcf2755d2b07c1528f",
+  "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+  "results": "experiments/balance-v55/v19-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 919001,
+      "chunk_x": 2300,
+      "chunk_z": -3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919009,
+      "chunk_x": -4300,
+      "chunk_z": 1900,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919021,
+      "chunk_x": 3700,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919033,
+      "chunk_x": -2900,
+      "chunk_z": -5300,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919037,
+      "chunk_x": 5700,
+      "chunk_z": -1100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919043,
+      "chunk_x": -6400,
+      "chunk_z": 5100,
+      "chunks_per_side": 16
+    }
+  ]
+}

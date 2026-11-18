@@ -4,22 +4,21 @@ Ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Er
 
 ## Ziel und aktueller Stand
 
-- Etwa 10–15 % mehr **luftberührte Diamanterzblöcke** als in Vanilla. Getrennte Fundstellen werden zusätzlich beobachtet; Luftkontakt beweist keine Spieler-Erreichbarkeit.
+- Etwa 10–15 % mehr **getrennte Diamanterzgruppen mit direktem Luftkontakt** als in Vanilla. Luftkontakt beweist keine Spieler-Erreichbarkeit.
+- Vollständig eingeschlossene Erzblöcke oberhalb Y = −20 sollen auf ungefähr 30 % von Vanilla sinken.
 - Auf Y = −57 sollen beim Tunnelgraben nur noch selten Diamanten gefunden werden. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
 - Normale Diamanterze und Spielmechaniken sollen erhalten bleiben; Tests mit Realms, Konsolen, Verzauberungen und echten Spielern stehen noch aus.
 
-Der ursprüngliche Versuch, vergrabene Erze nach der normalen Weltgenerierung auszudünnen, funktionierte in natürlichen Welten nicht zuverlässig. Der aktuelle Kandidat **V33** ersetzt bestimmte Vanilla-Diamantfeatures und erzeugt normale Diamanterze neu. Er probiert Höhlenboden, Wand und Decke; dies weicht vom ursprünglichen Ansatz ab und erhält originale Adern nicht garantiert.
+V56 bewahrt die normalen und großen Vanilla-Diamantfeatures, ergänzt sparsame Höhlenregeln und dünnt vollständig eingeschlossene Erze in zwei Höhenbereichen aus. In sechs schon früher verwendeten Referenzgebieten (1.536 Chunks) entstanden **188 statt 164 getrennte luftberührte Gruppen (+14,6 %)**. Alle **181 direkt luftberührten Vanilla-Erzpositionen** blieben erhalten; 32 kamen hinzu. Oberhalb −20 blieben **1.442 statt 4.815 eingeschlossene Erzblöcke (29,9 %)**, auf Y = −57 **109 statt 660 (16,5 %)**. Die eingeschlossenen Gruppen oberhalb −20 liegen bei 48,4 % von Vanilla, weil die Ausdünnung Adern aufteilen kann. Die Referenz ist kein unabhängiger Holdout. Eine zweite große Testserie scheiterte an Lade- und Scan-Laufzeiten; die Leistung in Spielwelten und Realms ist offen. Details stehen in der [V56-Auswertung](experiments/balance-v56/README.md).
 
-V29 hatte zwar 13,3 % mehr getrennte Luftkontaktgruppen, aber 819 statt 342 luftberührte Erzblöcke. Nach einem zu ergiebigen Höhlenspieltest wurde die Zielgröße geändert. V33 hat auf denselben zwölf früher genutzten Referenzgebieten **379 statt 342 luftberührte Blöcke (110,8 %)**. Im Band Y=−47..−32 sind es 121 statt 111; bei Y=−15..−1 bleibt mit 87 statt 50 ein Überschuss. Insgesamt gibt es nur 167 statt 308 getrennte Gruppen. Die starke Streuung zwischen Gebieten und die nicht unabhängigen Referenzen erlauben keine allgemeine 10–15-%-Garantie. Auf Y=−57 blieben 226 statt 1.334 eingeschlossene Erzblöcke (16,9 %). Andere Erzarten können sich durch die veränderte Generierung ebenfalls unterscheiden. Details und Grenzen stehen in der [V33-Auswertung](experiments/balance-v33/README.md) und in [AGENTS.md](AGENTS.md).
-
-Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.7](dist/cave-diamonds-v0.1.7.mcpack). Sie wird mit `python3 -m tools.build_v51_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig. Die Messwerte stehen in [V51](experiments/balance-v51/README.md).
+Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.8](dist/cave-diamonds-v0.1.8.mcpack). Sie wird mit `python3 -m tools.build_v56_dist` unter `dist/` erzeugt. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
 
 ## Aufbau
 
 | Pfad | Inhalt |
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
-| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V33](experiments/balance-v33/README.md). |
+| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V56](experiments/balance-v56/README.md). |
 | `dist/` | Aktuelle feste Paketversion und [Ablagehinweise](dist/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |
@@ -50,7 +49,7 @@ Voraussetzungen sind Docker mit Compose und Unterstützung für `linux/amd64`. D
    docker compose logs -f
    ```
 
-Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V8. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. Das Docker-Subnetz ist über `BEDROCK_NETWORK_SUBNET` einstellbar und muss frei von Überschneidungen mit lokalen Netzen, VPNs und anderen Docker-Netzen sein. Ein bestehendes Compose-Netz muss nach einer Subnetzänderung neu erstellt werden; dabei wird der Testserver kurz unterbrochen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
+Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V56. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. Das Docker-Subnetz ist über `BEDROCK_NETWORK_SUBNET` einstellbar und muss frei von Überschneidungen mit lokalen Netzen, VPNs und anderen Docker-Netzen sein. Ein bestehendes Compose-Netz muss nach einer Subnetzänderung neu erstellt werden; dabei wird der Testserver kurz unterbrochen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
 
 ## Ältere V8-Vergleiche
 

@@ -215,6 +215,12 @@ def read_reference(reference_path=REFERENCE):
     if reference['server_version']!='1.26.61.1': raise ValueError('unexpected baseline server version')
     return reference
 
+def scan_settle_seconds(chunks):
+    # Large isolated worlds can report ticking areas before all chunks finish
+    # generating; the script must not start reading those chunks yet.
+    return 120 if chunks >= 16 else 15
+
+
 def scan_area(pack, result_dir, index, reference_path=REFERENCE, full_height=False, reference_upper_empty=False):
     if reference_upper_empty and not full_height:
         raise ValueError('reference_upper_empty requires full_height')
@@ -238,7 +244,7 @@ def scan_area(pack, result_dir, index, reference_path=REFERENCE, full_height=Fal
     # Large 32x32 scans can finish the ticking-area commands before Bedrock has
     # made every boundary chunk available to the diagnostic script.  Give the
     # engine a longer settling window; an unloaded read still aborts loudly.
-    settle_seconds=30 if n >= 16 else 15
+    settle_seconds=scan_settle_seconds(n)
     full_baseline=None
     if full_height and not reference_upper_empty:
         vanilla_world=run(seed,False,n,diagnose=True,chunk_x=x,chunk_z=z,height_probe=True,

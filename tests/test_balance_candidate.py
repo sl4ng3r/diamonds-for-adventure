@@ -4,11 +4,15 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from tools.balance_experiment import create_candidate, pack_digest, write_result_once, evaluate_mining, diff_ore_trace, probe_surfaces
+from tools.balance_experiment import create_candidate, pack_digest, write_result_once, evaluate_mining, diff_ore_trace, probe_surfaces, scan_settle_seconds
 from tools.holdout_uncertainty import percentile, report
 
 
 class BalanceCandidateTest(unittest.TestCase):
+    def test_large_scan_gets_longer_chunk_preload_window(self):
+        self.assertEqual(scan_settle_seconds(4), 15)
+        self.assertEqual(scan_settle_seconds(16), 120)
+
     def test_candidate_is_isolated_and_uses_normal_ore(self):
         source=Path(__file__).resolve().parents[1]/'prototype/behavior_pack'
         original=(source/'manifest.json').read_bytes()

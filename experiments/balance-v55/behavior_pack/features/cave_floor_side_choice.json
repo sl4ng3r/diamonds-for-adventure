@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_floor_side_choice"
+    },
+    "features": [
+      [
+        "cavediamonds:cave_floor_side_east",
+        1
+      ],
+      [
+        "cavediamonds:cave_floor_side_west",
+        1
+      ],
+      [
+        "cavediamonds:cave_floor_side_north",
+        1
+      ],
+      [
+        "cavediamonds:cave_floor_side_south",
+        1
+      ]
+    ]
+  }
+}

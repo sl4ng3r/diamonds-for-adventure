@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_ore_n4"
+    },
+    "count": 4,
+    "replace_rules": [
+      {
+        "places_block": "minecraft:diamond_ore",
+        "may_replace": [
+          "minecraft:stone"
+        ]
+      },
+      {
+        "places_block": "minecraft:deepslate_diamond_ore",
+        "may_replace": [
+          "minecraft:deepslate"
+        ]
+      }
+    ]
+  }
+}
