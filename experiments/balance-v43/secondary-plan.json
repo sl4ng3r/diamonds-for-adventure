@@ -1,0 +1,55 @@
+{
+  "purpose": "V43 certain replacement of eligible buried ore; secondary reused Vanilla reference",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v43/behavior_pack",
+  "pack_sha256": "bbea8c5cad86735bdab655c6c09070424f12147afcd3ba9ebe5883fd8598e57f",
+  "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+  "results": "experiments/balance-v43/v19-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 919001,
+      "chunk_x": 2300,
+      "chunk_z": -3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919009,
+      "chunk_x": -4300,
+      "chunk_z": 1900,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919021,
+      "chunk_x": 3700,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919033,
+      "chunk_x": -2900,
+      "chunk_z": -5300,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919037,
+      "chunk_x": 5700,
+      "chunk_z": -1100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919043,
+      "chunk_x": -6400,
+      "chunk_z": 5100,
+      "chunks_per_side": 16
+    }
+  ]
+}

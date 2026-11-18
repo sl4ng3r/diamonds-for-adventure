@@ -1,0 +1,268 @@
+{
+  "completed": 12,
+  "missing": 0,
+  "tile_size": 64,
+  "vanilla_upper_17_to_40_assumed_empty": true,
+  "exposed_positions": {
+    "vanilla": 342,
+    "candidate": 395,
+    "retained": 342,
+    "lost": 0,
+    "added": 53
+  },
+  "note": "A group can count in multiple height bands when it has air-facing blocks in each. One deterministic air-facing block assigns it to one tile per band; tiles are not caves.",
+  "bands": {
+    "-64..-48": {
+      "groups": {
+        "vanilla": 50,
+        "candidate": 56,
+        "percent_of_vanilla": 112.0
+      },
+      "air_exposed_blocks": {
+        "vanilla": 56,
+        "candidate": 60
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 5,
+        "max_vanilla": 3,
+        "max_candidate": 3,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 3,
+            "vanilla": 1,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 1,
+            "tile_x": 3,
+            "tile_z": 2
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 4,
+            "tile_x": 1,
+            "tile_z": 0
+          }
+        ]
+      }
+    },
+    "-47..-32": {
+      "groups": {
+        "vanilla": 100,
+        "candidate": 108,
+        "percent_of_vanilla": 108.0
+      },
+      "air_exposed_blocks": {
+        "vanilla": 111,
+        "candidate": 119
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 8,
+        "max_vanilla": 4,
+        "max_candidate": 4,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 4,
+            "vanilla": 4,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 0,
+            "tile_x": 0,
+            "tile_z": 0
+          },
+          {
+            "candidate": 4,
+            "vanilla": 4,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 1,
+            "tile_x": 1,
+            "tile_z": 1
+          },
+          {
+            "candidate": 3,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 1,
+            "tile_x": 3,
+            "tile_z": 1
+          }
+        ]
+      }
+    },
+    "-31..-16": {
+      "groups": {
+        "vanilla": 98,
+        "candidate": 110,
+        "percent_of_vanilla": 112.2
+      },
+      "air_exposed_blocks": {
+        "vanilla": 108,
+        "candidate": 123
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 12,
+        "max_vanilla": 5,
+        "max_candidate": 5,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 5,
+            "vanilla": 5,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 0,
+            "tile_z": 0
+          },
+          {
+            "candidate": 4,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 1,
+            "tile_x": 2,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 1,
+            "tile_x": 0,
+            "tile_z": 1
+          }
+        ]
+      }
+    },
+    "-15..-1": {
+      "groups": {
+        "vanilla": 46,
+        "candidate": 56,
+        "percent_of_vanilla": 121.7
+      },
+      "air_exposed_blocks": {
+        "vanilla": 50,
+        "candidate": 65
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 9,
+        "max_vanilla": 3,
+        "max_candidate": 3,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 3,
+            "tile_x": 2,
+            "tile_z": 1
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 2,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 1,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 3,
+            "tile_z": 2
+          }
+        ]
+      }
+    },
+    "0..16": {
+      "groups": {
+        "vanilla": 14,
+        "candidate": 19,
+        "percent_of_vanilla": 135.7
+      },
+      "air_exposed_blocks": {
+        "vanilla": 17,
+        "candidate": 22
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 5,
+        "max_vanilla": 2,
+        "max_candidate": 2,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 2,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 1
+          },
+          {
+            "candidate": 1,
+            "vanilla": 1,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 0,
+            "tile_x": 0,
+            "tile_z": 0
+          },
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 2
+          }
+        ]
+      }
+    },
+    "17..40": {
+      "groups": {
+        "vanilla": 0,
+        "candidate": 5,
+        "percent_of_vanilla": null
+      },
+      "air_exposed_blocks": {
+        "vanilla": 0,
+        "candidate": 6
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 5,
+        "max_vanilla": 0,
+        "max_candidate": 1,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 0,
+            "tile_x": 2,
+            "tile_z": 0
+          },
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 3
+          },
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/calibration-plan.json",
+            "index": 2,
+            "tile_x": 3,
+            "tile_z": 1
+          }
+        ]
+      }
+    }
+  }
+}

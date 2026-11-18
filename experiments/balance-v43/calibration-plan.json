@@ -1,0 +1,55 @@
+{
+  "purpose": "V43 certain replacement of eligible buried ore; calibration reused Vanilla reference",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v43/behavior_pack",
+  "pack_sha256": "bbea8c5cad86735bdab655c6c09070424f12147afcd3ba9ebe5883fd8598e57f",
+  "reference": "reference/balance-holdout-v24-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "f2d6807ce8dd6f908adb2212759cb6d4bba12422a0c04a302ea894abcbc0ec41",
+  "results": "experiments/balance-v43/v24-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 920003,
+      "chunk_x": 2100,
+      "chunk_z": -4100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920011,
+      "chunk_x": -3900,
+      "chunk_z": 2200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920027,
+      "chunk_x": 4900,
+      "chunk_z": 3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920039,
+      "chunk_x": -2400,
+      "chunk_z": -4600,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920047,
+      "chunk_x": 5100,
+      "chunk_z": -1600,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 920059,
+      "chunk_x": -6100,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    }
+  ]
+}

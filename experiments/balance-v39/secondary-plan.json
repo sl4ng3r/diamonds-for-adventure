@@ -1,0 +1,55 @@
+{
+  "purpose": "V39 intermediate deep rule setting, secondary reused Vanilla reference; not an independent holdout",
+  "server_version": "1.26.61.1",
+  "pack": "experiments/balance-v39/behavior_pack",
+  "pack_sha256": "b746dee279c5c4a8148d2b3c720d8ab918768edfd602d2f45d18277a3acee1e5",
+  "reference": "reference/balance-holdout-v19-1.26.61.1-2026-11-04.json",
+  "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+  "results": "experiments/balance-v39/v19-reference-results",
+  "indexes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "areas": [
+    {
+      "seed": 919001,
+      "chunk_x": 2300,
+      "chunk_z": -3200,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919009,
+      "chunk_x": -4300,
+      "chunk_z": 1900,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919021,
+      "chunk_x": 3700,
+      "chunk_z": 4700,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919033,
+      "chunk_x": -2900,
+      "chunk_z": -5300,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919037,
+      "chunk_x": 5700,
+      "chunk_z": -1100,
+      "chunks_per_side": 16
+    },
+    {
+      "seed": 919043,
+      "chunk_x": -6400,
+      "chunk_z": 5100,
+      "chunks_per_side": 16
+    }
+  ]
+}

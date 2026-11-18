@@ -1,0 +1,128 @@
+{
+  "completed": 6,
+  "total": 6,
+  "missing": [],
+  "pack_sha256": "684cf5136ca6ef259918ccc7a7376175ddec49906a14d6401eb99aec49bd37fa",
+  "reference_sha256": "b82788bf27bc64f22b475fee3e680890952a29357f8b8e60b0a563ca85da10c7",
+  "groups": {
+    "vanilla": 164,
+    "candidate": 188,
+    "percent_of_vanilla": 114.6
+  },
+  "areas": [
+    {
+      "index": 0,
+      "vanilla": 38,
+      "candidate": 43,
+      "percent_of_vanilla": 113.2,
+      "air_exposed_blocks": {
+        "vanilla": 40,
+        "candidate": 45,
+        "percent_of_vanilla": 112.5
+      }
+    },
+    {
+      "index": 1,
+      "vanilla": 32,
+      "candidate": 38,
+      "percent_of_vanilla": 118.8,
+      "air_exposed_blocks": {
+        "vanilla": 35,
+        "candidate": 43,
+        "percent_of_vanilla": 122.9
+      }
+    },
+    {
+      "index": 2,
+      "vanilla": 23,
+      "candidate": 26,
+      "percent_of_vanilla": 113.0,
+      "air_exposed_blocks": {
+        "vanilla": 26,
+        "candidate": 32,
+        "percent_of_vanilla": 123.1
+      }
+    },
+    {
+      "index": 3,
+      "vanilla": 30,
+      "candidate": 32,
+      "percent_of_vanilla": 106.7,
+      "air_exposed_blocks": {
+        "vanilla": 33,
+        "candidate": 36,
+        "percent_of_vanilla": 109.1
+      }
+    },
+    {
+      "index": 4,
+      "vanilla": 15,
+      "candidate": 17,
+      "percent_of_vanilla": 113.3,
+      "air_exposed_blocks": {
+        "vanilla": 16,
+        "candidate": 18,
+        "percent_of_vanilla": 112.5
+      }
+    },
+    {
+      "index": 5,
+      "vanilla": 26,
+      "candidate": 32,
+      "percent_of_vanilla": 123.1,
+      "air_exposed_blocks": {
+        "vanilla": 31,
+        "candidate": 39,
+        "percent_of_vanilla": 125.8
+      }
+    }
+  ],
+  "upper_blocks": 0,
+  "upper_heights": {},
+  "highest_upper_y": null,
+  "air_exposed_blocks": {
+    "vanilla": 181,
+    "candidate": 213,
+    "percent_of_vanilla": 117.7
+  },
+  "air_exposed_by_height": {
+    "-64..-48": {
+      "vanilla": 27,
+      "candidate": 28,
+      "percent_of_vanilla": 103.7
+    },
+    "-47..-32": {
+      "vanilla": 57,
+      "candidate": 62,
+      "percent_of_vanilla": 108.8
+    },
+    "-31..-16": {
+      "vanilla": 58,
+      "candidate": 69,
+      "percent_of_vanilla": 119.0
+    },
+    "-15..-1": {
+      "vanilla": 27,
+      "candidate": 39,
+      "percent_of_vanilla": 144.4
+    },
+    "0..16": {
+      "vanilla": 12,
+      "candidate": 15,
+      "percent_of_vanilla": 125.0
+    },
+    "17..40": {
+      "vanilla": 0,
+      "candidate": 0,
+      "percent_of_vanilla": null
+    }
+  },
+  "area_bootstrap_95_percent": [
+    110.5,
+    118.9
+  ],
+  "air_exposed_area_bootstrap_95_percent": [
+    112.6,
+    123.0
+  ]
+}

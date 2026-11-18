@@ -1,0 +1,243 @@
+{
+  "completed": 6,
+  "missing": 0,
+  "tile_size": 64,
+  "vanilla_upper_17_to_40_assumed_empty": true,
+  "exposed_positions": {
+    "vanilla": 181,
+    "candidate": 213,
+    "retained": 181,
+    "lost": 0,
+    "added": 32
+  },
+  "note": "A group can count in multiple height bands when it has air-facing blocks in each. One deterministic air-facing block assigns it to one tile per band; tiles are not caves.",
+  "bands": {
+    "-64..-48": {
+      "groups": {
+        "vanilla": 25,
+        "candidate": 26,
+        "percent_of_vanilla": 104.0
+      },
+      "air_exposed_blocks": {
+        "vanilla": 27,
+        "candidate": 28
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 1,
+        "max_vanilla": 3,
+        "max_candidate": 3,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 3
+          },
+          {
+            "candidate": 2,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 0,
+            "tile_x": 0,
+            "tile_z": 0
+          },
+          {
+            "candidate": 2,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 0,
+            "tile_x": 0,
+            "tile_z": 2
+          }
+        ]
+      }
+    },
+    "-47..-32": {
+      "groups": {
+        "vanilla": 52,
+        "candidate": 57,
+        "percent_of_vanilla": 109.6
+      },
+      "air_exposed_blocks": {
+        "vanilla": 57,
+        "candidate": 62
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 5,
+        "max_vanilla": 4,
+        "max_candidate": 4,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 4,
+            "vanilla": 4,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 1,
+            "tile_x": 1,
+            "tile_z": 1
+          },
+          {
+            "candidate": 3,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 2,
+            "tile_x": 2,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 3,
+            "tile_x": 2,
+            "tile_z": 0
+          }
+        ]
+      }
+    },
+    "-31..-16": {
+      "groups": {
+        "vanilla": 54,
+        "candidate": 62,
+        "percent_of_vanilla": 114.8
+      },
+      "air_exposed_blocks": {
+        "vanilla": 58,
+        "candidate": 69
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 8,
+        "max_vanilla": 5,
+        "max_candidate": 5,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 5,
+            "vanilla": 5,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 0,
+            "tile_z": 0
+          },
+          {
+            "candidate": 4,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 1,
+            "tile_x": 2,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 0,
+            "tile_x": 1,
+            "tile_z": 2
+          }
+        ]
+      }
+    },
+    "-15..-1": {
+      "groups": {
+        "vanilla": 24,
+        "candidate": 31,
+        "percent_of_vanilla": 129.2
+      },
+      "air_exposed_blocks": {
+        "vanilla": 27,
+        "candidate": 39
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 6,
+        "max_vanilla": 3,
+        "max_candidate": 3,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 3,
+            "tile_x": 2,
+            "tile_z": 1
+          },
+          {
+            "candidate": 3,
+            "vanilla": 3,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 2,
+            "tile_z": 3
+          },
+          {
+            "candidate": 3,
+            "vanilla": 1,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 5,
+            "tile_x": 3,
+            "tile_z": 2
+          }
+        ]
+      }
+    },
+    "0..16": {
+      "groups": {
+        "vanilla": 9,
+        "candidate": 12,
+        "percent_of_vanilla": 133.3
+      },
+      "air_exposed_blocks": {
+        "vanilla": 12,
+        "candidate": 15
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 3,
+        "max_vanilla": 2,
+        "max_candidate": 2,
+        "max_candidate_with_vanilla": [
+          {
+            "candidate": 2,
+            "vanilla": 2,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 2,
+            "tile_x": 1,
+            "tile_z": 1
+          },
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 0,
+            "tile_x": 3,
+            "tile_z": 0
+          },
+          {
+            "candidate": 1,
+            "vanilla": 0,
+            "area": "experiments/balance-v44/secondary-plan.json",
+            "index": 1,
+            "tile_x": 0,
+            "tile_z": 1
+          }
+        ]
+      }
+    },
+    "17..40": {
+      "groups": {
+        "vanilla": 0,
+        "candidate": 0,
+        "percent_of_vanilla": null
+      },
+      "air_exposed_blocks": {
+        "vanilla": 0,
+        "candidate": 0
+      },
+      "local_tiles": {
+        "candidate_gt_vanilla": 0,
+        "max_vanilla": 0,
+        "max_candidate": 0,
+        "max_candidate_with_vanilla": []
+      }
+    }
+  }
+}

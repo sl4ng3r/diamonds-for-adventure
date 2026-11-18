@@ -1,0 +1,42 @@
+{
+  "areas": 12,
+  "chunks": 3072,
+  "groups": {
+    "vanilla": 308,
+    "candidate": 354,
+    "percent_of_vanilla": 114.9,
+    "area_bootstrap_95_percent": [
+      111.7,
+      117.8
+    ]
+  },
+  "buried_y_minus57": {
+    "vanilla": 1334,
+    "candidate": 225,
+    "percent_of_vanilla": 16.9
+  },
+  "model_tunnel_contacts": {
+    "vanilla": 10823,
+    "candidate": 1808,
+    "percent_of_vanilla": 16.7
+  },
+  "exposed_positions": {
+    "vanilla": 342,
+    "candidate": 395,
+    "retained": 342,
+    "lost": 0,
+    "added": 53
+  },
+  "critical_band_groups": {
+    "vanilla": 100,
+    "candidate": 108,
+    "percent_of_vanilla": 108.0
+  },
+  "critical_tile_max": {
+    "vanilla": 4,
+    "candidate": 4
+  },
+  "upper_blocks": 10,
+  "highest_upper_y": 24,
+  "note": "Both references were previously used for tuning other variants; tiles are not connected caves; air contact is not accessibility."
+}

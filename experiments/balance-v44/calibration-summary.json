@@ -1,0 +1,135 @@
+{
+  "completed": 6,
+  "total": 6,
+  "missing": [],
+  "pack_sha256": "684cf5136ca6ef259918ccc7a7376175ddec49906a14d6401eb99aec49bd37fa",
+  "reference_sha256": "f2d6807ce8dd6f908adb2212759cb6d4bba12422a0c04a302ea894abcbc0ec41",
+  "groups": {
+    "vanilla": 144,
+    "candidate": 166,
+    "percent_of_vanilla": 115.3
+  },
+  "areas": [
+    {
+      "index": 0,
+      "vanilla": 20,
+      "candidate": 23,
+      "percent_of_vanilla": 115.0,
+      "air_exposed_blocks": {
+        "vanilla": 21,
+        "candidate": 25,
+        "percent_of_vanilla": 119.0
+      }
+    },
+    {
+      "index": 1,
+      "vanilla": 31,
+      "candidate": 37,
+      "percent_of_vanilla": 119.4,
+      "air_exposed_blocks": {
+        "vanilla": 36,
+        "candidate": 40,
+        "percent_of_vanilla": 111.1
+      }
+    },
+    {
+      "index": 2,
+      "vanilla": 33,
+      "candidate": 37,
+      "percent_of_vanilla": 112.1,
+      "air_exposed_blocks": {
+        "vanilla": 39,
+        "candidate": 43,
+        "percent_of_vanilla": 110.3
+      }
+    },
+    {
+      "index": 3,
+      "vanilla": 14,
+      "candidate": 17,
+      "percent_of_vanilla": 121.4,
+      "air_exposed_blocks": {
+        "vanilla": 15,
+        "candidate": 18,
+        "percent_of_vanilla": 120.0
+      }
+    },
+    {
+      "index": 4,
+      "vanilla": 32,
+      "candidate": 38,
+      "percent_of_vanilla": 118.8,
+      "air_exposed_blocks": {
+        "vanilla": 36,
+        "candidate": 42,
+        "percent_of_vanilla": 116.7
+      }
+    },
+    {
+      "index": 5,
+      "vanilla": 14,
+      "candidate": 14,
+      "percent_of_vanilla": 100.0,
+      "air_exposed_blocks": {
+        "vanilla": 14,
+        "candidate": 14,
+        "percent_of_vanilla": 100.0
+      }
+    }
+  ],
+  "upper_blocks": 10,
+  "upper_heights": {
+    "18": 1,
+    "19": 4,
+    "20": 2,
+    "21": 1,
+    "23": 1,
+    "24": 1
+  },
+  "highest_upper_y": 24,
+  "air_exposed_blocks": {
+    "vanilla": 161,
+    "candidate": 182,
+    "percent_of_vanilla": 113.0
+  },
+  "air_exposed_by_height": {
+    "-64..-48": {
+      "vanilla": 29,
+      "candidate": 32,
+      "percent_of_vanilla": 110.3
+    },
+    "-47..-32": {
+      "vanilla": 54,
+      "candidate": 57,
+      "percent_of_vanilla": 105.6
+    },
+    "-31..-16": {
+      "vanilla": 50,
+      "candidate": 54,
+      "percent_of_vanilla": 108.0
+    },
+    "-15..-1": {
+      "vanilla": 23,
+      "candidate": 26,
+      "percent_of_vanilla": 113.0
+    },
+    "0..16": {
+      "vanilla": 5,
+      "candidate": 7,
+      "percent_of_vanilla": 140.0
+    },
+    "17..40": {
+      "vanilla": 0,
+      "candidate": 6,
+      "percent_of_vanilla": null
+    }
+  },
+  "area_bootstrap_95_percent": [
+    110.2,
+    119.0
+  ],
+  "air_exposed_area_bootstrap_95_percent": [
+    109.0,
+    116.7
+  ]
+}
