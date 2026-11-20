@@ -1,0 +1,37 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "cavediamonds:scan_upper_chunk"
+    },
+    "places_feature": "cavediamonds:select_upper_ore",
+    "distribution": {
+      "iterations": 9216,
+      "coordinate_eval_order": "xzy",
+      "x": {
+        "distribution": "fixed_grid",
+        "extent": [
+          0,
+          15
+        ],
+        "step_size": 1
+      },
+      "y": {
+        "distribution": "fixed_grid",
+        "extent": [
+          0,
+          35
+        ],
+        "step_size": 1
+      },
+      "z": {
+        "distribution": "fixed_grid",
+        "extent": [
+          0,
+          15
+        ],
+        "step_size": 1
+      }
+    }
+  }
+}
