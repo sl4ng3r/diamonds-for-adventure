@@ -14,4 +14,5 @@ __pycache__/
 !dist/cave-diamonds-v0.1.5.mcpack
 !dist/cave-diamonds-v0.1.9.mcpack
 !dist/cave-diamonds-v0.1.10.mcpack
+!dist/cave-diamonds-v0.1.16.mcpack
 .DS_Store

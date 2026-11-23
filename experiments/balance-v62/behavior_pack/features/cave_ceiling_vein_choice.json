@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_ceiling_vein_choice"
+    },
+    "features": [
+      [
+        "cavediamonds:cave_ceiling_vein_n1",
+        1
+      ],
+      [
+        "cavediamonds:cave_ceiling_vein_n2",
+        1
+      ],
+      [
+        "cavediamonds:cave_ceiling_vein_n3",
+        25
+      ],
+      [
+        "cavediamonds:cave_ceiling_vein_n4",
+        64
+      ],
+      [
+        "cavediamonds:cave_ceiling_vein_n5",
+        10
+      ]
+    ]
+  }
+}

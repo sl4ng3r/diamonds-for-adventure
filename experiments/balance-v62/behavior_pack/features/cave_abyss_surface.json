@@ -1,0 +1,22 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "cavediamonds:cave_abyss_surface"
+    },
+    "features": [
+      [
+        "cavediamonds:cave_abyss_floor",
+        1
+      ],
+      [
+        "cavediamonds:cave_abyss_ceiling",
+        1
+      ],
+      [
+        "cavediamonds:cave_abyss_wall",
+        1
+      ]
+    ]
+  }
+}

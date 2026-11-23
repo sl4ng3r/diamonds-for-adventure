@@ -1,0 +1,16 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "cavediamonds:ocean_cave_chance"
+    },
+    "places_feature": "cavediamonds:ocean_cave_surface",
+    "distribution": {
+      "iterations": 1,
+      "scatter_chance": 35,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

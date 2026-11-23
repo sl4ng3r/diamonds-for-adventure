@@ -13,9 +13,9 @@ TARGET = ROOT / 'dist/cave-diamonds-v0.1.9.mcpack'
 VERSION = [0, 1, 9]
 
 
-def build_package(target=TARGET, version=VERSION):
+def build_package(target=TARGET, version=VERSION, *, source=SOURCE):
     target = Path(target)
-    manifest = json.loads((SOURCE / 'manifest.json').read_text())
+    manifest = json.loads((source / 'manifest.json').read_text())
     manifest['header']['name'] = 'Cave Diamonds'
     manifest['header']['description'] = (
         'Diamanten in Höhlen entdecken und seltener in tiefem Gestein finden.'
@@ -26,9 +26,9 @@ def build_package(target=TARGET, version=VERSION):
 
     target.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(target, 'x', compression=zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(SOURCE.rglob('*')):
+        for path in sorted(source.rglob('*')):
             if path.is_file() and path.name != 'manifest.json':
-                archive.write(path, path.relative_to(SOURCE).as_posix())
+                archive.write(path, path.relative_to(source).as_posix())
         archive.writestr('manifest.json', json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
         archive.write(ICON, 'pack_icon.png')
     return target

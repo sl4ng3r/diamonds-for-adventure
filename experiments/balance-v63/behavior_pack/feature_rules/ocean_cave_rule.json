@@ -1,0 +1,40 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "cavediamonds:ocean_cave_rule",
+      "places_feature": "cavediamonds:ocean_cave_chance"
+    },
+    "conditions": {
+      "placement_pass": "final_pass",
+      "minecraft:biome_filter": {
+        "test": "has_biome_tag",
+        "value": "ocean"
+      }
+    },
+    "distribution": {
+      "iterations": 1,
+      "x": {
+        "distribution": "uniform",
+        "extent": [
+          0,
+          15
+        ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [
+          -40,
+          31
+        ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [
+          0,
+          15
+        ]
+      }
+    }
+  }
+}

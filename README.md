@@ -6,19 +6,21 @@ Ein **Minecraft-Bedrock-Behavior-Pack**: Diamanten sollen sich vor allem beim Er
 
 - Etwa 10–15 % mehr **getrennte Diamanterzgruppen mit direktem Luftkontakt** als in Vanilla. Luftkontakt beweist keine Spieler-Erreichbarkeit.
 - Vollständig eingeschlossene Erzblöcke oberhalb Y = −20 sollen auf ungefähr 30 % von Vanilla sinken.
-- Auf Y = −57 sollen beim Tunnelgraben nur noch selten Diamanten gefunden werden. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
+- Auf Y = −57 sollen ungefähr 15 % der eingeschlossenen Erzblöcke übrig bleiben. Die tatsächliche Ausbeute pro Spielzeit ist noch nicht gemessen.
 - Normale Diamanterze und Spielmechaniken sollen erhalten bleiben; Tests mit Realms, Konsolen, Verzauberungen und echten Spielern stehen noch aus.
 
-V57 bewahrt die normalen und großen Vanilla-Diamantfeatures, ergänzt sparsame Höhlenregeln und dünnt vollständig eingeschlossene Erze in zwei Höhenbereichen aus. Gegenüber V56 sind mittlere Höhlenstartpunkte seltener und auf Y=−32..−17 begrenzt. In sechs schon früher verwendeten Referenzgebieten (1.536 Chunks) entstanden **181 statt 164 getrennte luftberührte Gruppen (+10,4 %)**, bei −15..−1 **24 statt 24** und um −40 **57 statt 52 (+9,6 %)**. Alle **49 direkt luftberührten Vanilla-Erzpositionen oberhalb −20** blieben erhalten; über alle Höhen fehlte eine von 181 Positionen bei Y=−23. Oberhalb −20 blieben **1.417 statt 4.815 eingeschlossene Erzblöcke (29,4 %)**, auf Y = −57 **109 statt 660 (16,5 %)**. Die eingeschlossenen Gruppen oberhalb −20 liegen bei 47,6 % von Vanilla, weil die Ausdünnung Adern aufteilen kann. Die Referenz ist kein unabhängiger Holdout. Eine andere große V56-Testserie scheiterte an Lade- und Scan-Laufzeiten; die Leistung in Spielwelten und Realms ist offen. Details stehen in der [V57-Auswertung](experiments/balance-v57/README.md).
+V63 erhält ganze Adern mit Luft- oder Flüssigkeitskontakt und dünnt vollständig eingeschlossene Adern aus. Zusätzliche tiefe Höhlenfunde liegen bei Y=−48 oder tiefer. Die obere Höhlenregel reicht planmäßig bis Y=+30, die Ozeanregel bis Y=+35.
 
-Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.10](dist/cave-diamonds-v0.1.10.mcpack). Sie wird mit `python3 -m tools.build_v57_dist --version 0.1.10` unter `dist/` erzeugt. Gegenüber 0.1.9 ändert sich ausschließlich die Manifest-Version; die Diamantgenerierung bleibt V57. Die Versionsnummer ist keine Bestätigung für Realm- oder Konsolenkompatibilität; vor Einsatz in einer bestehenden Welt ist eine Sicherung nötig.
+In 384 Bedrock-Testchunks blieben **alle 84 freiliegenden Adern** vollständig erhalten. Gegenüber Vanilla wurden bis Y=+16 **52 statt 44 luftberührte Fundstellen (+18,2 %)** gemessen. In den vier direkt mit V60 vergleichbaren Gebieten waren es **29 statt 26 (+11,5 %)**. Über alle sechs Gebiete blieben auf Y=−57 **21 statt 162 (13,0 %)** eingeschlossene Erzblöcke und oberhalb −20 bis +16 **285 statt 1.175 (24,3 %)**. Details und Grenzen stehen im [Testbericht zu V63](experiments/balance-v63/README.md#ergebnis).
+
+Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.16](dist/cave-diamonds-v0.1.16.mcpack). Erzeugung mit `python3 -m tools.build_v63 --package`. Vor einem Update einer bestehenden Welt eine Sicherung erstellen. Der Test hat die Ausdünnung gezielt ausgelöst. Automatische Ausführung beim Spielen und Realm-Leistung sind noch offen.
 
 ## Aufbau
 
 | Pfad | Inhalt |
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
-| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V57](experiments/balance-v57/README.md). |
+| `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V63](experiments/balance-v63/README.md). |
 | `dist/` | Aktuelle feste Paketversion und [Ablagehinweise](dist/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |
@@ -49,7 +51,7 @@ Voraussetzungen sind Docker mit Compose und Unterstützung für `linux/amd64`. D
    docker compose logs -f
    ```
 
-Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V57. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. Das Docker-Subnetz ist über `BEDROCK_NETWORK_SUBNET` einstellbar und muss frei von Überschneidungen mit lokalen Netzen, VPNs und anderen Docker-Netzen sein. Ein bestehendes Compose-Netz muss nach einer Subnetzänderung neu erstellt werden; dabei wird der Testserver kurz unterbrochen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
+Der Healthcheck prüft den Serverprozess, nicht das Add-on. Die Compose-Umgebung aktiviert bei einer neuen Testwelt den **ursprünglichen Prototyp**, nicht V63. Der Server nutzt Online-Authentifizierung und eine Allowlist. Port und Version sind in `.env` konfigurierbar; bei späterer Portänderung ist auch `server-port` in der bereits vorhandenen `data/server.properties` zu prüfen. Das Docker-Subnetz ist über `BEDROCK_NETWORK_SUBNET` einstellbar und muss frei von Überschneidungen mit lokalen Netzen, VPNs und anderen Docker-Netzen sein. Ein bestehendes Compose-Netz muss nach einer Subnetzänderung neu erstellt werden; dabei wird der Testserver kurz unterbrochen. `data/` enthält persistente Welten und wird bei Updates nicht automatisch ersetzt. Deploy Cockpit hat die Compose-Konfiguration lokal erkannt; eine Installation darüber wurde noch nicht nachgewiesen.
 
 ## Ältere V8-Vergleiche
 

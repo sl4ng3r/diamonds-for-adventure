@@ -357,3 +357,7 @@ Ein späterer Export einer tatsächlich gespielten Welt mit dem V57-Pack enthiel
 Aus demselben V57-Stand wurde `dist/cave-diamonds-v0.1.10.mcpack` gebaut. Der Bytevergleich mit 0.1.9 bestätigte identische Generierungsdateien, Icon, UUIDs, Namen und Beschreibung; nur Header- und Modulversion im Manifest wechselten auf `[0, 1, 10]`. Der Builder `python3 -m tools.build_v57_dist --version 0.1.10` verweigert das Überschreiben vorhandener Pakete. SHA-256: `eff35e3d91cd8a87b5c0e239a853cea30d32d7ce4c2e42efbfe2175ed4773a36`.
 
 190 automatisierte Tests bestanden, einschließlich Paketparität und Versionsprüfung. `docker compose config --quiet` bestand; der unveränderte Testdienst war `running/healthy`. Weil weder Compose noch der laufende Prototyp geändert wurden, wurde kein Container neu gestartet. Es gab keinen neuen Engine-, Realm-, Konsolen- oder Deploy-Cockpit-Installationstest für 0.1.10; die zuvor gemessenen V57-Weltgenerierungsbefunde bleiben inhaltlich gleich. Das neue Paket und die Projektänderungen werden auf ausdrücklichen Nutzerwunsch in Git übernommen.
+
+## Cave Diamonds 0.1.16 (V63)
+
+Der [Testbericht zu V63](experiments/balance-v63/README.md#ergebnis) enthält die Messwerte aus sechs Gebieten mit insgesamt 384 Bedrock-Chunks und den direkten Vergleich zu V60. Das dort getestete Paket liegt unter [dist/cave-diamonds-v0.1.16.mcpack](dist/cave-diamonds-v0.1.16.mcpack).

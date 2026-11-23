@@ -1,0 +1,22 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "cavediamonds:ocean_cave_surface"
+    },
+    "features": [
+      [
+        "cavediamonds:ocean_cave_floor",
+        1
+      ],
+      [
+        "cavediamonds:ocean_cave_ceiling",
+        1
+      ],
+      [
+        "cavediamonds:ocean_cave_wall",
+        1
+      ]
+    ]
+  }
+}
