@@ -14,7 +14,7 @@ from tools.build_v60 import build_pack as build_v60
 EXPERIMENT = ROOT / 'experiments/balance-v61'
 TARGET = EXPERIMENT / 'behavior_pack'
 VERSION = (0, 1, 14)
-DIST = ROOT / 'dist/cave-diamonds-v0.1.14.mcpack'
+DIST = ROOT / 'data/package-archive/cave-diamonds-v0.1.14.mcpack'
 
 
 def build_pack(target=TARGET, *, deep_start=(-62, -52), deep_attempts=1, deep_chance=42):

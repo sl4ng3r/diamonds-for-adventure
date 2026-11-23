@@ -4,4 +4,4 @@
 
 Erzeugung mit `python3 -m tools.build_v63 --package`. Der Builder überschreibt keine vorhandene Paketdatei. Vor einem Update auf einer bestehenden Welt eine Sicherung erstellen.
 
-Bei jeder neuen festen Version die versionierte `.mcpack` hier ablegen, in `.gitignore` gezielt freigeben und zusammen mit dem Quellstand committen und pushen. Diesen Verweis und den Verweis in der Projekt-README aktualisieren. Bereits eingecheckte Pakete bleiben erhalten.
+Hier liegt genau eine `.mcpack`. Bei jeder neuen festen Version das bisherige Paket nach `data/package-archive/` verschieben, die neue Datei in `.gitignore` freigeben und zusammen mit dem Quellstand committen und pushen. Diesen Verweis, den Verweis in der Projekt-README und die Paketprüfung auf die neue Version umstellen. Bereits veröffentlichte Pakete sind im Git-Verlauf verfügbar. Die Builder früherer Versionen schreiben ins lokale Archiv.

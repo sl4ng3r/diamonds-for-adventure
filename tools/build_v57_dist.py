@@ -1,4 +1,4 @@
-"""Build a versioned Cave Diamonds V57 package in dist/."""
+"""Build a versioned Cave Diamonds V57 package in the local package archive."""
 
 import argparse
 import json
@@ -9,7 +9,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'experiments/balance-v57/behavior_pack'
 ICON = ROOT / 'experiments/balance-v26-icon/pack_icon.png'
-TARGET = ROOT / 'dist/cave-diamonds-v0.1.9.mcpack'
+TARGET = ROOT / 'data/package-archive/cave-diamonds-v0.1.9.mcpack'
 VERSION = [0, 1, 9]
 
 
@@ -42,7 +42,7 @@ def main():
     if len(parts) != 3 or not all(part.isdecimal() for part in parts):
         parser.error('--version muss aus drei nichtnegativen Zahlen bestehen')
     version = [int(part) for part in parts]
-    target = ROOT / 'dist' / f'cave-diamonds-v{args.version}.mcpack'
+    target = ROOT / 'data/package-archive' / f'cave-diamonds-v{args.version}.mcpack'
     print(build_package(target, version=version))
 
 

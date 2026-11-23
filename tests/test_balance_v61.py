@@ -86,6 +86,9 @@ class V61BalanceTest(unittest.TestCase):
             old['minecraft:feature_rules']['distribution']['iterations'] = 1
             self.assertEqual(new, old)
 
+    def test_dist_contains_only_the_current_v63_package(self):
+        self.assertEqual(sorted(V63_PACKAGE.parent.glob('*.mcpack')), [V63_PACKAGE])
+
     def test_dist_contains_the_current_v63_generation(self):
         with TemporaryDirectory() as directory, ZipFile(V63_PACKAGE) as archive:
             pack = build_v63(Path(directory) / 'pack')

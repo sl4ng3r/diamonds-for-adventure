@@ -21,7 +21,7 @@ Die aktuelle feste Paketversion ist [Cave Diamonds v0.1.16](dist/cave-diamonds-v
 | --- | --- |
 | `prototype/behavior_pack/` | Ursprünglicher, in natürlichen Welten fehlgeschlagener Prototyp. |
 | `experiments/` | Getrennte Versionen, Messergebnisse und Dokumentation; insbesondere [V63](experiments/balance-v63/README.md). |
-| `dist/` | Aktuelle feste Paketversion und [Ablagehinweise](dist/README.md). |
+| `dist/` | Genau eine feste Paketdatei für die neueste Version und die [Ablagehinweise](dist/README.md). |
 | `diagnostics/behavior_pack/` | Separates Diagnose-Skript für Testwelten; keine Produktionsabhängigkeit. |
 | `reference/` | Zusammengefasste Vanilla-Referenzen und Messpläne. |
 | `tools/` und `tests/` | Wiederverwendbare Engine-Vergleiche, Auswertung und automatisierte Prüfungen. |

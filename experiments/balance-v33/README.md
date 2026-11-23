@@ -17,7 +17,7 @@ V33's full Y=−64..40 height bands, individual series and pack hash are in `com
 
 The local experience can still differ: at Y=−15..−1, V33 has 87 versus 50 air-adjacent blocks; across the twelve regions it has only 167 versus 308 connected air-adjacent groups. This is fewer sites with more exposed blocks per site, which may feel too sparse between rich finds. At Y=−57, 226 versus 1,334 buried ore blocks (16.9%) and the overlapping tunnel model had 1,637 versus 10,823 contacts (15.1%). These are not measured player yields. The highest observed V33 ore remains Y=+24, and the planned +30 cap is unobserved.
 
-The current fixed package is [`dist/cave-diamonds-v0.1.5.mcpack`](../../dist/cave-diamonds-v0.1.5.mcpack), built with `python3 -m tools.build_v33_dist`. Its generation files match this measured V33 source byte-for-byte. Version 0.1.5 is an installable package, not proof of Realm, console, old-world, or gameplay compatibility. Test it in a backed-up or disposable world first. Earlier generated chunks will not provide a clean comparison with newly generated chunks.
+The historical package is [Cave Diamonds v0.1.5](https://github.com/sl4ng3r/diamonds-for-adventure/blob/5e692f5/dist/cave-diamonds-v0.1.5.mcpack). Rebuild it into `data/package-archive/` with `python3 -m tools.build_v33_dist`. Its generation files match this measured V33 source byte-for-byte. Realm, console, existing-world, and gameplay compatibility still require testing. Use a copy or a disposable world and compare newly generated chunks.
 
 Reproduce the compact reports from the preserved results while their local raw scans under `data/research/` are available:
 

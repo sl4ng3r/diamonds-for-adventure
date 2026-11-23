@@ -9,13 +9,14 @@ from tools.build_v57_dist import build_package
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'experiments/balance-v57/behavior_pack'
-PACKAGE = ROOT / 'dist/cave-diamonds-v0.1.9.mcpack'
-NEXT_PACKAGE = ROOT / 'dist/cave-diamonds-v0.1.10.mcpack'
 
 
 class V57DistPackageTest(unittest.TestCase):
     def test_fixed_package_preserves_v57_generation(self):
-        with zipfile.ZipFile(PACKAGE) as archive:
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            zipfile.ZipFile(build_package(Path(directory) / 'historical.mcpack')) as archive,
+        ):
             self.assertIsNone(archive.testzip())
             source_files = {p.relative_to(SOURCE).as_posix(): p.read_bytes()
                             for p in SOURCE.rglob('*') if p.is_file()}
@@ -40,7 +41,11 @@ class V57DistPackageTest(unittest.TestCase):
             self.assertEqual(target.read_bytes(), b'keep')
 
     def test_next_release_changes_only_manifest_version(self):
-        with zipfile.ZipFile(PACKAGE) as old, zipfile.ZipFile(NEXT_PACKAGE) as new:
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            zipfile.ZipFile(build_package(Path(directory) / 'previous.mcpack')) as old,
+            zipfile.ZipFile(build_package(Path(directory) / 'following.mcpack', version=[0, 1, 10])) as new,
+        ):
             self.assertIsNone(new.testzip())
             self.assertEqual(set(new.namelist()), set(old.namelist()))
             for name in old.namelist():

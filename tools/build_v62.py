@@ -12,7 +12,7 @@ from tools.build_v61 import build_pack as build_v61
 
 TARGET = ROOT / 'experiments/balance-v62/behavior_pack'
 VERSION = (0, 1, 15)
-DIST = ROOT / 'dist/cave-diamonds-v0.1.15.mcpack'
+DIST = ROOT / 'data/package-archive/cave-diamonds-v0.1.15.mcpack'
 
 
 def build_pack(target=TARGET):

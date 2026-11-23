@@ -1,4 +1,4 @@
-"""Build the fixed Cave Diamonds V51 package in dist/."""
+"""Build the fixed Cave Diamonds V51 package in the local package archive."""
 
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'experiments/balance-v51/behavior_pack'
 ICON = ROOT / 'experiments/balance-v26-icon/pack_icon.png'
-TARGET = ROOT / 'dist/cave-diamonds-v0.1.7.mcpack'
+TARGET = ROOT / 'data/package-archive/cave-diamonds-v0.1.7.mcpack'
 VERSION = [0, 1, 7]
 
 

@@ -11,12 +11,14 @@ from tools.build_v33_dist import build_package
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'experiments/balance-v33/behavior_pack'
 ICON = ROOT / 'experiments/balance-v26-icon/pack_icon.png'
-PACKAGE = ROOT / 'dist/cave-diamonds-v0.1.5.mcpack'
 
 
 class V33DistPackageTest(unittest.TestCase):
     def test_versioned_package_preserves_v33_generation(self):
-        with zipfile.ZipFile(PACKAGE) as archive:
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            zipfile.ZipFile(build_package(Path(directory) / 'historical.mcpack')) as archive,
+        ):
             self.assertIsNone(archive.testzip())
             source_files = {
                 path.relative_to(SOURCE).as_posix(): path.read_bytes()

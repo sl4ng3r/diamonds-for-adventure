@@ -16,4 +16,4 @@ Im Bedrock Dedicated Server 1.26.61.1 wurden vor und nach der Ausdünnung diesel
 - 50 von 69 eingeschlossenen Gruppen wurden als ganze Gruppen entfernt. Insgesamt blieben 63 von 240 Erzblöcken übrig. Keine Ader im Vorher-Nachher-Vergleich wurde geteilt.
 - Im Band Y=−59 bis −55 blieben 6 von 40 eingeschlossenen Erzblöcken (15 %). Auf Y=−57 blieben in dieser Stichprobe 0 von 10, oberhalb Y=−20 13 von 46 (28,3 %). Der Vergleich misst die Ausdünnung im selben V60-Gebiet vor und nach dem Aufruf. Eine unabhängige Balanceprüfung gegen Vanilla, die automatische Ausführung mit echten Spielern, Mehrspielerleistung und Realm-Kompatibilität stehen noch aus.
 
-Lokales Spieltestpaket: `dist/cave-diamonds-v0.1.13.mcpack`. Erzeugung mit `python3 -m tools.build_v60 --package`. Rohscans und Chunk-Ergebnisse liegen unter `data/research/cavediamonds-research-d7f2e6598c/`.
+Lokales Spieltestpaket: `data/package-archive/cave-diamonds-v0.1.13.mcpack`. Erzeugung mit `python3 -m tools.build_v60 --package`. Rohscans und Chunk-Ergebnisse liegen unter `data/research/cavediamonds-research-d7f2e6598c/`.

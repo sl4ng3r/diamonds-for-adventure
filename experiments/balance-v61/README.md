@@ -6,6 +6,6 @@ Die Erhaltungsquote für prüfbare, vollständig eingeschlossene Adern richtet s
 
 Eine separate Regel ergänzt einzelne luftberührte Erze an tiefen Höhlenflächen. Startpunkte liegen bei Y=−62..−52, die Oberflächensuche reicht vier Blöcke weit. Die übrigen Höhlenregeln einschließlich der oberen Regel bis geplant Y=+30 und der Ozeanregel bis Y=+35 bleiben übernommen.
 
-Feste lokale Paketdatei: `dist/cave-diamonds-v0.1.14.mcpack`. Erzeugung mit `python3 -m tools.build_v61 --package`. Für einen Spieltest sind neue oder noch unbewertete markierte Chunks relevant. Das Paket kann bereits entfernte Erze nicht wiederherstellen.
+Feste lokale Paketdatei: `data/package-archive/cave-diamonds-v0.1.14.mcpack`. Erzeugung mit `python3 -m tools.build_v61 --package`. Für einen Spieltest sind neue oder noch unbewertete markierte Chunks relevant. Das Paket kann bereits entfernte Erze nicht wiederherstellen.
 
 In den vier vorherigen V60-Vergleichsgebieten (256 Chunks) blieben 14/107 eingeschlossene Erzblöcke auf Y=−57 und 222/866 oberhalb −20 bis +16 übrig. Alle 39 freiliegenden Adern blieben erhalten. Die Höhlenquote blieb wie in V60 bei 27/26. In den gespeicherten Ausschnitten gab es zwischen Y=−62 und −55 keine trockene Höhlenluft. V62 konzentriert die zusätzliche Suche deshalb auf Y=−54..−52.
